@@ -1,23 +1,23 @@
-<header>
+<header class="shadow-1 py-1">
 	<div class="container">
-		<div class="header-wrappper">
-			<div class="header-left">
-				<a routerLink="/" class="logo">
-					<img src="images/logo.png" alt="Logo" class="logo" />
+		<div class="flex align-items-center justify-content-between column-gap-4 header-wrappper">
+			<div class="flex align-items-center column-gap-4 w-full header-left">
+				<a routerLink="/" class="w-4rem flex-shrink-0 logo">
+					<img src="images/logo.png" alt="Logo" class="w-full" />
 				</a>
-				<div class="header-center">
-					<p-button (click)="navigateByAuth()" severity="success" icon="pi pi-arrow-up-right"
-						label="Сделать заявку на продажу" />
-					<div class="_switch-btns header-center__toggle">
-						<button routerLink="/home" routerLinkActive="bg-blue-50 text-primary" class="switch-button toggle__btn">Все
-							заявки</button>
-						<button routerLink="/deposit" routerLinkActive="bg-blue-50 text-primary"
-							class="switch-button toggle__btn">Мои заявки</button>
-					</div>
+				<p-button (click)="navigateByAuth()" class="flex-shrink-0" severity="success" icon="pi pi-arrow-up-right"
+					label="Сделать заявку на продажу" />
+				<div class="p-1 border-1 border-blue-100 border-round w-full flex">
+					<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"
+						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
+						заявки</button>
+					<button routerLink="/deposit" routerLinkActive="bg-primary-50 text-primary"
+						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
+						заявки</button>
 				</div>
 			</div>
-			<div class="navbar-right">
-				<div class="balance">
+			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
+				<div class="flex align-items-center column-gap-2 balance">
 					<div class="text-right balance__count">
 						<h6 class="m-0 font-medium text-600">Баланс</h6>
 						<strong class="text-blue-500">0$</strong>
@@ -32,17 +32,17 @@
 						</div>
 					</ng-template>
 				</div>
-				<div class="profile">
-					<button (click)="openModal()" class="profile__btn" *ngIf="isUserLoginned()">
+				<div class="flex align-items-center column-gap-3 profile">
+					<button (click)="openModal()"
+						class="border-none bg-white font-semibold p-0 line-height-1 text-sm text-primary profile__btn"
+						*ngIf="isUserLoginned()">
 						Профиль
-						<img src="images/profile.svg" alt="user" width="16" height="16">
 					</button>
-					<button (click)="openModal()" class="profile__btn" *ngIf="!isUserLoginned()">
-						<img src="images/profile.svg" alt="user" width="16" height="16">
+					<button (click)="openModal()" class="border-none bg-white font-semibold p-0 line-height-1 profile__btn"
+						*ngIf="!isUserLoginned()">
+						<i class="pi pi-user text-700 font-bold"></i>
 					</button>
-					<button class="logout__btn" (click)="logout()" *ngIf="isUserLoginned()">
-						<img src="images/logout.svg" alt="logout" width="16" height="16">
-					</button>
+					<i class="pi pi-sign-out font-bold text-700 cursor-pointer" (click)="logout()" *ngIf="isUserLoginned()"></i>
 				</div>
 			</div>
 		</div>
