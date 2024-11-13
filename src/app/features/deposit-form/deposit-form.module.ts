@@ -7,6 +7,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule, Routes } from '@angular/router';
+import { CheckboxModule } from 'primeng/checkbox';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,7 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		ButtonModule,
 		FormsModule,
+		CheckboxModule,
 		RouterModule.forChild(routes)
 	]
 })

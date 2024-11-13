@@ -1,6 +1,21 @@
 import {
+  ButtonDirective,
+  ButtonModule
+} from "./chunk-BH2BDHCK.js";
+import {
   TimesIcon
 } from "./chunk-R3TPMPVI.js";
+import {
+  Ripple,
+  RippleModule
+} from "./chunk-KBLWYC7E.js";
+import "./chunk-JIYMSIBS.js";
+import {
+  BaseIcon
+} from "./chunk-E6B4IJPU.js";
+import {
+  DomHandler
+} from "./chunk-BUGEQH7Q.js";
 import {
   animate,
   animation,
@@ -9,29 +24,6 @@ import {
   trigger,
   useAnimation
 } from "./chunk-6JM2E7AG.js";
-import {
-  ButtonDirective,
-  ButtonModule
-} from "./chunk-SGHKLSWR.js";
-import {
-  Ripple,
-  RippleModule
-} from "./chunk-OGKRQK6G.js";
-import {
-  BaseIcon
-} from "./chunk-E6B4IJPU.js";
-import {
-  DomHandler
-} from "./chunk-BUGEQH7Q.js";
-import {
-  CommonModule,
-  DOCUMENT,
-  NgClass,
-  NgIf,
-  NgStyle,
-  NgTemplateOutlet,
-  isPlatformBrowser
-} from "./chunk-TNDQCT4Z.js";
 import {
   Footer,
   Header,
@@ -42,6 +34,15 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-TZXY3ZQE.js";
+import {
+  CommonModule,
+  DOCUMENT,
+  NgClass,
+  NgIf,
+  NgStyle,
+  NgTemplateOutlet,
+  isPlatformBrowser
+} from "./chunk-TNDQCT4Z.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,

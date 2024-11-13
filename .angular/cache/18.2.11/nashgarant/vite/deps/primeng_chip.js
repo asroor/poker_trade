@@ -2,19 +2,19 @@ import {
   BaseIcon
 } from "./chunk-E6B4IJPU.js";
 import {
-  CommonModule,
-  NgClass,
-  NgIf,
-  NgStyle,
-  NgTemplateOutlet
-} from "./chunk-TNDQCT4Z.js";
-import {
   PrimeNGConfig,
   PrimeTemplate,
   SharedModule,
   TranslationKeys,
   UniqueComponentId
 } from "./chunk-TZXY3ZQE.js";
+import {
+  CommonModule,
+  NgClass,
+  NgIf,
+  NgStyle,
+  NgTemplateOutlet
+} from "./chunk-TNDQCT4Z.js";
 import {
   ChangeDetectionStrategy,
   Component,

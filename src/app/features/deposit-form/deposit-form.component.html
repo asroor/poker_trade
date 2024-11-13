@@ -51,9 +51,26 @@
 		</div>
 		<div class="col-12 lg:col-6 p-3">
 			<form class="p-3 border-round bg-primary-500">
-				<div class="field">
+				<div class="field mb-3">
 					<label for="firstname1" class="text-sm text-white block mt-3 mb-2">Ваш никнейм в </label>
 					<input type="text" id="firstname1" pInputText mode="decimal" placeholder="brand name" required />
+				</div>
+				<div class="flex mb-3 align-items-center p-2 column-gap-1 border-1 border-white border-round">
+					<i class="pi pi-exclamation-circle text-white"></i>
+					<p class="m-0 text-white text-xs">Внимательно заполняйте поле! Перевод средств сделают на указанный аккаунт.
+					</p>
+				</div>
+				<button type="submit" pButton size="small" severity="success" icon="pi font-semibold pi-check-circle"
+					class="w-full justify-content-center column-gap-1">Подать
+					заявку на покупку</button>
+				<div class="flex align-items-start column-gap-2 mt-3">
+					<p-checkbox [binary]="true" inputId="binary" />
+					<label for="binary" class="text-xs text-white font-light">
+						Подавая заявку, вы принимаете условия <a class="text-white font-medium" href="#">лицензионного договора</a>,
+						а также
+						соглашаетесь с <a class="text-white font-medium" href="#">политикой
+							конфиденциальности</a> и <a class="text-white font-medium" href="#">политикой AML / KYC</a>
+					</label>
 				</div>
 			</form>
 		</div>

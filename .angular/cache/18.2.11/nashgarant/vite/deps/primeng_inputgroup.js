@@ -1,11 +1,11 @@
 import {
+  SharedModule
+} from "./chunk-TZXY3ZQE.js";
+import {
   CommonModule,
   NgClass,
   NgStyle
 } from "./chunk-TNDQCT4Z.js";
-import {
-  SharedModule
-} from "./chunk-TZXY3ZQE.js";
 import {
   Component,
   Input,
