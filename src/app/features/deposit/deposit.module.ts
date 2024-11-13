@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { DepositComponent } from './deposit.component';
 import { RouterModule, Routes } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
 
 const routes: Routes = [
 	{
@@ -15,6 +16,7 @@ const routes: Routes = [
 		DepositComponent
 	],
 	imports: [
+		DropdownModule,
 		RouterModule.forChild(routes)
 	]
 })

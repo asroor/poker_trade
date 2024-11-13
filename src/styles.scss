@@ -454,3 +454,31 @@ body {
 		height: 16px;
 	}
 }
+
+
+.local-dropdown {
+	.p-dropdown {
+		background: local;
+		border: none;
+		border-radius: 0;
+		align-items: center;
+		column-gap: 4px;
+
+		.p-dropdown-trigger {
+			width: fit-content;
+		}
+
+		.p-dropdown-label {
+			font-size: 13px;
+			color: #307bf6;
+		}
+	}
+
+	.p-inputtext {
+		padding: 0;
+	}
+
+	.p-icon {
+		width: 10px;
+	}
+}
