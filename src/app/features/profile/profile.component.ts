@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+  infoOrder: boolean = false;
+
+  infoToogle(): void {
+		this.infoOrder = !this.infoOrder;
+	}
 
 }

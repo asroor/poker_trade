@@ -1,0 +1,36 @@
+:host ::ng-deep .p-tabview-nav {
+  border: none;
+}
+
+:host ::ng-deep .p-tabview-nav li a {
+  color: var(--primary-color);
+}
+
+.surface-card {
+  background-color: var(--surface-card);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.field label {
+  font-weight: bold;
+}
+
+.p-inputgroup > button {
+  margin-left: 1rem;
+}
+
+.go-to-bot-button {
+    margin-left: auto;
+    width: 100%;
+    max-width: 240px;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    border-radius: 10px;
+}

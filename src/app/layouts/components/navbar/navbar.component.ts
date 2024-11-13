@@ -13,7 +13,11 @@ export class NavbarComponent {
 	constructor(private modalService: AuthModalService, private router: Router) { }
 
 	openModal() {
-		this.modalService.openModal();
+		if(this.isUserLoginned()){
+			this.router.navigate(['/profile'])
+		}else{
+			this.modalService.openModal();
+		}
 	}
 
 	logout() {

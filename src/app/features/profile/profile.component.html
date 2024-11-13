@@ -1,1 +1,162 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="surface-0 p-4">
+    <h2>Личный кабинет</h2>
+
+    <!-- Tab View for switching sections -->
+    <p-tabView>
+      <p-tabPanel header="Информация">
+        <div class="grid">
+          <div class="col-7">
+            <div class="p-3 surface-card border-round">
+              <div class="field">
+                <label class="text-sm text-500 block mt-3 mb-2"
+                  >Ваш ID в НашГарант:</label
+                >
+                <input
+                  type="text"
+                  #input
+                  pInputText
+                  mode="decimal"
+                  placeholder="username"
+                  required
+                />
+              </div>
+              <div class="field mt-4">
+                <label class="text-sm text-500 block mt-3 mb-2"
+                  >Ваш никнейм в НашГарант:
+                </label>
+                <p-inputGroup class="mb-3">
+                  <input
+                    type="text"
+                    #input
+                    pInputText
+                    mode="decimal"
+                    placeholder="username"
+                    required
+                  />
+                  <button
+                    type="button"
+                    pButton
+                    class="flex-shrink-0 text-sm py-1 px-2"
+                  >
+                    Сохранить
+                  </button>
+                </p-inputGroup>
+              </div>
+              <div class="field mt-4">
+                <label class="text-sm text-500 block mt-3 mb-2"
+                  >Ваш email:</label
+                >
+                <p-inputGroup class="mb-3">
+                  <input
+                    type="text"
+                    #input
+                    pInputText
+                    mode="decimal"
+                    placeholder="user@luxon.com"
+                    required
+                  />
+                  <button
+                    type="button"
+                    pButton
+                    class="flex-shrink-0 text-sm py-1 px-2"
+                  >
+                    Отправить
+                  </button>
+                </p-inputGroup>
+              </div>
+              <div class="my-4">
+                <p-message
+                  severity="info"
+                  text="Важно! Изменить данные после сохранения можно только через техподдержку НашГарант"
+                ></p-message>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-5">
+            <div class="text-center">
+              <p-avatar
+                image="images/user.svg"
+                size="xlarge"
+                shape="circle"
+              ></p-avatar>
+              <p-message
+                severity="info"
+                text="Верификация позволяет защищать наших пользователей от мошенников.
+                    Для этого нужно подтвердить ваш email, который вы используете в
+                    румах. Если необходимо, вы можете верифицировать несколько email в
+                    одном аккаунте НашГарант."
+              ></p-message>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="p-3 mt-4">
+              <h3>Моя статистика:</h3>
+              <div class="grid surface-card border-round">
+                <div class="col">
+                  <p>Ср. время отклика: <b>0</b></p>
+                </div>
+                <div class="col">
+                  <p>Заявки на продажу: <b>0</b></p>
+                </div>
+                <div class="col">
+                  <p>Заявки на покупку: <b>0</b></p>
+                </div>
+                <div class="col">
+                  <p>Встречные заявки: <b>0</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+
+      <!-- Balances Tab -->
+      <p-tabPanel header="Балансы">
+        <div class="p-3">
+          <div class="grid">
+            <div class="col-6">
+              <div class="grid text-center">
+                <div class="col-4">ПокерOK<br /><b>0$</b></div>
+                <div class="col-4">Luxon<br /><b>0$</b></div>
+                <div class="col-4">GGPoker<br /><b>0$</b></div>
+                <div class="col-4">ACR Poker<br /><b>0$</b></div>
+                <div class="col-4">PokerKing<br /><b>0$</b></div>
+                <div class="col-4">RedStar<br /><b>0$</b></div>
+              </div>
+              <div class="flex mt-4">
+                <a target="_blank" class="go-to-bot-button _gradient col-6 mr-3">
+					<img src="images/top-right.svg" alt="top right icon" width="18">
+					Пополнить
+				</a>
+                <a target="_blank" class="go-to-bot-button _gradient col-6">
+					<img src="images/top-right.svg" alt="top right icon" width="18">
+					Вывести
+				</a>
+              </div>
+            </div>
+            <div class="col-6">
+              <label
+                class="info-order flex align-items-center column-gap-1 text-sm font-medium text-primary cursor-pointer ml-3"
+                (click)="infoToogle()"
+                [ngClass]="{ show: infoOrder }"
+              >
+                Что такое внутренний баланс в НашГарант?
+                <img src="images/down-blue.svg" alt="select-arrow" width="8" />
+              </label>
+              @if (infoOrder) {
+                <div class="m-3">
+                    <p-message
+                        severity="info"
+                        text="Это ваш внутренний баланс в НашГарант. Пополнение баланса и вывод (на аккаунт рума) — без комиссии. Использовать баланс не обязательно и можно делать заявки на покупку и продажу USD напрямую с аккаунта рума."
+                    ></p-message>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
