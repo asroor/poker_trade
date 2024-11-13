@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WithdrawalComponent } from './withdrawal.component';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 const routes: Routes = [
 	{
@@ -19,11 +24,15 @@ const routes: Routes = [
 	],
 	imports: [
 		CommonModule,
-    SharedModule,
-		ReactiveFormsModule,
-		NgxMaskDirective, NgxMaskPipe,
+		SharedModule,
+		DropdownModule,
+		FormsModule,
+		ButtonModule,
+		InputTextModule,
+		InputGroupModule,
+		InputGroupAddonModule,
+		InputNumberModule,
 		RouterModule.forChild(routes)
-	],
-	providers: [provideNgxMask()]
+	]
 })
 export class WithdrawalModule { }

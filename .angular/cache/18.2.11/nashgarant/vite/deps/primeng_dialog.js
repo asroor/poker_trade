@@ -1,22 +1,6 @@
 import {
-  ButtonDirective,
-  ButtonModule
-} from "./chunk-ML6TUVQE.js";
-import {
   TimesIcon
-} from "./chunk-FEGTDFP4.js";
-import "./chunk-HMCXGB26.js";
-import {
-  Ripple,
-  RippleModule
-} from "./chunk-PC53N65O.js";
-import "./chunk-JIYMSIBS.js";
-import {
-  DomHandler
-} from "./chunk-BUGEQH7Q.js";
-import {
-  BaseIcon
-} from "./chunk-X6FAT4BI.js";
+} from "./chunk-R3TPMPVI.js";
 import {
   animate,
   animation,
@@ -26,17 +10,30 @@ import {
   useAnimation
 } from "./chunk-6JM2E7AG.js";
 import {
+  ButtonDirective,
+  ButtonModule
+} from "./chunk-OSDP7BIP.js";
+import {
+  Ripple,
+  RippleModule
+} from "./chunk-A4M6V6RT.js";
+import "./chunk-JIYMSIBS.js";
+import {
+  DomHandler
+} from "./chunk-BUGEQH7Q.js";
+import {
+  BaseIcon
+} from "./chunk-E6B4IJPU.js";
+import {
   Footer,
   Header,
   PrimeNGConfig,
   PrimeTemplate,
   SharedModule,
-  TranslationKeys
-} from "./chunk-6Z3YQLJ3.js";
-import {
+  TranslationKeys,
   UniqueComponentId,
   zindexutils
-} from "./chunk-DPWL52TA.js";
+} from "./chunk-TZXY3ZQE.js";
 import {
   CommonModule,
   DOCUMENT,

@@ -71,7 +71,7 @@ export const roomData = [
 		"currencies": [
 			{
 				"id": 1,
-				"title": "RUB",
+				"title": "RUB2",
 				"code": "RUB",
 				"fixed": 0,
 				"rate_usd": 101.07
