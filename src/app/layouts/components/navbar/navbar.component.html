@@ -1,0 +1,50 @@
+<header>
+	<div class="container">
+		<div class="header-wrappper">
+			<div class="header-left">
+				<a routerLink="/" class="logo">
+					<img src="images/logo.png" alt="Logo" class="logo" />
+				</a>
+				<div class="header-center">
+					<p-button (click)="navigateByAuth()" severity="success" icon="pi pi-arrow-up-right"
+						label="Сделать заявку на продажу" />
+					<div class="_switch-btns header-center__toggle">
+						<button routerLink="/home" routerLinkActive="bg-blue-50 text-primary" class="switch-button toggle__btn">Все
+							заявки</button>
+						<button routerLink="/deposit" routerLinkActive="bg-blue-50 text-primary"
+							class="switch-button toggle__btn">Мои заявки</button>
+					</div>
+				</div>
+			</div>
+			<div class="navbar-right">
+				<div class="balance">
+					<div class="text-right balance__count">
+						<h6 class="m-0 font-medium text-600">Баланс</h6>
+						<strong class="text-blue-500">0$</strong>
+					</div>
+					<div class="balance__info" [pTooltip]="tooltipContent" tooltipPosition="bottom">
+						<img src="images/info.svg" alt="info" width="18">
+					</div>
+					<ng-template #tooltipContent>
+						<div class="text-xs bg-blue-50 text-600">
+							Это внутренний баланс в PokerTrade. Вы можете пополнять его и выводить без комиссии со своего аккаунта
+							рума.
+						</div>
+					</ng-template>
+				</div>
+				<div class="profile">
+					<button (click)="openModal()" class="profile__btn" *ngIf="isUserLoginned()">
+						Профиль
+						<img src="images/profile.svg" alt="user" width="16" height="16">
+					</button>
+					<button (click)="openModal()" class="profile__btn" *ngIf="!isUserLoginned()">
+						<img src="images/profile.svg" alt="user" width="16" height="16">
+					</button>
+					<button class="logout__btn" (click)="logout()" *ngIf="isUserLoginned()">
+						<img src="images/logout.svg" alt="logout" width="16" height="16">
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

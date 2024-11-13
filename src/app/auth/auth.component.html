@@ -1,0 +1,12 @@
+<p-dialog [style]="{ maxWidth: '25rem', width:'90%' }" header="header" [modal]="true" [(visible)]="showModal"
+	*ngIf="showModal">
+	<ng-template pTemplate="header">
+		<h2 class="m-0 text-sm">Авторизация в PokerTrade</h2>
+	</ng-template>
+	<div class="mt-1">
+		<a href="https://t.me/pokertradebot?start=web" target="_blank" icon="pi pi-telegram" pButton size="small"
+			class="no-underline justify-content-center column-gap-1 w-full">Авторизация через Телеграм</a>
+		<p class="text-sm">Важно! Приложение Telegram должно быть установлено на вашем устройстве, иначе вы не сможете
+			авторизоваться.</p>
+	</div>
+</p-dialog>

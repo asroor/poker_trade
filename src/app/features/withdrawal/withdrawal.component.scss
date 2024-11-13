@@ -1,0 +1,36 @@
+form {
+	margin-top: 43px;
+}
+
+.result-box {
+	background: transparent;
+	border: 1px solid #d3dde7;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 13px 14px;
+	column-gap: 5px;
+
+	img {
+		display: block;
+	}
+
+	p {
+		color: #fff;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 14px;
+	}
+}
+
+
+.kach-selector {
+	display: grid;
+	column-gap: 10px;
+	grid-template-columns: 1fr 100px;
+}
+
+.container {
+	padding-bottom: 100px;
+}

@@ -1,0 +1,197 @@
+<div class="container big">
+	<div class="deposit-head">
+		<h2>Заявка на покупку {{ activeLogo?.name || 'null' }}</h2>
+		<a (click)="goBack()" class="back-link">
+			<img src="images/left-arrow.svg" alt="back link" width="14">
+			Вернуться назад
+		</a>
+	</div>
+	<form class="_def-form ">
+		<div class="form-left">
+			<div class="form-switch _switch-btns">
+				<button type="button" class="switch-button active" (click)="ActiveButton('account')"
+					[class.active]="activeButton === 'account'">С аккаунта {{ activeLogo?.name || 'Tanlang' }}</button>
+				<button class="switch-button" type="button" (click)="ActiveButton('balance')"
+					[class.active]="activeButton === 'balance'">С баланса PokerTrade</button>
+			</div>
+			<div class="form-series">
+				<label>Выберите рум / кошелек и валюту:</label>
+				<div class="kach-selector">
+					<div (click)="toggleDropdown1()" class="custom-select" [ngClass]="{'show': dropdownOpen1}">
+						<div class="selected-option">{{ activeLogo?.name || 'Tanlang' }} <img src="images/select-arrow2.svg"
+								alt="select icon" class="select-arrow"></div>
+						<ul *ngIf="dropdownOpen1" class="options">
+							<li *ngFor="let option of logoSection" (click)="selectOption1(option.name)"
+								[ngClass]="{'active': activeLogo?.name === option.name}">
+								{{ option.name }}
+							</li>
+						</ul>
+					</div>
+					<div (click)="toggleDropdown2()" class="custom-select" [ngClass]="{'show': dropdownOpen2}">
+						<div class="selected-option">{{ activeCurrency|| 'null' }} <img src="images/select-arrow2.svg"
+								alt="select icon" class="select-arrow"></div>
+						<ul *ngIf="dropdownOpen2" class="options">
+							<li *ngFor="let option of (activeLogo?.currencies || [])" (click)="selectOption2(option.title)"
+								[ngClass]="{'active': activeCurrency === option.title}">
+								{{ option.title }}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="info-box">
+				<img src="images/obmen-icon.svg" alt="obmen">
+				<span>Комиссия сервиса за продажу: 3% + 2$</span>
+			</div>
+			<div class="form-series">
+				<label>Сколько USD хотите продать:</label>
+				<div class="input-block">
+					<input #maxMountTT type="number" placeholder="От 5 USD до 5000 USD" [value]="!maxMountVal ? '' : maxMountVal"
+						required />
+					<span class="max-link" (click)="maxMount(maxMountTT)">{{maxBtn}}</span>
+				</div>
+				<div class="input-validate alert">
+					Обязательное поле
+				</div>
+			</div>
+
+			<div class="form-series">
+				<label>Минимальная доля в USD для покупки:</label>
+				<div class="input-block input-block__alert _input-block__desabled">
+					<input type="number" #purchases placeholder="От 5 USD" [disabled]="!maxMountTT.value" />
+					<div class="def-tooltip">
+						<img src="images/info.svg" alt="input-validate" width="19">
+						<div class="tooltip">
+							<p>Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от 5$ до 50$, чтобы
+								быстрее выкупили</p>
+						</div>
+					</div>
+				</div>
+				<div class="input-validate alert">
+					Обязательное поле
+				</div>
+			</div>
+
+			<div class="form-series">
+				<label>Курс RUB для продажи:</label>
+				<div class="input-block _input-block__desabled">
+					<input type="text" placeholder="Курс" required value="101.01" #kursInput />
+					<div class="def-tooltip">
+						<img src="images/info.svg" alt="input-validate" width="19">
+						<div class="tooltip">
+							<p>Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от 5$ до 50$, чтобы
+								быстрее выкупили</p>
+						</div>
+					</div>
+				</div>
+				<div class="input-validate">
+					Обязательное поле
+				</div>
+			</div>
+		</div>
+		<div class="_card-form form-right">
+			<div class="form-series form-series__right">
+				<label>Банк для отправки перевода под ЕРИП:*</label>
+				<div class="input__drop">
+					<div (click)="toggleDropdown3()" class="custom-select" [ngClass]="{'show': dropdownOpen3}">
+						<div class="selected-option"><span class="bank-label"><img [src]="[activeBank.image_url]"
+									[alt]="[activeBank.name]"> {{ activeBank.name|| 'null' }} </span><img src="images/select-arrow2.svg"
+								alt="select icon" width="11" class="select-arrow"></div>
+						<ul *ngIf="dropdownOpen3" class="options">
+							<li *ngFor="let option of bankData" (click)="selectOption3(option.name)"
+								[ngClass]="{'active': activeBank.name === option.name}">
+								<img [src]="option.image_url" [alt]="[option.name]">
+								{{ option.name }}
+							</li>
+						</ul>
+					</div>
+					<input type="text" placeholder="0000 0000 0000 0000"
+						mask="0000 0000 0000 0000||0000 0000 0000 0000 00||0000 0000 0000 0000 0000" required />
+				</div>
+				<div class="input-validate">
+					Обязательное поле
+				</div>
+			</div>
+
+			<div *ngIf="activeBank.slug == 'sbp'" class="form-series form-series__right">
+				<label>Банк для отправки перевода под ЕРИП:*</label>
+				<div class="input-block _input-block__desabled">
+					<div (click)="toggleDropdown4()" class="custom-select" [ngClass]="{'show': dropdownOpen4}">
+						<div class="selected-option">
+							<span class="bank-label">
+								{{ activeSbpBank.name|| 'null' }}
+							</span>
+							<img src="images/select-arrow2.svg" alt="select icon" class="select-arrow">
+						</div>
+						<ul *ngIf="dropdownOpen4" class="options">
+							<li *ngFor="let option of sbpBankData" (click)="selectOption4(option.name)"
+								[ngClass]="{'active': activeSbpBank.name === option.name}">
+								{{ option.name }}
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="input-validate">
+					Обязательное поле
+				</div>
+			</div>
+
+			<div class="form-series form-series__right">
+				<label>Банк для отправки перевода под ЕРИП:*</label>
+				<div class="input-block _input-block__desabled">
+					<input type="text" placeholder="Иванов Иван Иванович" required>
+					<div class="def-tooltip">
+						<img src="images/info.svg" alt="info">
+						<div class="tooltip">
+							<p>Это позволит идентифицировать получателя и убедиться, что деньги поступят именно вам</p>
+						</div>
+					</div>
+				</div>
+				<div class="input-validate">
+					Обязательное поле
+				</div>
+			</div>
+			<div class="form-series form-series__right">
+				<label>Дополнительная информация для покупателей:</label>
+				<div class="input-block _input-block__desabled">
+					<input type="text" placeholder="Укажите любую важную информацию">
+					<div class="def-tooltip">
+						<img src="images/info.svg" alt="info">
+						<div class="tooltip">
+							<p>Время, когда вы онлайн, особенности счёта, предпочитаемый банк и другие детали</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="result-box">
+				<img src="images/card.svg" alt="card" width="20">
+				<p>Вы получите: <b>0 RUB</b></p>
+			</div>
+			<button type="submit" class="submit-button">
+				<img src="images/check-icon.svg" alt="check-icon" width="20">
+				Подать заявку на покупку
+			</button>
+
+			<div class="terms-block">
+				<input type="checkbox">
+				<p class="terms">
+					Подавая заявку, вы принимаете условия
+					<a href="#">лицензионного договора</a>, а также соглашаетесь с
+					<a href="#">политикой конфиденциальности</a> и
+					<a href="#">политикой AML / KYC</a>
+				</p>
+			</div>
+		</div>
+	</form>
+
+    <app-dropdown
+        [options]="options"
+        [selectedOption]="selectedOption"
+        (selectionChange)="onSelectionChange($event)"
+    ></app-dropdown>
+
+</div>
+
+
