@@ -17,32 +17,18 @@
 				</div>
 			</div>
 			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
-				<div class="flex align-items-center column-gap-2 balance">
-					<div class="text-right balance__count">
-						<h6 class="m-0 font-medium text-600">Баланс</h6>
-						<strong class="text-blue-500">0$</strong>
-					</div>
-					<div class="balance__info" [pTooltip]="tooltipContent" tooltipPosition="bottom">
-						<img src="images/info.svg" alt="info" width="18">
-					</div>
-					<ng-template #tooltipContent>
-						<div class="text-xs bg-blue-50 text-600">
-							Это внутренний баланс в PokerTrade. Вы можете пополнять его и выводить без комиссии со своего аккаунта
-							рума.
-						</div>
-					</ng-template>
+				<div class="flex align-items-center cursor-pointer column-gap-1">
+					<b class="line-height-1 m-0 text-primary text-lg">0$</b>
+					<i class="pi pi-wallet text-xl font-bold"></i>
 				</div>
 				<div class="flex align-items-center column-gap-3 profile">
-					<button (click)="openModal()"
-						class="border-none bg-white font-semibold p-0 line-height-1 text-sm text-primary profile__btn"
-						*ngIf="isUserLoginned()">
-						Профиль
-					</button>
+					<p-avatar shape="circle" (click)="openModal()" class="cursor-pointer" image="images/user-icon01.svg"
+						styleClass="mr-2" *ngIf="isUserLoginned()" />
 					<button (click)="openModal()" class="border-none bg-white font-semibold p-0 line-height-1 profile__btn"
 						*ngIf="!isUserLoginned()">
 						<i class="pi pi-user text-700 font-bold"></i>
 					</button>
-					<i class="pi pi-sign-out font-bold text-700 cursor-pointer" (click)="logout()" *ngIf="isUserLoginned()"></i>
+					<!-- <i class="pi pi-sign-out font-bold text-700 cursor-pointer" (click)="logout()" *ngIf="isUserLoginned()"></i> -->
 				</div>
 			</div>
 		</div>

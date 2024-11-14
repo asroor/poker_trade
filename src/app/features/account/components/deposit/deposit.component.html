@@ -1,0 +1,32 @@
+<p-table [paginator]="true" [rows]="5" [value]="products" [tableStyle]="{ 'min-width': '50rem' }"
+	[rowsPerPageOptions]="[5, 10, 20]">
+	<ng-template pTemplate="header">
+		<tr>
+			<th>Чат</th>
+			<th>Дата</th>
+			<th>№ заявки</th>
+			<th>Получили</th>
+			<th>Отдали</th>
+			<th>Курс</th>
+			<th>Статус</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-product>
+		<tr>
+			<td><button pButton size="small" class="py-2 bg-primary-100 border-none px-3">
+					<i class="pi pi-comment text-primary font-bold text-lg"></i>
+				</button>
+			</td>
+			<td>{{ product.code }}</td>
+			<td>{{ product.name }}</td>
+			<td>{{ product.category }}</td>
+			<td>{{ product.quantity }}</td>
+			<td>{{ product.exchangeRate }}</td>
+			<td>
+				<p-tag class="w-full" [severity]="product.status ? 'success' : 'danger'"
+					[value]="product.status ? 'утверждена' : 'отменена'">
+				</p-tag>
+			</td>
+		</tr>
+	</ng-template>
+</p-table>

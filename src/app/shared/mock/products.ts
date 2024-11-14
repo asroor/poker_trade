@@ -5,7 +5,7 @@ export const products = [
 		category: '100 USD',
 		quantity: '95 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	},
 	{
 		code: '2023-11-11',
@@ -13,7 +13,7 @@ export const products = [
 		category: '200 USD',
 		quantity: '190 EUR',
 		exchangeRate: '0.95',
-		status: 'Pending'
+		status: false
 	},
 	{
 		code: '2023-11-12',
@@ -21,7 +21,7 @@ export const products = [
 		category: '150 USD',
 		quantity: '142.5 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	},
 	{
 		code: '2023-11-10',
@@ -29,7 +29,7 @@ export const products = [
 		category: '100 USD',
 		quantity: '95 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	},
 	{
 		code: '2023-11-11',
@@ -37,7 +37,7 @@ export const products = [
 		category: '200 USD',
 		quantity: '190 EUR',
 		exchangeRate: '0.95',
-		status: 'Pending'
+		status: false
 	},
 	{
 		code: '2023-11-12',
@@ -45,7 +45,7 @@ export const products = [
 		category: '150 USD',
 		quantity: '142.5 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	},
 	{
 		code: '2023-11-10',
@@ -53,7 +53,7 @@ export const products = [
 		category: '100 USD',
 		quantity: '95 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	},
 	{
 		code: '2023-11-11',
@@ -61,7 +61,7 @@ export const products = [
 		category: '200 USD',
 		quantity: '190 EUR',
 		exchangeRate: '0.95',
-		status: 'Pending'
+		status: false
 	},
 	{
 		code: '2023-11-12',
@@ -69,6 +69,6 @@ export const products = [
 		category: '150 USD',
 		quantity: '142.5 EUR',
 		exchangeRate: '0.95',
-		status: 'Completed'
+		status: true
 	}
 ];

@@ -17,7 +17,11 @@
 			<td>{{ product.category }}</td>
 			<td>{{ product.quantity }}</td>
 			<td>{{ product.exchangeRate }}</td>
-			<td>{{ product.status }}</td>
+			<td>
+				<p-tag class="w-full" [severity]="product.status ? 'success' : 'danger'"
+					[value]="product.status ? 'утверждена' : 'отменена'">
+				</p-tag>
+			</td>
 		</tr>
 	</ng-template>
 </p-table>

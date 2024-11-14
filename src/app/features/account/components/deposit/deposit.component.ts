@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { products } from '../../../../shared';
 
 @Component({
 	selector: 'app-deposit',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
 	styleUrl: './deposit.component.scss'
 })
 export class DepositComponent {
-
+	products = products
 }

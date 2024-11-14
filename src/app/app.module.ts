@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		TooltipModule,
 		DialogModule,
 		ReactiveFormsModule,
+		AvatarModule,
 		BrowserAnimationsModule
 	],
 	providers: [],

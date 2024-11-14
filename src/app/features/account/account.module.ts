@@ -10,6 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { WithdrawalComponent } from './components/withdrawal/withdrawal.component';
 import { DepositComponent } from './components/deposit/deposit.component';
+import { TagModule } from 'primeng/tag';
 
 const routes: Routes = [
 	{
@@ -40,6 +41,7 @@ const routes: Routes = [
 		DropdownModule,
 		ButtonModule,
 		CalendarModule,
+		TagModule,
 		FormsModule,
 		TableModule,
 		RouterModule.forChild(routes)
