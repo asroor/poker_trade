@@ -9,8 +9,8 @@ import {
   AutoFocus,
   AutoFocusModule
 } from "./chunk-JIYMSIBS.js";
-import "./chunk-BUGEQH7Q.js";
 import "./chunk-E6B4IJPU.js";
+import "./chunk-BUGEQH7Q.js";
 import {
   ObjectUtils,
   PrimeNGConfig,
