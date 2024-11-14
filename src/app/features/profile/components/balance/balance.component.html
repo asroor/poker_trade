@@ -1,0 +1,41 @@
+<div class="grid my-3">
+	<div class="col-12 md:col-6">
+		<div class="grid">
+			@for (item of balance; track $index) {
+			<div class="col-6 md:col-4 opacity-50">
+				<p class="m-0 font-medium text-base">{{item.name}}</p>
+				<b class="font-bold text-sm">{{item.amount}} {{item.code}}</b>
+			</div>
+			}
+		</div>
+		<div class="grid mt-3">
+			<div class="col-12 md:col-6">
+				<button type="button" pButton
+					class="column-gap-2 bg-primary-100 text-primary border-none justify-content-center w-full">
+					<i class="pi pi-plus-circle"></i>
+					Пополнить
+				</button>
+			</div>
+			<div class="col-12 md:col-6">
+				<button type="button" pButton
+					class="column-gap-2 bg-primary-100 text-primary border-none justify-content-center w-full">
+					<i class="pi pi-arrow-up-right"></i>Вывести</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 md:col-6">
+		<label class="info-order flex align-items-center column-gap-1 text-sm font-medium text-primary cursor-pointer"
+			(click)="infoToogle()" [ngClass]="{'show': showInfo}">
+			Информация о заявке
+			<img src="images/down-blue.svg" alt="select-arrow" width="8">
+		</label>
+		@if (showInfo) {
+		<div class="p-2 border-1 border-primary-300 mt-2 border-round flex align-items-start column-gap-1">
+			<i class="pi pi-info-circle text-primary text-sm"></i>
+			<p class="m-0 text-p text-primary text-sm">Это ваш внутренний баланс в НашГарант. Пополнение баланса и вывод (на аккаунт рума) — без комиссии.
+				Использовать
+				баланс не обязательно и можно делать заявки на покупку и продажу USD напрямую с аккаунта рума.</p>
+		</div>
+		}
+	</div>
+</div>
