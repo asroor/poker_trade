@@ -1,11 +1,3 @@
-button {
-	background-color: transparent;
-}
-
-p-dropdown {
-	width: 100%;
-}
-
 ::ng-deep .p-dropdown {
 	width: 100%;
 	min-width: 100px;
@@ -21,4 +13,14 @@ input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+}
+
+::ng-deep .p-inputtext.p-variant-filled {
+	background-color: #fff;
+}
+
+.toogle-buttons {
+	button {
+		background-color: transparent;
+	}
 }

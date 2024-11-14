@@ -8,7 +8,7 @@
 		</a>
 	</div>
 	<div class="grid">
-		<div class="col-12 lg:col-6 p-3">
+		<div class="col-12 lg:col-6">
 			<form>
 				<label class="info-order flex align-items-center column-gap-1 text-sm font-medium text-primary cursor-pointer"
 					(click)="infoToogle()" [ngClass]="{'show': infoOrder}">
@@ -49,10 +49,10 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-12 lg:col-6 p-3">
-			<form class="p-3 border-round bg-primary-500">
+		<div class="col-12 lg:col-6">
+			<form class="border-round p-3 md:p-4 bg-primary-500">
 				<div class="field mb-3">
-					<label for="firstname1" class="text-sm text-white block mt-3 mb-2">Ваш никнейм в </label>
+					<label for="firstname1" class="text-sm text-white block mb-2">Ваш никнейм в </label>
 					<input type="text" id="firstname1" pInputText mode="decimal" placeholder="brand name" required />
 				</div>
 				<div class="flex mb-3 align-items-center p-2 column-gap-1 border-1 border-white border-round">

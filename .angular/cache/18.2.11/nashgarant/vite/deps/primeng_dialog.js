@@ -1,7 +1,4 @@
 import {
-  TimesIcon
-} from "./chunk-R3TPMPVI.js";
-import {
   animate,
   animation,
   style,
@@ -9,6 +6,9 @@ import {
   trigger,
   useAnimation
 } from "./chunk-6JM2E7AG.js";
+import {
+  TimesIcon
+} from "./chunk-R3TPMPVI.js";
 import {
   ButtonDirective,
   ButtonModule

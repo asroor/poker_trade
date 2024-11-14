@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { roomData } from '../../shared';
+import { bankData, roomData, sbpBankData } from '../../shared';
 
 @Component({
 	selector: 'app-withdrawal',
@@ -25,8 +25,6 @@ export class WithdrawalComponent implements OnInit {
 		this.balanceOrAccount = !this.balanceOrAccount
 	}
 
-
-
 	maxValu(input: HTMLInputElement, button: HTMLButtonElement): void {
 		if (!input.disabled) {
 			input.value = this.selectWallet.max.toString()
@@ -36,6 +34,18 @@ export class WithdrawalComponent implements OnInit {
 			input.value = ''
 			input.disabled = false
 			button.textContent = 'Максимум'
+		}
+	}
+	bankDetails = bankData
+	selectedBank = this.bankDetails[0]
+	banks = sbpBankData
+
+	calcCurs: number = 0
+	calculateCurs(input: HTMLInputElement) {
+		if (input.value) {
+			let valu = parseFloat(input.value);
+			console.log(this.calcCurs);
+			this.calcCurs = valu * this.selectCurs.rate_usd
 		}
 	}
 }
