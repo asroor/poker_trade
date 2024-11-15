@@ -124,6 +124,34 @@
 }
 
 ::ng-deep {
+	.p-dropdown .p-dropdown-label{
+		padding: 0;
+	}
+	.p-overlay {
+		width: fit-content;
+		left: auto;
+		right: 0 !important;
+	}
+
+	.p-paginator .p-paginator-first,
+	.p-paginator .p-paginator-last {
+		display: none;
+	}
+
+	.p-datatable .p-sortable-column .p-sortable-column-icon {
+		margin: 0;
+	}
+
+	@media (max-width:991px) {
+
+		.p-datatable .p-datatable-tbody>tr>td,
+		.p-datatable .p-datatable-thead>tr>th {
+			&:last-child {
+				display: none !important;
+			}
+		}
+	}
+
 	.p-dropdown {
 		border: 0;
 		background-color: transparent;
@@ -142,6 +170,89 @@
 		.p-dropdown {
 			min-width: auto;
 			width: fit-content;
+		}
+
+		.p-chip {
+			flex-direction: column;
+			background-color: transparent;
+			padding: 0;
+
+			img {
+				margin: 0;
+			}
+		}
+
+		.table-user {
+			background-color: #ecf6ff;
+			border-radius: 10px;
+			padding-inline: 10px;
+			position: absolute;
+			bottom: 10px;
+			right: 16px;
+		}
+
+		.p-datatable .p-datatable-tbody>tr>td {
+			padding-bottom: 40px;
+		}
+
+		.p-datatable .p-datatable-tbody>tr {
+			position: relative;
+		}
+	}
+
+	@media (max-width: 490px) {
+		.bank-txt {
+			display: none;
+		}
+
+		.bank-logo {
+			width: 20px;
+			margin: 0 auto;
+		}
+
+		.p-dropdown .p-dropdown-trigger {
+			width: fit-content;
+		}
+
+		.p-dropdown .p-dropdown-label {
+			padding: 0;
+			margin-right: 4px;
+			font-size: 14px;
+		}
+
+		.p-datatable .p-datatable-thead>tr>th {
+			font-size: 14px;
+		}
+	}
+
+	@media (max-width:420px) {
+		.p-datatable .p-datatable-thead>tr>th {
+			padding: 10px 5px;
+		}
+
+		.p-datatable .p-datatable-tbody>tr>td {
+			font-size: 12px;
+			padding: 5px 5px 25px 5px;
+			font-weight: 600;
+		}
+
+		.p-chip img {
+			width: 25px;
+			margin: 0 !important;
+		}
+
+		.table-user {
+			bottom: 7px;
+			font-size: 12px !important;
+			height: 25px;
+		}
+
+		.bank-logo {
+			width: 15px;
+		}
+
+		.p-chip img {
+			margin-left: 10px !important;
 		}
 	}
 }

@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="withdrawalData" [paginator]="true" [rows]="6" [tableStyle]="{'min-width': '60rem'}">
+			<p-table [value]="withdrawalData" [paginator]="true" [rows]="6">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
@@ -64,15 +64,16 @@
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
 					<tr [routerLink]="['/deposit/', product.id]">
-						<td pFrozenColumn>
+						<td>
 							<p-chip>
 								<img width="30" class="block flex-shrink-0" [src]="[product.user.avatar_url]"
 									[alt]="product.user.first_name">
-								<div class="flex align-items-center column-gap-1 text-sm font-semibold">
+								<div class="table-user flex align-items-center column-gap-1 text-sm font-semibold">
 									<span class="block border-circle p-1"
 										[ngClass]="{'bg-red-600': !product.user.online, 'bg-green-600': product.user.online}">
 									</span>
-									{{product.user.username? product.user.username: product.user.first_name + product.user.last_name}}
+									<span class="table-user__txt">{{product.user.username? product.user.username: product.user.first_name
+										+ product.user.last_name}}</span>
 									<img src="images/ok.svg" alt="ok" class="m-0 ml-2 block" style="width: 20px;">
 									{{product.user.success_request}}
 								</div>
@@ -83,8 +84,8 @@
 						<td>{{ product.amount_receive_from }}</td>
 						<td>
 							<div class="flex align-content-center column-gap-1">
-								<img width="16" [src]="product.bank.image_url" [alt]="product.bank.name">
-								{{product.bank.name}}
+								<img class="bank-logo" width="16" [src]="product.bank.image_url" [alt]="product.bank.name">
+								<span class="bank-txt">{{product.bank.name}}</span>
 							</div>
 						</td>
 						<td style="min-width: 220px;">
