@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5">
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Личный кабинет </h2>
 		<a routerLink="/home"
@@ -7,12 +7,11 @@
 			На главную
 		</a>
 	</div>
-
-	<div class="p-1 border-1 w-full lg:w-auto border-blue-100 border-round inline-flex">
+	<div class="p-1 border-1 w-full mb-3 border-blue-100 border-round inline-flex">
 		<button routerLink="information" routerLinkActive="bg-primary-50 text-primary"
-			class="border-none py-2 px-4 text-500 font-medium w-full lg:w-auto border-round text-sm cursor-pointer">Информация</button>
+			class="border-none py-2 px-4 text-500 font-medium w-full border-round text-sm cursor-pointer">Информация</button>
 		<button routerLink="balance" routerLinkActive="bg-primary-50 text-primary"
-			class="border-none w-full lg:w-auto py-2 px-4 text-500 font-medium border-round text-sm cursor-pointer">Балансы</button>
+			class="border-none w-full py-2 px-4 text-500 font-medium border-round text-sm cursor-pointer">Балансы</button>
 	</div>
 
 	<router-outlet></router-outlet>
