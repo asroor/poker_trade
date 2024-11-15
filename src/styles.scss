@@ -52,17 +52,6 @@ body {
 			box-shadow: none;
 		}
 
-		.p-dropdown {
-			width: 220px;
-			min-width: 220px;
-			max-width: 220px;
-			border: 0;
-			background-color: transparent;
-
-			&:focus {
-				box-shadow: none;
-			}
-		}
 	}
 
 	.table-dn .p-dropdown-label {

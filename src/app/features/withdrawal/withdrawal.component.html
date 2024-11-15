@@ -3,7 +3,7 @@
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{walletTitle}}</h2>
 		<a routerLink="/home"
-			class="no-underline flex align-items-center column-gap-1 m-0 line-height-1 text-primary cursor-pointer text-sm">
+			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-primary cursor-pointer text-sm">
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
 	</div>
 
@@ -67,8 +67,8 @@
 		<div class="col-12 lg:col-6">
 			<form class="p-3 md:p-4 border-round bg-primary-500">
 				<label class="font-medium text-sm text-white mb-2 block">Реквизиты для перевода:* </label>
-				<div class="mb-4 flex md:flex-row flex-column align-items-center column-gap-2">
-					<p-dropdown [options]="bankDetails" optionLabel="name" class="w-full md:w-15rem">
+				<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
+					<p-dropdown [options]="bankDetails" optionLabel="name" class="w-full lg:w-15rem sm:w-10rem mb-2 sm:mb-0">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="flex align-items-center gap-2">
 								<img [src]="selectedOption.image_url" [class]="'flag flag-' + selectedBank.name.toLowerCase()"

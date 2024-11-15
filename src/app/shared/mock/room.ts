@@ -185,7 +185,7 @@ export const roomData = [
 		"image": "images/main-logo1.svg",
 		"id": 8,
 		"name": "GGPoker",
-		"account": "nashgarant.2021@gmail.com",
+		"account": "PokerTrade.2021@gmail.com",
 		"short_name": "GG",
 		"currency": {
 			"id": 5,

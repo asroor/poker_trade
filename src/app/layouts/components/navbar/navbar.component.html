@@ -5,9 +5,9 @@
 				<a routerLink="/" class="w-4rem flex-shrink-0 logo">
 					<img src="images/logo.png" alt="Logo" class="w-full" />
 				</a>
-				<p-button (click)="navigateByAuth()" class="flex-shrink-0" severity="success" icon="pi pi-arrow-up-right"
-					label="Сделать заявку на продажу" />
-				<div class="p-1 border-1 border-blue-100 border-round w-full flex">
+				<p-button (click)="navigateByAuth()" class="flex-shrink-0 hidden md:flex" severity="success"
+					icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
+				<div class="p-1 border-1 border-blue-100 hidden sm:flex border-round w-full">
 					<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 						заявки</button>
@@ -21,16 +21,34 @@
 					<b class="line-height-1 m-0 text-primary text-lg">0$</b>
 					<i class="pi pi-wallet text-xl text-primary font-bold"></i>
 				</div>
-				<div class="flex align-items-center column-gap-3 profile">
-					<p-avatar shape="circle" (click)="openModal()" class="cursor-pointer" image="images/user-icon01.svg"
+				<div class="flex align-items-center column-gap-2 profile">
+					<p-avatar routerLink="/profile" shape="circle" class="cursor-pointer" image="images/user-icon01.svg"
 						styleClass="mr-2" *ngIf="isUserLoginned()" />
-					<button (click)="openModal()" class="border-none bg-white font-semibold p-0 line-height-1 profile__btn"
-						*ngIf="!isUserLoginned()">
-						<i class="pi pi-user text-700 font-bold"></i>
+					<button type="button" (click)="openModal()" *ngIf="!isUserLoginned()" pButton size="small"
+						class="bg-primary-50 border-none" (click)="logout()">
+						<i class="pi pi-user text-primary font-bold"></i>
 					</button>
-					<!-- <i class="pi pi-sign-out font-bold text-700 cursor-pointer" (click)="logout()" *ngIf="isUserLoginned()"></i> -->
+					<button type="button" pButton size="small" class="bg-primary-50 border-none" (click)="logout()"
+						*ngIf="isUserLoginned()">
+						<i class="pi pi-sign-out text-primary font-bold"></i>
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </header>
+
+<div class="bg-white border-round-top shadow-1 z-3 block md:hidden fixed bottom-0 py-2 left-0 right-0">
+	<div class="container">
+		<div class="p-1 border-1 border-blue-100 flex mb-2 sm:hidden border-round w-full">
+			<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"
+				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
+				заявки</button>
+			<button routerLink="/account" routerLinkActive="bg-primary-50 text-primary"
+				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
+				заявки</button>
+		</div>
+		<p-button (click)="navigateByAuth()" class="flex-shrink-0 fixet-btn w-full" severity="success"
+			icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
+	</div>
+</div>
