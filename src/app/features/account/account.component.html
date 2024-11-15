@@ -1,6 +1,6 @@
 <div class="bg-primary-50 pt-3 pb-5">
 	<div class="container">
-		<div class="grid mb-3">
+		<div class="grid mb-3" *ngIf="!application">
 			<div class="col-12 lg:col-5">
 				<div class="p-1 border-1 bg-white border-blue-100 w-full flex border-round toogle-buttons">
 					<button routerLink="withdrawal" routerLinkActive="bg-primary-50 text-primary"

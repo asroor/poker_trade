@@ -5,8 +5,7 @@
 			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-primary cursor-pointer text-sm">
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
 	</div>
-
-	<div class="grid">
+	<div class="grid" *ngIf="!bid_form">
 		<div class="col-12 lg:col-6">
 			<div class="p-1 border-1 border-blue-100 w-full flex border-round toogle-buttons">
 				<button [ngClass]="{'bg-primary-50 text-primary': balanceOrAccount}" (click)="balanceToogle()"
@@ -76,7 +75,7 @@
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
-							<div class="flex align-items-center gap-2">
+							<div class="flex align-items-center gap-2" (click)="changeBank(country.slug)">
 								<img [src]="country.image_url" [class]="'flag flag-' + selectedBank.name.toLowerCase()"
 									style="width: 18px; height:18px;" />
 								<div>{{ country.name }}</div>
@@ -86,7 +85,7 @@
 					<p-inputMask [ngStyle]="{width: '100%'}" mask="9999 9999 9999 9999" variant="filled"
 						placeholder="0000 0000 0000 0000" />
 				</div>
-				<div>
+				<div *ngIf="is_sbp">
 					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
 					<p-dropdown [options]="banks" optionLabel="name" class="w-full md:w-15rem" />
 				</div>
@@ -115,8 +114,8 @@
 					<i class="pi pi-credit-card text-base text-white"></i>
 					<b class="font-semibold text-sm text-white">Вы получите: {{calcCurs}} RUB</b>
 				</div>
-				<button type="submit" pButton size="small" severity="success" icon="pi font-semibold pi-check-circle"
-					class="w-full justify-content-center column-gap-1">Подать
+				<button type="submit" (click)="bigClick()" pButton size="small" severity="success"
+					icon="pi font-semibold pi-check-circle" class="w-full justify-content-center column-gap-1">Подать
 					заявку на покупку</button>
 				<div class="flex align-items-start column-gap-2 mt-3">
 					<p-checkbox [binary]="true" inputId="binary" />
@@ -130,4 +129,83 @@
 			</form>
 		</div>
 	</div>
+	<div *ngIf="bid_form" class="grid">
+		<div class="col-12">
+			<h3 class="font-bold m-0 text-xl text-700">Для продолжения сделайте перевод на аккаунт PokerTrade: </h3>
+			<div class="grid mt-3">
+				<div class="col-12 md:col-4">
+					<div class="mb-3">
+						<label class="block mb-1 text-sm text-500">Email вашего аккаунта Luxon:* </label>
+						<input type="email" name="" pInputText id="" placeholder="pokertrade">
+					</div>
+					<div class="mb-3">
+						<label class="block mb-1 text-sm text-500">Имя и фамилия в аккаунте LUXON:* </label>
+						<input type="email" name="" pInputText id="" placeholder="Введенный текст поля">
+					</div>
+					<div>
+						<button type="button" severity="success" (click)="showDialog()"
+							class="flex mb-3 align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+							<i class="pi pi-check-circle"></i>
+							Отправил
+						</button>
+						<button severity="danger" type="button"
+							class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+							<i class="pi pi-times-circle"></i>
+							Отправил
+						</button>
+					</div>
+				</div>
+				<div class="col-12 md:col-8">
+					<div class="grid">
+						<div class="col-12 md:col-4">
+							<div class="mb-2">
+								<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
+								<b class="text-primary font-bold text-base">Luxon</b>
+							</div>
+							<div class="mb-2">
+								<p class="m-0 mb-1 text-sm text-500">Аккаунт:</p>
+								<b class="text-primary font-bold text-base">luxonbot&#64;proton.me</b>
+							</div>
+							<div class="mb-2">
+								<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
+								<b class="text-primary font-bold text-base">5000 USD</b>
+							</div>
+						</div>
+						<div class="col-12 sm:col-4">
+							<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">-</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">-</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
+								</span></p>
+						</div>
+						<div class="col-12 sm:col-4">
+							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">-</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">-</span></p>
+							<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<p-dialog header="Подтверждение операции" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+	<b class="text-700 text-lg font-light mb-3 block">Вы подтверждаете, что перевели указанную сумму в полном объеме и на
+		аккаунт,
+		который указан? </b>
+	<div class="flex column-gap-2">
+		<button severity="danger" size="small" type="button" (click)="showDialog()"
+			class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+			<i class="pi pi-times-circle"></i>
+			Нет
+		</button>
+		<button routerLink="/account/withdrawal/39483943" type="button" severity="success"
+			class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+			<i class="pi pi-check-circle"></i>
+			Да
+		</button>
+	</div>
+</p-dialog>

@@ -13,12 +13,22 @@
 		<tr>
 			<td>{{ product.code }}</td>
 			<td>{{ product.name }}</td>
-			<td>{{ product.category }}</td>
-			<td>{{ product.quantity }}</td>
+			<td>
+				<div class="flex align-items-center column-gap-1">
+					<img src="images/sber.svg" alt="sberbank" width="17">
+					{{ product.category }}
+				</div>
+			</td>
+			<td>
+				<div class="flex align-items-center column-gap-1">
+					<img src="images/LUX-mini.svg" alt="lux" width="17">
+					{{ product.quantity }}
+				</div>
+			</td>
 			<td>{{ product.exchangeRate }}</td>
 			<td>
-				<p-tag class="w-full" [severity]="product.status ? 'success' : 'danger'"
-					[value]="product.status ? 'утверждена' : 'отменена'">
+				<p-tag class="w-full" [icon]="product.status ? 'pi pi-check-circle' : 'pi pi-times-circle'"
+					[severity]="product.status ? 'success' : 'danger'" [value]="product.status ? 'утверждена' : 'отменена'">
 				</p-tag>
 			</td>
 		</tr>

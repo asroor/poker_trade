@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { WithdrawalComponent } from './components/withdrawal/withdrawal.component';
 import { DepositComponent } from './components/deposit/deposit.component';
 import { TagModule } from 'primeng/tag';
+import { ApplicationComponent } from './components/application/application.component';
 
 const routes: Routes = [
 	{
@@ -19,6 +20,9 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'withdrawal', component: WithdrawalComponent
+			},
+			{
+				path: 'withdrawal/:id', component: ApplicationComponent
 			},
 			{
 				path: 'deposit', component: DepositComponent
@@ -34,7 +38,8 @@ const routes: Routes = [
 	declarations: [
 		AccountComponent,
 		DepositComponent,
-		WithdrawalComponent
+		WithdrawalComponent,
+		ApplicationComponent
 	],
 	imports: [
 		CommonModule,

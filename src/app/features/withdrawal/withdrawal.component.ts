@@ -7,6 +7,7 @@ import { bankData, roomData, sbpBankData } from '../../shared';
 	styleUrl: './withdrawal.component.scss'
 })
 export class WithdrawalComponent implements OnInit {
+	bid_form: boolean = true;
 	wallet = roomData
 	selectWallet = this.wallet[0]
 	curs = this.selectWallet.currencies
@@ -14,6 +15,9 @@ export class WithdrawalComponent implements OnInit {
 	walletTitle: string = this.wallet[0].name
 	ngOnInit(): void {
 
+	}
+	bigClick() {
+		this.bid_form = true
 	}
 	changeWallet() {
 		this.curs = this.selectWallet.currencies
@@ -47,5 +51,19 @@ export class WithdrawalComponent implements OnInit {
 			console.log(this.calcCurs);
 			this.calcCurs = valu * this.selectCurs.rate_usd
 		}
+	}
+
+	is_sbp: boolean = false
+	changeBank(bank: string) {
+		if (bank == 'sbp') {
+			this.is_sbp = true
+		} else {
+			this.is_sbp = false
+		}
+	}
+	visible: boolean = false;
+
+	showDialog() {
+		this.visible = !this.visible
 	}
 }

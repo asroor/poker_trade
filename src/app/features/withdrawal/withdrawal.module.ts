@@ -13,6 +13,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 
 const routes: Routes = [
 	{
@@ -38,6 +39,7 @@ const routes: Routes = [
 		InputNumberModule,
 		ReactiveFormsModule,
 		TooltipModule,
+		DialogModule,
 		CheckboxModule,
 		RouterModule.forChild(routes)
 	]

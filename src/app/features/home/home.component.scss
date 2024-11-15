@@ -124,18 +124,14 @@
 }
 
 ::ng-deep {
-	.p-dropdown .p-dropdown-label{
+	.p-dropdown .p-dropdown-label {
 		padding: 0;
 	}
+
 	.p-overlay {
 		width: fit-content;
 		left: auto;
 		right: 0 !important;
-	}
-
-	.p-paginator .p-paginator-first,
-	.p-paginator .p-paginator-last {
-		display: none;
 	}
 
 	.p-datatable .p-sortable-column .p-sortable-column-icon {
