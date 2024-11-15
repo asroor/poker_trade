@@ -12,6 +12,8 @@ import { WithdrawalComponent } from './components/withdrawal/withdrawal.componen
 import { DepositComponent } from './components/deposit/deposit.component';
 import { TagModule } from 'primeng/tag';
 import { ApplicationComponent } from './components/application/application.component';
+import { AccordionModule } from 'primeng/accordion';
+import { DialogModule } from 'primeng/dialog';
 
 const routes: Routes = [
 	{
@@ -49,6 +51,8 @@ const routes: Routes = [
 		TagModule,
 		FormsModule,
 		TableModule,
+		AccordionModule,
+		DialogModule,
 		RouterModule.forChild(routes)
 	]
 })

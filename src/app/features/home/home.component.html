@@ -1,4 +1,4 @@
-<div style="background-color: #eaeefe;" class="py-6">
+<div class="py-6">
 	<div class="container">
 		<!-- Room Section -->
 		<div class="logo-container">
@@ -38,11 +38,11 @@
 				</a>
 			</div>
 		</ng-container>
-
 		<!-- Currency Selector -->
-		<div class="currency-selector">
+		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-primary-100 border-round">
 			<ng-container *ngFor="let item of activeRoom.currencies">
-				<button class="currency-button" [class.active]="activeCurrency === item.title"
+				<button class="w-full border-round border-none font-bold text-primary cursor-pointer py-2 sm:py-3"
+					[class.bg-primary-50]="activeCurrency === item.title"
 					(click)="setActiveCurrency(item.title)">{{item.title}}</button>
 			</ng-container>
 		</div>
@@ -88,10 +88,8 @@
 								<span class="bank-txt">{{product.bank.name}}</span>
 							</div>
 						</td>
-						<td style="min-width: 220px;">
-							<button pButton
-								class="w-full text-blue-600 font-semibold bg-primary-100 hover:bg-primary-200 border-0 justify-content-center column-gap-1"
-								size="small">
+						<td style="width:220px;">
+							<button pButton class="w-full font-semibold border-0 justify-content-center column-gap-1" size="small">
 								<i class="pi pi-plus-circle"></i>
 								<span>Купить ПокерОК</span>
 							</button>

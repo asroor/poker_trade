@@ -15,6 +15,12 @@ body {
 /* Reset CSS */
 @layer reset {
 
+	.p-accordion .p-accordion-header .p-accordion-header-link,
+	.p-accordion .p-accordion-content {
+		background: white;
+		padding: 15px; 
+	}
+
 	.p-paginator .p-paginator-first,
 	.p-paginator .p-paginator-last {
 		display: none;
