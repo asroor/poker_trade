@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="withdrawalData" [paginator]="true" [rows]="6">
+			<p-table [value]="withdrawalData" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 25, 50]">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>

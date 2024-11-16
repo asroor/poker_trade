@@ -1,0 +1,65 @@
+::ng-deep {
+	.p-dropdown {
+		width: fit-content;
+	}
+
+	.p-dropdown .p-dropdown-trigger {
+		width: 2rem;
+	}
+
+	@media (max-width:991px) {
+
+		.p-datatable .p-datatable-thead>tr>th,
+		.p-datatable .p-datatable-tbody>tr>td {
+			padding-block: 10px;
+
+			&:nth-child(2) {
+				display: none;
+			}
+		}
+	}
+
+	@media (max-width:767px) {
+
+		.p-datatable .p-datatable-thead>tr>th,
+		.p-datatable .p-datatable-tbody>tr>td {
+			font-size: 12px;
+		}
+
+		.p-tag-icon {
+			margin: 0;
+		}
+
+		.p-datatable .p-datatable-tbody>tr>td {
+			&:last-child {
+				width: 10px;
+			}
+		}
+
+		.p-tag-value {
+			display: none;
+		}
+	}
+
+	@media (max-width:576px) {
+
+		.p-datatable .p-datatable-thead>tr>th,
+		.p-datatable .p-datatable-tbody>tr>td:last-child {
+			&:last-child {
+				padding-left: 0;
+				text-align: end;
+			}
+		}
+	}
+
+	.p-datatable .p-datatable-thead>tr>th,
+	.p-datatable .p-datatable-tbody>tr>td {
+		font-size: 11px;
+		padding: 10px;
+	}
+
+	.p-paginator .p-paginator-pages .p-paginator-page,
+	.p-inputtext {
+		font-size: 12px;
+	}
+}

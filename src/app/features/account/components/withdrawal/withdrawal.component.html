@@ -1,4 +1,4 @@
-<p-table [paginator]="true" [rows]="5" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [scrollable]="false" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [value]="products">
 	<ng-template pTemplate="header">
 		<tr>
 			<th>Дата</th>

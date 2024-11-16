@@ -102,7 +102,7 @@
 }
 
 ::ng-deep {
-	.p-dropdown .p-dropdown-label {
+	.table-dn .p-dropdown .p-dropdown-label {
 		padding: 0;
 	}
 
@@ -126,7 +126,7 @@
 		}
 	}
 
-	.p-dropdown {
+	.table-dn .p-dropdown {
 		border: 0;
 		background-color: transparent;
 
@@ -184,11 +184,11 @@
 			margin: 0 auto;
 		}
 
-		.p-dropdown .p-dropdown-trigger {
+		.table-dn .p-dropdown .p-dropdown-trigger {
 			width: fit-content;
 		}
 
-		.p-dropdown .p-dropdown-label {
+	.table-dn .p-dropdown .p-dropdown-label {
 			padding: 0;
 			margin-right: 4px;
 			font-size: 14px;

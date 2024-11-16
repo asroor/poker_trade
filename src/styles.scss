@@ -18,7 +18,7 @@ body {
 	.p-accordion .p-accordion-header .p-accordion-header-link,
 	.p-accordion .p-accordion-content {
 		background: white;
-		padding: 15px; 
+		padding: 15px;
 	}
 
 	.p-paginator .p-paginator-first,
@@ -74,6 +74,20 @@ body {
 	.p-datatable {
 		.p-paginator-bottom {
 			border-radius: 0 0 10px 10px;
+		}
+	}
+
+	@media (max-width:490px) {
+		.p-paginator .p-paginator-pages .p-paginator-page {
+			min-width: 2rem;
+			height: 2rem;
+		}
+		.p-paginator .p-dropdown {
+			height: fit-content;
+		}
+		.p-paginator {
+			padding: 0;
+			padding-bottom: 20px;
 		}
 	}
 }

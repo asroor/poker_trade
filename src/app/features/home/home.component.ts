@@ -31,16 +31,6 @@ export class HomeComponent implements OnInit {
 
 	roomData = roomData
 	withdrawalData = withdrawalData
-
-	transactioon = [
-		{ id: 'ID384939', offer: 10, logo: "images/user.svg", min: 2000, max: 2500, kurs: 2250, bank: "Сбербанк", bank_logo: 'images/bank.svg' },
-		{ id: 'ID384940', offer: 14, logo: "images/user.svg", min: 2100, max: 2600, kurs: 2300, bank: "Тинькофф", bank_logo: 'images/bank.svg' },
-		{ id: 'ID384941', offer: 16, logo: "images/user.svg", min: 2200, max: 2700, kurs: 2350, bank: "ВТБ", bank_logo: 'images/bank.svg' },
-		{ id: 'ID384942', offer: 18, logo: "images/user.svg", min: 2300, max: 2800, kurs: 2400, bank: "Альфа-Банк", bank_logo: 'images/bank.svg' },
-		{ id: 'ID384943', offer: 20, logo: "images/user.svg", min: 2400, max: 2900, kurs: 2450, bank: "Газпромбанк", bank_logo: 'images/bank.svg' },
-		{ id: 'ID384944', offer: 22, logo: "images/user.svg", min: 2500, max: 3000, kurs: 2500, bank: "Россельхозбанк", bank_logo: 'images/bank.svg' },
-	];
-
 	cities = bankData
 	selectedCity!: any
 
