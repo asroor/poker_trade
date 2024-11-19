@@ -8,12 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
-import { WithdrawalComponent } from './components/withdrawal/withdrawal.component';
-import { DepositComponent } from './components/deposit/deposit.component';
-import { TagModule } from 'primeng/tag';
 import { ApplicationComponent } from './components/application/application.component';
 import { AccordionModule } from 'primeng/accordion';
 import { DialogModule } from 'primeng/dialog';
+import { TagModule } from 'primeng/tag';
 
 const routes: Routes = [
 	{
@@ -21,17 +19,11 @@ const routes: Routes = [
 		component: AccountComponent,
 		children: [
 			{
-				path: 'withdrawal', component: WithdrawalComponent
+				path: 'withdrawal', loadChildren: () => import('../account').then(m => m.WithdrawalModule)
 			},
 			{
-				path: 'withdrawal/:id', component: ApplicationComponent
+				path: 'deposit', loadChildren: () => import('../account').then(m => m.DepositModule)
 			},
-			{
-				path: 'deposit', component: DepositComponent
-			},
-			{
-				path: '**', redirectTo: 'withdrawal', pathMatch: 'full'
-			}
 		]
 	}
 ];
@@ -39,8 +31,6 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		AccountComponent,
-		DepositComponent,
-		WithdrawalComponent,
 		ApplicationComponent
 	],
 	imports: [
@@ -48,11 +38,10 @@ const routes: Routes = [
 		DropdownModule,
 		ButtonModule,
 		CalendarModule,
-		TagModule,
 		FormsModule,
-		TableModule,
-		AccordionModule,
 		DialogModule,
+		AccordionModule,
+		TagModule,
 		RouterModule.forChild(routes)
 	]
 })

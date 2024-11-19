@@ -7,6 +7,7 @@ import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
 
 const routes: Routes = [
 	{
@@ -25,6 +26,7 @@ const routes: Routes = [
 		ChipModule,
 		DropdownModule,
 		ReactiveFormsModule,
+		PaginatorModule,
 		ButtonModule,
 		RouterModule.forChild(routes)
 	]

@@ -7,7 +7,7 @@ import { bankData, roomData, sbpBankData } from '../../shared';
 	styleUrl: './withdrawal.component.scss'
 })
 export class WithdrawalComponent implements OnInit {
-	bid_form: boolean = true;
+	bid_form: boolean = false;
 	wallet = roomData
 	selectWallet = this.wallet[0]
 	curs = this.selectWallet.currencies
@@ -17,7 +17,7 @@ export class WithdrawalComponent implements OnInit {
 
 	}
 	bigClick() {
-		this.bid_form = true
+		this.bid_form = false
 	}
 	changeWallet() {
 		this.curs = this.selectWallet.currencies

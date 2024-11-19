@@ -1,12 +1,4 @@
 ::ng-deep {
-	.p-dropdown {
-		width: fit-content;
-	}
-
-	.p-dropdown .p-dropdown-trigger {
-		width: 2rem;
-	}
-
 	@media (max-width:991px) {
 
 		.p-datatable .p-datatable-thead>tr>th,
@@ -20,7 +12,6 @@
 	}
 
 	@media (max-width:767px) {
-
 		.p-datatable .p-datatable-thead>tr>th,
 		.p-datatable .p-datatable-tbody>tr>td {
 			font-size: 12px;
@@ -50,16 +41,13 @@
 				text-align: end;
 			}
 		}
-	}
-
-	.p-datatable .p-datatable-thead>tr>th,
-	.p-datatable .p-datatable-tbody>tr>td {
-		font-size: 11px;
-		padding: 10px;
-	}
-
-	.p-paginator .p-paginator-pages .p-paginator-page,
-	.p-inputtext {
-		font-size: 12px;
+		.p-datatable .p-datatable-thead>tr>th,
+		.p-datatable .p-datatable-tbody>tr>td {
+			font-size: 11px;
+			padding: 10px;
+		}
+		.p-paginator .p-paginator-pages .p-paginator-page {
+			font-size: 12px;
+		}
 	}
 }

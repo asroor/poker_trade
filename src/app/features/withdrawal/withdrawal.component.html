@@ -66,10 +66,10 @@
 			<form class="p-3 md:p-4 border-round bg-primary-500">
 				<label class="font-medium text-sm text-white mb-2 block">Реквизиты для перевода:* </label>
 				<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
-					<p-dropdown [options]="bankDetails" optionLabel="name" class="w-full lg:w-15rem sm:w-10rem mb-2 sm:mb-0">
+					<p-dropdown [options]="bankDetails" optionLabel="name" class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="flex align-items-center gap-2">
-								<img [src]="selectedOption.image_url" [class]="'flag flag-' + selectedBank.name.toLowerCase()"
+								<img [src]="selectedOption.image_url" [class]="'flag' + selectedBank.name.toLowerCase()"
 									style="width: 18px; height:18px;" />
 								<div>{{ selectedOption.name }}</div>
 							</div>
