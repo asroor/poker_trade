@@ -13,9 +13,9 @@ export class NavbarComponent {
 	constructor(private modalService: AuthModalService, private router: Router) { }
 
 	openModal() {
-		if(this.isUserLoginned()){
+		if (this.isUserLoginned()) {
 			this.router.navigate(['/profile'])
-		}else{
+		} else {
 			this.modalService.openModal();
 		}
 	}
@@ -30,6 +30,6 @@ export class NavbarComponent {
 	}
 
 	navigateByAuth() {
-		this.isUserLoginned() ? this.router.navigate(['withdrawal']) : this.openModal();
+		this.isUserLoginned() ? this.router.navigate(['account/withdrawal/form']) : this.openModal();
 	}
 }

@@ -7,8 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
-import { TableModule } from 'primeng/table';
-import { ApplicationComponent } from './components/application/application.component';
 import { AccordionModule } from 'primeng/accordion';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
@@ -24,6 +22,9 @@ const routes: Routes = [
 			{
 				path: 'deposit', loadChildren: () => import('../account').then(m => m.DepositModule)
 			},
+			{
+				path: '**', redirectTo: 'withdrawal', pathMatch: 'full'
+			}
 		]
 	}
 ];
@@ -31,7 +32,6 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		AccountComponent,
-		ApplicationComponent,
 	],
 	imports: [
 		CommonModule,

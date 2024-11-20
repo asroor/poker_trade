@@ -7,5 +7,5 @@ import { products } from '../../../../shared';
 	styleUrl: './deposit.component.scss'
 })
 export class DepositComponent {
-	products = products
+
 }

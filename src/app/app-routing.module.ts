@@ -14,7 +14,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'withdrawal',
-				loadChildren: () => import('./features').then((m) => m.WithdrawalModule)
+				loadChildren: () => import('./features').then((m) => m.AccountModule)
 			},
 			{
 				path: 'deposit/:id',

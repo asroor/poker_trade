@@ -1,2 +1,2 @@
-export * from '../account/components/deposit/deposit.module'
-export * from '../account/components/withdrawal/withdrawal.module'
+export * from './components/deposit'
+export * from './components/withdrawal'

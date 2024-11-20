@@ -5,7 +5,7 @@
 				<a routerLink="/" class="w-4rem flex-shrink-0 logo">
 					<img src="images/logo.png" alt="Logo" class="w-full" />
 				</a>
-				<p-button (click)="navigateByAuth()" class="flex-shrink-0 hidden md:flex" severity="success"
+				<p-button (click)="navigateByAuth()" routerLink="withdrawal/form" class="flex-shrink-0 hidden md:flex" severity="success"
 					icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
 				<div class="p-1 border-1 border-blue-100 hidden sm:flex border-round w-full">
 					<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"

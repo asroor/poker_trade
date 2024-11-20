@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { bankData } from '../../shared';
-import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, Routes } from '@angular/router';
 interface City {
 	name: string;
 	code: string;
@@ -11,7 +11,7 @@ interface City {
 	styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
-	constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+	constructor(private router: Router) { }
 	application: boolean = false;
 	dates: Date[] | undefined;
 	status: City[] | undefined;
@@ -20,6 +20,12 @@ export class AccountComponent implements OnInit {
 	selectStatus: City | undefined;
 
 	ngOnInit() {
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationEnd) {
+				this.applicationFN();
+			}
+		});
+
 		this.applicationFN()
 		this.status = [
 			{ name: 'New York', code: 'NY' },
@@ -33,8 +39,7 @@ export class AccountComponent implements OnInit {
 
 	applicationFN() {
 		const fullUrl = this.router.url;
-		const idMatch = fullUrl.match(/\d+/);
-		if (idMatch) {
+		if (!fullUrl.includes('form')) {
 			this.application = true;
 		} else {
 			this.application = false;

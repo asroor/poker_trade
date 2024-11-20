@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, roomData, sbpBankData } from '../../shared';
+import { bankData, roomData, sbpBankData } from '../../../../../../shared';
 
 @Component({
-	selector: 'app-withdrawal',
-	templateUrl: './withdrawal.component.html',
-	styleUrl: './withdrawal.component.scss'
+	selector: 'app-form',
+	templateUrl: './form.component.html',
+	styleUrl: './form.component.scss'
 })
-export class WithdrawalComponent implements OnInit {
+export class FormComponent implements OnInit {
 	bid_form: boolean = false;
 	wallet = roomData
 	selectWallet = this.wallet[0]

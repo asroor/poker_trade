@@ -12,6 +12,7 @@ export class BidComponent implements OnInit {
 	waiting: boolean = true
 	visible: boolean = false;
 	request: boolean = false
+	transactions: boolean = false
 	showModal() {
 		this.visible = !this.visible
 	}
@@ -21,6 +22,6 @@ export class BidComponent implements OnInit {
 			if (!this.waiting && this.canceled) {
 				this.pending = true;
 			}
-		}, 500);
+		}, 3000);
 	}
 }
