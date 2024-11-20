@@ -31,7 +31,7 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		AccountComponent,
-		ApplicationComponent
+		ApplicationComponent,
 	],
 	imports: [
 		CommonModule,

@@ -1,0 +1,53 @@
+<h3 class="font-bold m-0 text-xl my-4 text-700">Заявка на покупку Luxon
+	<p-tag icon="pi pi-stopwatch" value="Ждем продавца" />
+</h3>
+
+<div class="grid">
+	<div class="col-12 lg:col-6">
+		<h3 class="m-0 text-xl text-700 mb-2">Ваша заявка передана продавцу, ожидаем подтверждение от него</h3>
+		<h3 class="text-xl text-primary my-3">02:45</h3>
+		<p class="text-xl font-light mb-3">У продавца есть 3 минуты, чтобы подтвердить готовность принять вашу заявку и
+			оплату от вас.</p>
+		<p class="text-xl font-light mb-3">Если этого не произойдет, то заявка отменится и вы сможете откликнуться на заявку
+			другого продавца.</p>
+
+		<button (click)="showModal()" type="button" severity="danger" size="small" pButton
+			class="w-full justify-content-center column-gap-2">
+			<i class="pi pi-times-circle"></i>
+			Отменить заявку
+		</button>
+	</div>
+	<div class="col-12 lg:col-6">
+		<div class="grid bg-primary-100 p-2 border-round">
+			<div class="col-12 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">Nº заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">Luxon</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Продавец: <span class="text-700">asereio&#64;gmail.com</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">152.00 USD</span></p>
+			</div>
+			<div class="col-12 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">Nº отклика: <span class="text-700">R542729 15.11.24, 20:26</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">152.00 USD</span></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+	<h3 class="text-center text-xl font-light m-0 mb-2">У продавца еще есть время, чтобы подтвердить готовность принять
+		вашу заявку!
+	</h3>
+	<h3 class="text-center text-xl font-bold m-0">Уверены, что хотите отменить?</h3>
+	<div class="flex column-gap-2 mt-3">
+		<button type="button" class="w-full justify-content-center column-gap-2" severity="danger" pButton size="small">
+			<i class="pi pi-times-circle"></i>
+			Не надо
+		</button>
+		<button type="button" severity="success" class="w-full justify-content-center column-gap-2" pButton size="small">
+			<i class="pi pi-times-circle"></i>
+			Да, уверен
+		</button>
+	</div>
+</p-dialog>
