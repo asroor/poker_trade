@@ -9,6 +9,13 @@ import { BidComponent } from './components/bid/bid.component';
 import { TableComponent } from './components/table/table.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { FormComponent } from './components/form/form.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { BlockUIModule } from 'primeng/blockui';
+import { PanelModule } from 'primeng/panel';
 
 const routes: Routes = [
 	{
@@ -18,6 +25,9 @@ const routes: Routes = [
 				path: '', component: TableComponent
 			},
 			{
+				path: 'form/:id', component: FormComponent
+			},
+			{
 				path: ':id', component: BidComponent
 			}
 		]
@@ -25,13 +35,19 @@ const routes: Routes = [
 ]
 
 @NgModule({
-	declarations: [DepositComponent, BidComponent, TableComponent],
+	declarations: [DepositComponent, BidComponent, TableComponent, FormComponent],
 	imports: [
 		CommonModule,
+		InputTextModule,
+		InputGroupModule,
+		InputGroupAddonModule,
 		TableModule,
 		TagModule,
 		FormsModule,
 		ButtonModule,
+		CheckboxModule,
+		BlockUIModule,
+		PanelModule,
 		DialogModule,
 		RouterModule.forChild(routes)
 	]

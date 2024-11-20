@@ -63,7 +63,7 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr [routerLink]="['/deposit/', product.id]">
+					<tr [routerLink]="['/account/deposit/form', product.id]">
 						<td>
 							<p-chip>
 								<img width="30" class="block flex-shrink-0" [src]="[product.user.avatar_url]"
@@ -98,65 +98,5 @@
 				</ng-template>
 			</p-table>
 		</div>
-
-		<!-- <div class="transaction-table">
-			<div class="row-grid table-header">
-				<div class="column"></div>
-				<div class="column"></div>
-				<div class="column">
-					<img src="images/sort-icon.svg" alt="sort" width="16">
-					<span class="text">Мин.</span>
-				</div>
-				<div class="column">
-					<img src="images/sort-icon.svg" alt="sort" width="16">
-					<span class="text">Макс.</span>
-				</div>
-				<div class="column">
-					<img src="images/sort-icon.svg" alt="sort" width="16">
-					<span class="text">Курс</span>
-				</div>
-				<div class="column">
-					<span class="text">Банк</span>
-					<img src="images/select-arrow.svg" alt="select-arrow" width="8" class="select-arrow">
-				</div>
-				<div class="column"></div>
-			</div>
-			<ng-container *ngFor="let item of withdrawalData">
-				<div class="row-grid table-row">
-					<img [src]="item.user.avatar_url" width="35" alt="user" class="user-img">
-					<div class="user">
-						<div class="user-id">
-							<span class="up"></span>
-							<span class="value">{{item.id}}</span>
-						</div>
-						<div class="user-frends">
-							<img src="images/ok.svg" alt="friends" width="21">
-							<span class="value">{{item.user.success_request}}</span>
-						</div>
-					</div>
-					<div class="row-value">
-						<span class="value">{{item.min_deposit}}</span>
-					</div>
-					<div class="row-value">
-						<span class="value">{{item.max_deposit}}</span>
-					</div>
-					<div class="row-value">
-						<span class="value">{{item.amount_commission}}</span>
-					</div>
-					<div class="row-value">
-						<div class="bank">
-							<img [src]="item.bank.image_url" alt="bank" width="19">
-							<span class="value">{{item.bank.name}}</span>
-						</div>
-					</div>
-					<div class="row-value">
-						<button [routerLink]="['/deposit']" class="row__btn">
-							<img src="images/plus.svg" alt="plus" width="19">
-							Купить {{activeRoom.name}}
-						</button>
-					</div>
-				</div>
-			</ng-container>
-		</div> -->
-	</div>
+</div>
 </div>

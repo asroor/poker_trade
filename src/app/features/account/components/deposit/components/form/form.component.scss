@@ -1,0 +1,9 @@
+.info-order {
+	width: fit-content;
+
+	&.show {
+		img {
+			transform: rotate(-180deg);
+		}
+	}
+}
