@@ -1,0 +1,155 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeflex/primeflex.scss";
+@import "primeicons/primeicons.css";
+
+:root {
+	--primary-color: #ffd965;
+	--primary-color-hover: #1565c0;
+	--primary-text-color: #212121;
+	--secondary-text-color: #424242;
+	--background-color: #fafafa;
+	--surface-color: #e3f2fd;
+	--border-color: #90caf9;
+	--input-bg-color: #ffffff;
+	--input-border-color: #90a4ae;
+	--button-bg-color: var(--primary-color);
+	--button-text-color: #ffffff;
+	--dialog-header-color: #90caf9;
+	--card-shadow-color: rgba(0, 0, 0, 0.1);
+	--success-color: #4CAF50;
+	--danger-color: #F44336;
+	--warning-color: #FF9800;
+	--light-color: #E0E0E0;
+	--text-color-light: #ffffff;
+}
+
+/* Primary Button */
+.p-button-primary {
+	background-color: #ffc107;
+	color: #ffffff;
+	border: 1px solid #ffe494;
+}
+
+.p-button-primary:hover {
+	background-color: #d9a406;
+	color: #ffffff;
+	border: 1px solid #ffc107;
+}
+
+.p-button-primary:active {
+	background-color: #d9a406;
+	color: #ffffff;
+	border: 1px solid #ffc107;
+}
+
+.p-button:focus {
+	box-shadow: 0 0 0 0.2rem #fff0c3;
+}
+
+/* Order */
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+	.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+		background-color: #fff0c3;
+		color: #d9a406;
+	}
+
+	.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+		background-color: #fff0c3;
+		color: #d9a406;
+	}
+
+	.p-dropdown:not(.p-disabled):hover {
+		border-color: #d9a406;
+	}
+
+	.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+		background-color: #fff0c3;
+		color: #d9a406;
+	}
+
+	.p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+		background-color: #fffcf3;
+	}
+
+	.p-accordion .p-accordion-header .p-accordion-header-link,
+	.p-accordion .p-accordion-content {
+		background: white;
+		padding: 15px;
+	}
+
+	.p-paginator .p-paginator-first,
+	.p-paginator .p-paginator-last {
+		display: none;
+	}
+
+	.p-button-label {
+		font-weight: 400;
+		font-size: 14px;
+	}
+
+	.p-inputtext {
+		width: 100%;
+		padding: 0.5rem 0.75rem;
+	}
+
+	.p-inputgroup-addon {
+		padding: 0.5rem 0.75rem;
+	}
+
+
+	p-inputnumber .p-inputnumber {
+		width: 100%;
+	}
+
+	.p-paginator .p-dropdown {
+		align-items: center;
+	}
+
+	.p-tooltip-text {
+		background-color: #f5f9ff;
+		font-size: 12px;
+		color: #374151;
+	}
+
+	.p-tooltip-arrow {
+		display: none;
+	}
+
+	.table-dn {
+		.p-dropdown:not(.p-disabled).p-focus {
+			box-shadow: none;
+		}
+
+	}
+
+	.table-dn .p-dropdown-label {
+		color: #374151;
+		font-weight: 600;
+	}
+
+	.p-datatable {
+		.p-paginator-bottom {
+			border-radius: 0 0 10px 10px;
+		}
+	}
+
+	@media (max-width:490px) {
+		.p-paginator .p-paginator-pages .p-paginator-page {
+			min-width: 2rem;
+			height: 2rem;
+		}
+
+		.p-paginator .p-dropdown {
+			height: fit-content;
+		}
+
+		.p-paginator {
+			padding: 0;
+			padding-bottom: 20px;
+		}
+	}
+}

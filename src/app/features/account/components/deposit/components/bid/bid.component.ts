@@ -22,6 +22,6 @@ export class BidComponent implements OnInit {
 			if (!this.waiting && this.canceled) {
 				this.pending = true;
 			}
-		}, 3000);
+		}, 2000);
 	}
 }

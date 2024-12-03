@@ -2,15 +2,16 @@
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Заявка на покупку ПокерОК</h2>
 		<a (click)="goBack()"
-			class="flex align-items-center column-gap-1 m-0 line-height-1 text-primary cursor-pointer text-sm">
-			<img src="images/left-arrow.svg" alt="back link" width="12">
+			class="flex align-items-center column-gap-1 m-0 line-height-1 text-yellow-600 cursor-pointer text-sm">
+			<i class="pi pi-arrow-left"></i>
 			Вернуться назад
 		</a>
 	</div>
 	<div class="grid">
 		<div class="col-12 lg:col-6">
 			<form>
-				<label class="info-order flex align-items-center column-gap-1 text-sm font-medium text-primary cursor-pointer"
+				<label
+					class="info-order flex align-items-center column-gap-1 text-sm font-medium text-yellow-600 cursor-pointer"
 					(click)="infoToogle()" [ngClass]="{'show': infoOrder}">
 					Информация о заявке
 					<img src="images/down-blue.svg" alt="select-arrow" width="8">
@@ -33,19 +34,19 @@
 				<p-inputGroup class="mb-3">
 					<input type="number" #input pInputText mode="decimal" placeholder="От 956.00 до 127100.20 RUB"
 						[disabled]="isInputDisabled" required />
-					<button type="button" pButton class="flex-shrink-0 text-sm py-1 px-2" #btn
+					<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn
 						(click)="valueToogle(input, btn)">Максимум</button>
 				</p-inputGroup>
 				<label class="text-sm text-500 block mb-2">Сумма покупки в RUB:* </label>
 				<p-inputGroup class="mb-3">
 					<input type="number" #input2 pInputText mode="decimal" placeholder="От 956.00 до 127100.20 RUB"
 						[disabled]="isInputDisabled" required />
-					<button type="button" pButton class="flex-shrink-0 text-sm py-1 px-2" #btn2
+					<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn2
 						(click)="valueToogle(input2, btn2)">Максимум</button>
 				</p-inputGroup>
-				<div class="info-box">
-					<img src="images/obmen-icon.svg" alt="obmen" width="19">
-					<span>Курс обмена: 1 USD / 107.8 RUB</span>
+				<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
+					<i class="pi pi-sync text-yellow-600"></i>
+					<p class="m-0 text-yellow-600">Курс обмена: 1 USD / 107.8 RUB</p>
 				</div>
 			</form>
 		</div>

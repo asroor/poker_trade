@@ -17,10 +17,6 @@ const routes: Routes = [
 				loadChildren: () => import('./features').then((m) => m.AccountModule)
 			},
 			{
-				path: 'deposit/:id',
-				loadChildren: () => import('./features').then((m) => m.DepositFormModule)
-			},
-			{
 				path: 'account',
 				loadChildren: () => import('./features').then((m) => m.AccountModule)
 			},

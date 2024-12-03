@@ -7,30 +7,30 @@
 				</a>
 				<p-button (click)="navigateByAuth()" routerLink="withdrawal/form" class="flex-shrink-0 hidden md:flex" severity="success"
 					icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
-				<div class="p-1 border-1 border-blue-100 hidden sm:flex border-round w-full">
-					<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"
+				<div class="p-1 border-1 border-yellow-100 hidden sm:flex border-round w-full">
+					<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 						заявки</button>
-					<button routerLink="/account" routerLinkActive="bg-primary-50 text-primary"
+					<button routerLink="/account" routerLinkActive="bg-yellow-50 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
 						заявки</button>
 				</div>
 			</div>
 			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
 				<div routerLink="/profile/balance" class="flex align-items-center cursor-pointer column-gap-1">
-					<b class="line-height-1 m-0 text-primary text-lg">0$</b>
-					<i class="pi pi-wallet text-xl text-primary font-bold"></i>
+					<b class="line-height-1 m-0 text-yellow-600 text-lg">0$</b>
+					<i class="pi pi-wallet text-xl text-yellow-600 font-bold"></i>
 				</div>
 				<div class="flex align-items-center column-gap-2 profile">
 					<p-avatar routerLink="/profile" shape="circle" class="cursor-pointer" image="images/user-icon01.svg"
 						styleClass="mr-2" *ngIf="isUserLoginned()" />
 					<button type="button" (click)="openModal()" *ngIf="!isUserLoginned()" pButton size="small"
-						class="bg-primary-50 border-none" (click)="logout()">
-						<i class="pi pi-user text-primary font-bold"></i>
+						class="bg-yellow-50 border-none" (click)="logout()">
+						<i class="pi pi-user text-yellow-600 font-bold"></i>
 					</button>
-					<button type="button" pButton size="small" class="bg-primary-50 border-none" (click)="logout()"
+					<button type="button" pButton size="small" class="bg-yellow-50 border-none" (click)="logout()"
 						*ngIf="isUserLoginned()">
-						<i class="pi pi-sign-out text-primary font-bold"></i>
+						<i class="pi pi-sign-out text-yellow-600 font-bold"></i>
 					</button>
 				</div>
 			</div>
@@ -40,11 +40,11 @@
 
 <div class="bg-white border-round-top shadow-1 z-3 block md:hidden fixed bottom-0 py-2 left-0 right-0">
 	<div class="container">
-		<div class="p-1 border-1 border-blue-100 flex mb-2 sm:hidden border-round w-full">
-			<button routerLink="/home" routerLinkActive="bg-primary-50 text-primary"
+		<div class="p-1 border-1 border-yellow-100 flex mb-2 sm:hidden border-round w-full">
+			<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
 				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 				заявки</button>
-			<button routerLink="/account" routerLinkActive="bg-primary-50 text-primary"
+			<button routerLink="/account" routerLinkActive="bg-yellow-50 text-yellow-600"
 				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
 				заявки</button>
 		</div>

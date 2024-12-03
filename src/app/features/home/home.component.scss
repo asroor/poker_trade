@@ -103,9 +103,14 @@
 
 ::ng-deep {
 	.table-dn .p-dropdown .p-dropdown-label {
+		min-width: 100px;
+		max-width: 100px;
 		padding: 0;
 	}
-
+.table-dn .p-dropdown {
+	border: none;
+	background: local;
+}
 	.p-overlay {
 		width: fit-content;
 		left: auto;
@@ -124,23 +129,34 @@
 				display: none !important;
 			}
 		}
-	}
 
-	.table-dn .p-dropdown {
-		border: 0;
-		background-color: transparent;
 
-		&:focus {
-			box-shadow: none;
-		}
+		.table-dn .p-dropdown {
+			border: 0;
+			background-color: transparent;
 
-		.p-dropdown-label {
-			width: fit-content;
-			flex: none;
+			&:focus {
+				box-shadow: none;
+			}
+
+			.p-dropdown-label {
+				flex: none;
+				min-width: 50px;
+				max-width: 50px;
+			}
 		}
 	}
 
 	@media (max-width: 768px) {
+		.table-dn .p-dropdown .p-dropdown-trigger {
+			width: 1rem;
+		}
+
+		.table-dn .p-overlay {
+			left: auto !important;
+			right: 0 !important;
+		}
+
 		.p-dropdown {
 			min-width: auto;
 			width: fit-content;
@@ -188,7 +204,7 @@
 			width: fit-content;
 		}
 
-	.table-dn .p-dropdown .p-dropdown-label {
+		.table-dn .p-dropdown .p-dropdown-label {
 			padding: 0;
 			margin-right: 4px;
 			font-size: 14px;

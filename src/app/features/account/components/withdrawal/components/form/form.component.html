@@ -2,16 +2,16 @@
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{walletTitle}}</h2>
 		<a routerLink="/home"
-			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-primary cursor-pointer text-sm">
+			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-yellow-600 cursor-pointer text-sm">
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
 	</div>
 	<div class="grid" *ngIf="!bid_form">
 		<div class="col-12 lg:col-6">
-			<div class="p-1 border-1 border-blue-100 w-full flex border-round toogle-buttons">
-				<button [ngClass]="{'bg-primary-50 text-primary': balanceOrAccount}" (click)="balanceToogle()"
+			<div class="p-1 border-1 border-yellow-100 w-full flex border-round toogle-buttons">
+				<button [ngClass]="{'bg-yellow-50 text-yellow-600': balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С аккаунта
 					{{walletTitle}}</button>
-				<button [ngClass]="{'bg-primary-50 text-primary': !balanceOrAccount}" (click)="balanceToogle()"
+				<button [ngClass]="{'bg-yellow-50 text-yellow-600': !balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С баланса
 					PokerTrade</button>
 			</div>
@@ -24,9 +24,9 @@
 						placeholder="Select a wallet" [ngStyle]="{width: '100px'}" />
 				</div>
 			</div>
-			<div class="p-3 border-round flex align-items-center column-gap-1 bg-primary-50">
-				<i class="pi pi-sync text-primary"></i>
-				<p class="m-0 text-primary">Комиссия сервиса за продажу: {{selectWallet.commission_percent}}% + 2$</p>
+			<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
+				<i class="pi pi-sync text-yellow-600"></i>
+				<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: {{selectWallet.commission_percent}}% + 2$</p>
 			</div>
 			<div class="my-4">
 				<label class="font-medium text-sm text-500 mb-2 block">Сколько {{selectWallet.currency.code}} хотите продать:*
@@ -35,7 +35,7 @@
 					<input type="number" #maxInp [(ngModel)]="maxInp" pInputText mode="decimal"
 						[placeholder]="'От ' + selectWallet.min + ' ' + selectWallet.currency.code + ' до ' + selectWallet.max + ' ' + selectWallet.currency.code"
 						required (ngModelChange)="calculateCurs(maxInp)" />
-					<button type="button" pButton class="flex-shrink-0 bg-primary text-sm py-1 px-2" #maxFixBtn
+					<button type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
 						(click)="maxValu(maxInp, maxFixBtn)">Максимум</button>
 				</p-inputGroup>
 			</div>
@@ -160,15 +160,15 @@
 						<div class="col-12 md:col-4">
 							<div class="mb-2">
 								<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
-								<b class="text-primary font-bold text-base">Luxon</b>
+								<b class="text-yellow-600 font-bold text-base">Luxon</b>
 							</div>
 							<div class="mb-2">
 								<p class="m-0 mb-1 text-sm text-500">Аккаунт:</p>
-								<b class="text-primary font-bold text-base">luxonbot&#64;proton.me</b>
+								<b class="text-yellow-600 font-bold text-base">luxonbot&#64;proton.me</b>
 							</div>
 							<div class="mb-2">
 								<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
-								<b class="text-primary font-bold text-base">5000 USD</b>
+								<b class="text-yellow-600 font-bold text-base">5000 USD</b>
 							</div>
 						</div>
 						<div class="col-12 sm:col-4">

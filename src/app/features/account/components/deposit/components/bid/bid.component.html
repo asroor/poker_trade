@@ -6,7 +6,7 @@
 	<div class="grid">
 		<div class="col-12 lg:col-6">
 			<h3 class="m-0 text-xl text-700 mb-2">Ваша заявка передана продавцу, ожидаем подтверждение от него</h3>
-			<h3 class="text-xl text-primary my-3">02:45</h3>
+			<h3 class="text-xl text-yellow-600 my-3">02:45</h3>
 			<p class="text-xl font-light mb-3">У продавца есть 3 минуты, чтобы подтвердить готовность принять вашу заявку и
 				оплату от вас.</p>
 			<p class="text-xl font-light mb-3">Если этого не произойдет, то заявка отменится и вы сможете откликнуться на
@@ -49,46 +49,53 @@
 				оперативно все решим.</p>
 		</div>
 		<div class="col-12 lg:col-6">
-			<div class="chat border-round bg-white">
-				<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-primary-100">
-					<h3 class="m-0 text-primary text-lg">Чат с контрагентом</h3>
+			<div class="chat shadow-1 border-round bg-white">
+				<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
+					<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 					<b class="flex align-content-center column-gap-1">
 						<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
-						<span class="block font-semibold text-sm uppercase text-primary line-height-1">1D8938</span>
+						<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
 					</b>
 				</div>
 				<div class="p-3">
 					<div class="overflow-y-scroll w-full" [style]="{height: '350px'}">
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Правила безопасности в чате: <br>
 								1. Чат предназначен для общения с продавцом или покупателем <br>
 								2. Модератор никогда не попросит вас подтвердить заявку <br>
 								3. Подтверждайте заявку только после поступления всех средств на ваш счёт
 							</p>
 						</div>
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Пользователь создал отклик С1732789 на заявку R535743
 							</p>
 						</div>
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Пользователь подтвердил заявку R535743-C1732789.
+							</p>
+						</div>
+						<div class="mb-2">
+							<p class="m-0 bg-yellow-200">
+								Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit, optio sit recusandae sequi inventore ea
+								atque doloremque! Nihil voluptates quo quam pariatur modi, ducimus atque earum officia, minima magnam
+								corrupti?
 							</p>
 						</div>
 					</div>
 				</div>
-				<div class="p-3 border-top-1 border-primary-100">
+				<div class="p-3 border-top-1 border-yellow-100">
 					<div class="flex column-gap-2">
-						<button pButton type="button" class="border-primary-300" outlined="true">
+						<button pButton type="button" class="border-yellow-300" outlined="true">
 							<i class="pi pi-paperclip text-lg"></i>
 						</button>
 						<p-inputGroup>
-							<input type="text" pInputText size="small" class="border-primary-300" placeholder="Напишите сообщение...">
+							<input type="text" pInputText size="small" class="border-yellow-300" placeholder="Напишите сообщение...">
 							<button type="button" pButton class="bg-primary border-left-none border-none">
 								<i class="pi pi-send block"></i>
 							</button>
@@ -111,11 +118,11 @@
 			<div class="my-3 p-3 bg-primary-100 border-round">
 				<div *ngIf="!transfer">
 					<div class="mb-3">
-						<h2 class="m-0 text-lg text-primary mb-1 text-700">Внимание!</h2>
+						<h2 class="m-0 text-lg text-primary-600 mb-1 text-700">Внимание!</h2>
 						<p class="text-700 m-0">Вы должны сделать перевод по СБП именно в этот банк:</p>
 					</div>
 					<div class="mb-3">
-						<h2 class="m-0 text-lg text-primary mb-1 text-700">Озон (Еком Банк)</h2>
+						<h2 class="m-0 text-lg text-primary-600 mb-1 text-700">Озон (Еком Банк)</h2>
 						<p class="text-700 m-0">Выбор другого банка приведёт к потере денег!</p>
 					</div>
 					<button (click)="[transfer = true]" severity="success" type="button" pButton size="small"
@@ -127,19 +134,19 @@
 				<div *ngIf="transfer">
 					<div class="mb-3">
 						<label class="mb-2 text-500 text-sm">Банк:</label>
-						<h3 class="text-primary text-lg m-0">СБП (Озон (Еком Банк))</h3>
+						<h3 class="text-primary-600 text-lg m-0">СБП (Озон (Еком Банк))</h3>
 					</div>
 					<div class="mb-3">
 						<label class="mb-2 text-500 text-sm">ФИО получателя:</label>
-						<h3 class="text-primary text-lg m-0">Ахмед Ч</h3>
+						<h3 class="text-primary-600 text-lg m-0">Ахмед Ч</h3>
 					</div>
 					<div class="mb-3">
 						<label class="mb-2 text-500 text-sm">Номер телефона:</label>
-						<h3 class="text-primary text-lg m-0">8920 2012 050</h3>
+						<h3 class="text-primary-600 text-lg m-0">8920 2012 050</h3>
 					</div>
 					<div>
 						<label class="mb-2 text-500 text-sm">Сумма:</label>
-						<h3 class="text-primary text-lg m-0">813 RUB</h3>
+						<h3 class="text-primary-600 text-lg m-0">813 RUB</h3>
 					</div>
 				</div>
 			</div>
@@ -175,47 +182,63 @@
 			</div>
 		</div>
 		<div class="col-12 lg:col-6">
-			<div class="chat border-round bg-white" [ngClass]="transfer? '': 'disabled'">
-				<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-primary-100">
-					<h3 class="m-0 text-primary text-lg">Чат с контрагентом</h3>
+			<div class="chat shadow-1 border-round bg-white" [ngClass]="transfer? '': 'disabled'">
+				<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
+					<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 					<b class="flex align-content-center column-gap-1">
 						<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
-						<span class="block font-semibold text-sm uppercase text-primary line-height-1">1D8938</span>
+						<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
 					</b>
 				</div>
 				<div class="p-3">
 					<div class="overflow-y-scroll w-full" [style]="{height: '350px'}">
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Правила безопасности в чате: <br>
 								1. Чат предназначен для общения с продавцом или покупателем <br>
 								2. Модератор никогда не попросит вас подтвердить заявку <br>
 								3. Подтверждайте заявку только после поступления всех средств на ваш счёт
 							</p>
 						</div>
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Пользователь создал отклик С1732789 на заявку R535743
 							</p>
 						</div>
-						<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-							<i class="pi pi-exclamation-triangle text-primary-300"></i>
-							<p class="m-0 text-primary-300 text-sm">
+						<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
 								Пользователь подтвердил заявку R535743-C1732789.
 							</p>
 						</div>
+						<div class="mb-2 admin mr-auto" style="width: 50%;">
+							<p class="m-0 text-yellow-700 bg-yellow-100 p-2 text-sm border-round">
+								Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit, optio sit recusandae sequi inventore ea
+								atque doloremque! Nihil voluptates quo quam pariatur modi, ducimus atque earum officia, minima magnam
+								corrupti?
+							</p>
+							<span class="block text-left mt-1 text-500 text-xs">11:01 AM | Today </span>
+						</div>
+						<div class="mb-2 user ml-auto" style="width: 50%;">
+							<p class="m-0 text-yellow-700 bg-yellow-200 p-2 text-sm border-round">
+								Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit, optio sit recusandae sequi inventore ea
+								atque doloremque! Nihil voluptates quo quam pariatur modi, ducimus atque earum officia, minima magnam
+								corrupti?
+							</p>
+							<span class="block text-right mt-1 text-500 text-xs">11:01 AM | Today </span>
+						</div>
 					</div>
 				</div>
-				<div class="p-3 border-top-1 border-primary-100">
+				<div class="p-3 border-top-1 border-yellow-100">
 					<div class="flex column-gap-2">
-						<button pButton type="button" class="border-primary-300" outlined="true">
-							<i class="pi pi-paperclip text-lg"></i>
-						</button>
 						<p-inputGroup>
-							<input type="text" pInputText size="small" class="border-primary-300" placeholder="Напишите сообщение...">
-							<button type="button" pButton class="bg-primary border-left-none border-none">
+							<button pButton type="button" class="border-yellow-300 border-right-none" outlined="true">
+								<i class="pi pi-paperclip text-lg text-primary"></i>
+							</button>
+							<input type="text" pInputText size="small" class="border-yellow-300" placeholder="Напишите сообщение...">
+							<button type="button" pButton severity="primary" class="border-left-none border-none">
 								<i class="pi pi-send block"></i>
 							</button>
 						</p-inputGroup>
@@ -237,46 +260,52 @@
 					USD на ваш аккаунт ПокерОК.</p>
 			</div>
 			<div class="col-12 lg:col-6">
-				<div class="chat border-round bg-white">
-					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-primary-100">
-						<h3 class="m-0 text-primary text-lg">Чат с контрагентом</h3>
+				<div class="chat shadow-1 border-round bg-white">
+					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
+						<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 						<b class="flex align-content-center column-gap-1">
 							<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
-							<span class="block font-semibold text-sm uppercase text-primary line-height-1">1D8938</span>
+							<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
 						</b>
 					</div>
 					<div class="p-3">
 						<div class="overflow-y-scroll w-full" [style]="{height: '350px'}">
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Правила безопасности в чате: <br>
 									1. Чат предназначен для общения с продавцом или покупателем <br>
 									2. Модератор никогда не попросит вас подтвердить заявку <br>
 									3. Подтверждайте заявку только после поступления всех средств на ваш счёт
 								</p>
 							</div>
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Пользователь создал отклик С1732789 на заявку R535743
 								</p>
 							</div>
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Пользователь подтвердил заявку R535743-C1732789.
+								</p>
+							</div>
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
+									Пользователь отказался от заявки R535743-C1732789.
 								</p>
 							</div>
 						</div>
 					</div>
-					<div class="p-3 border-top-1 border-primary-100">
+					<div class="p-3 border-top-1 border-yellow-100">
 						<div class="flex column-gap-2">
-							<button pButton type="button" class="border-primary-300" outlined="true">
+							<button pButton type="button" class="border-yellow-300" outlined="true">
 								<i class="pi pi-paperclip text-lg"></i>
 							</button>
 							<p-inputGroup>
-								<input type="text" pInputText size="small" class="border-primary-300"
+								<input type="text" pInputText size="small" class="border-yellow-300"
 									placeholder="Напишите сообщение...">
 								<button type="button" pButton class="bg-primary border-left-none border-none">
 									<i class="pi pi-send block"></i>
@@ -298,46 +327,46 @@
 				<p class="m-0 font-light text-lg">Вы получили 7.6 USD на ваш аккаунт ПокерОК.</p>
 			</div>
 			<div class="col-12 lg:col-6">
-				<div class="chat disabled border-round bg-white">
-					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-primary-100">
-						<h3 class="m-0 text-primary text-lg">Чат с контрагентом</h3>
+				<div class="chat shadow-1 disabled border-round bg-white">
+					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
+						<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 						<b class="flex align-content-center column-gap-1">
 							<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
-							<span class="block font-semibold text-sm uppercase text-primary line-height-1">1D8938</span>
+							<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
 						</b>
 					</div>
 					<div class="p-3">
 						<div class="overflow-y-scroll w-full" [style]="{height: '350px'}">
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Правила безопасности в чате: <br>
 									1. Чат предназначен для общения с продавцом или покупателем <br>
 									2. Модератор никогда не попросит вас подтвердить заявку <br>
 									3. Подтверждайте заявку только после поступления всех средств на ваш счёт
 								</p>
 							</div>
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Пользователь создал отклик С1732789 на заявку R535743
 								</p>
 							</div>
-							<div class="p-2 border-1 border-primary-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-primary-300"></i>
-								<p class="m-0 text-primary-300 text-sm">
+							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<p class="m-0 text-yellow-600 text-sm">
 									Пользователь подтвердил заявку R535743-C1732789.
 								</p>
 							</div>
 						</div>
 					</div>
-					<div class="p-3 border-top-1 border-primary-100">
+					<div class="p-3 border-top-1 border-yellow-100">
 						<div class="flex column-gap-2">
-							<button pButton type="button" class="border-primary-300" outlined="true">
+							<button pButton type="button" class="border-yellow-300" outlined="true">
 								<i class="pi pi-paperclip text-lg"></i>
 							</button>
 							<p-inputGroup>
-								<input type="text" pInputText size="small" class="border-primary-300"
+								<input type="text" pInputText size="small" class="border-yellow-300"
 									placeholder="Напишите сообщение...">
 								<button type="button" pButton class="bg-primary border-left-none border-none">
 									<i class="pi pi-send block"></i>
