@@ -13,6 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -30,7 +31,8 @@ import { AvatarModule } from 'primeng/avatar';
 		DialogModule,
 		ReactiveFormsModule,
 		AvatarModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		HttpClientModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

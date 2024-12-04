@@ -6,3 +6,7 @@ export * from './mock/withdrawal'
 export * from './mock/products'
 export * from './components/dropdown/dropdown.component'
 export * from './mock/balance'
+
+export * from './services/banks.service'
+export * from './services/currencies.service'
+export * from './services/rooms.service'

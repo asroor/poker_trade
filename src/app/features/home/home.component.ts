@@ -1,23 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, roomData, withdrawalData } from '../../shared';
-
-export interface IBot {
-	deposit: number
-	withdraw: number
-	min: number
-	max: number
-	time: string
-	link: string
-}
-
-export interface IRoom {
-	id: string
-	image: string
-	name: string
-	has_bot: boolean
-	currency: string[]
-	bot?: IBot
-}
+import { bankData, BankService, CurrencyService, roomData, RoomService, withdrawalData } from '../../shared';
 
 @Component({
 	selector: 'app-home',
@@ -34,6 +16,22 @@ export class HomeComponent implements OnInit {
 	cities = bankData
 	selectedCity!: any
 
+	constructor(
+		private _roomService: RoomService,
+		private _currencyService: CurrencyService,
+		private _bankService: BankService,
+	){}
+
+	ngOnInit(): void {
+		this.cities = bankData
+		this.setActiveRoom(this.roomData[0])
+
+		this._roomService.getRoom().subscribe()
+		this._currencyService.getCurrency(1).subscribe()
+		this._bankService.getBank(2).subscribe()
+		this._bankService.getExistingBanks(1,2).subscribe()
+	}
+
 
 	setActiveRoom(item: any) {
 		this.activeRoom = item;
@@ -46,11 +44,6 @@ export class HomeComponent implements OnInit {
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {
 		this.toogleActiveButton = item;
-	}
-
-	ngOnInit(): void {
-		this.cities = bankData
-		this.setActiveRoom(this.roomData[0])
 	}
 
 
