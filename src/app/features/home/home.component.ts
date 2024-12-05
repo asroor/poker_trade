@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, BankService, CurrencyService, roomData, RoomService, withdrawalData } from '../../shared';
+import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomData, RoomService, withdrawalData } from '../../shared';
 
 @Component({
 	selector: 'app-home',
@@ -8,10 +8,12 @@ import { bankData, BankService, CurrencyService, roomData, RoomService, withdraw
 })
 export class HomeComponent implements OnInit {
 	activeRoom!: any
-	activeCurrency!: string
+	activeCurrency!: number
 	toogleActiveButton: 'вывод' | 'депозит' = 'вывод'
 
-	roomData = roomData
+	rooms!:IRoom []
+	currencies!:ICurrency[]
+	banks!:IBank[]
 	withdrawalData = withdrawalData
 	cities = bankData
 	selectedCity!: any
@@ -24,22 +26,37 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.cities = bankData
-		this.setActiveRoom(this.roomData[0])
 
-		this._roomService.getRoom().subscribe()
-		this._currencyService.getCurrency(1).subscribe()
-		this._bankService.getBank(2).subscribe()
-		this._bankService.getExistingBanks(1,2).subscribe()
+		this._roomService.getRoom().subscribe(data => {
+			this.rooms = data
+			this.setActiveRoom(data[0])
+
+			this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
+				this.currencies = data
+				this.setActiveCurrency(data[0].id)
+			})
+
+		})
+		// this._bankService.getBank(2).subscribe()
+		// this._bankService.getExistingBanks(1,2).subscribe()
 	}
 
 
 	setActiveRoom(item: any) {
 		this.activeRoom = item;
-		this.activeCurrency = item.currencies[0].title;
+
+		this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
+			this.currencies = data
+			this.setActiveCurrency(data[0].id)
+		})
 	}
 
-	setActiveCurrency(item: string) {
+	setActiveCurrency(item: number) {
 		this.activeCurrency = item;
+
+		this._bankService.getBank(this.activeCurrency).subscribe(data => {
+			this.banks = data
+		})
 	}
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {

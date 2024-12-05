@@ -2,9 +2,9 @@
 	<div class="container">
 		<!-- Room Section -->
 		<div class="logo-container">
-			<ng-container *ngFor="let item of roomData">
+			<ng-container *ngFor="let item of rooms">
 				<div class="logo-box" [class.active]="activeRoom.id === item.id" (click)="setActiveRoom(item)">
-					<img [src]="(item.image)" [alt]="item.name" class="logo" />
+					<img [src]="'https://poker-trade.com/api/media/' + item.imageUrl" [alt]="item.title" class="logo" />
 				</div>
 			</ng-container>
 		</div>
@@ -40,10 +40,10 @@
 		</ng-container>
 		<!-- Currency Selector -->
 		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
-			<ng-container *ngFor="let item of activeRoom.currencies">
+			<ng-container *ngFor="let item of currencies">
 				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2 sm:py-3"
-					[class.bg-yellow-50]="activeCurrency === item.title"
-					(click)="setActiveCurrency(item.title)">{{item.title}}</button>
+					[class.bg-yellow-50]="activeCurrency === item.id"
+					(click)="setActiveCurrency(item.id)">{{item.title}}</button>
 			</ng-container>
 		</div>
 
@@ -57,7 +57,7 @@
 						<th pSortableColumn="amount_receive_from"><p-sortIcon field="amount_receive_from" />Курс
 						</th>
 						<th>
-							<p-dropdown class="table-dn" [options]="cities" optionLabel="name" placeholder="Банк" />
+							<p-dropdown class="table-dn" [options]="banks" optionLabel="title" placeholder="Банк" />
 						</th>
 						<th></th>
 					</tr>
