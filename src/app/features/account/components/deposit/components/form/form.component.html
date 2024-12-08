@@ -23,16 +23,16 @@
 					<p class="col-6 m-0 text-sm text-500">Продавец: <b
 							class="text-900 font-semibold">{{order.fullName}}</b>
 					</p>
-					<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate}}
+					<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate || 0}}
 							RUB</b>
 					</p>
-					<p class="col-6 m-0 text-sm text-500">Банк: <b class="text-900 font-semibold">{{order.bankName}}</b>
+					<p class="col-6 m-0 text-sm text-500">Банк: <b class="text-900 font-semibold">{{order.bankName || ''}}</b>
 					</p>
 				</div>
 				}
 				<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в RUB:* </label>
 				<p-inputGroup class="mb-3">
-					<input [(ngModel)]="wantToBuyUSD" type="number" #input pInputText mode="decimal" [placeholder]="'От '+ order.minToSellUSD +' до '+ order.wantToSellUSD + order.currencyName"
+					<input [(ngModel)]="wantToBuyUSD" type="number" #input pInputText mode="decimal" [placeholder]="'От '+ order?.minToSellUSD || 0 +' до '+ (order.wantToSellUSD || 100) + (order.currencyName || '')"
 						[disabled]="isInputDisabled" required />
 					<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn
 						(click)="valueToogle(input, btn)">Максимум</button>

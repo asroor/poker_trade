@@ -19,6 +19,7 @@ export class FormComponent implements OnInit{
 
 	wantToBuyUSD!:number
 	pokerRoomNickname!:string
+	buyRequestId!:number
 
 	constructor(
 		private location: Location, 
@@ -32,9 +33,9 @@ export class FormComponent implements OnInit{
 
 	ngOnInit(): void {
 		this.sellRequestId = +this.routes.snapshot.params['id'];
-		this._orderService.getSellRequest(this.sellRequestId).subscribe(data => {
-			this.order = data
-		})
+		// this._orderService.getSellRequest(this.sellRequestId).subscribe(data => {
+		// 	this.order = data
+		// })
 	}
 
 	submit(){
@@ -43,9 +44,19 @@ export class FormComponent implements OnInit{
 			wantToBuyUSD: this.wantToBuyUSD, 
 			pokerRoomNickname: this.pokerRoomNickname
 		}).subscribe(data => {
+			this.buyRequestId = data.buyRequestId
 			this.router.navigate(['/account', 'deposit', data.buyRequestId])
 		})
 	}
+
+	cancel(){
+		this._orderService.buyRequestCancel({
+			buyRequestId:this.buyRequestId, 
+		}).subscribe(data => {
+			this.router.navigate(['/account', 'deposit'])
+		})
+	}
+
 
 	goBack(): void {
 		this.location.back();

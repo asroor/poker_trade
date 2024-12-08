@@ -9,7 +9,7 @@ import { IOrderBuyOne, OrderService } from '../../../../../../shared/services/or
 })
 export class BidComponent implements OnInit {
 	
-// WAIT_FOR_SELLER_ACCEPT
+
 	transfer: boolean = false;
 	canceled: boolean = true
 	pending: boolean = false
@@ -19,6 +19,8 @@ export class BidComponent implements OnInit {
 	transactions: boolean = false
 	id!:number
 	order!:IOrderBuyOne
+	bayerFullName!:string
+	lastFourDig!:string
 
 	constructor(
 		private _orderService: OrderService,
@@ -35,4 +37,22 @@ export class BidComponent implements OnInit {
 			this.order = data
 		})
 	}
+
+	cancel(){
+		this._orderService.buyRequestCancel({
+			buyRequestId:this.id, 
+		}).subscribe(data => {
+			this.router.navigate(['/account', 'deposit'])
+		})
+	}
+
+	payed(){
+		this._orderService.buyRequestPayed({
+			buyRequestId: this.id, 
+			bayerFullName: this.bayerFullName, 
+			lastFourDig: this.lastFourDig, 
+		}).subscribe(data => {
+		})
+	}
+
 }
