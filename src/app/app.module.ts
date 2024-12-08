@@ -13,7 +13,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceprors/auth.interceptor';
+import { ErrorInterceptor } from './shared/interceprors/error.interceptor';
 
 @NgModule({
 	declarations: [
@@ -34,7 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
 		BrowserAnimationsModule,
 		HttpClientModule,
 	],
-	providers: [],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

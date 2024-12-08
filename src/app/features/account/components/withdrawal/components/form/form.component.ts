@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, roomData, sbpBankData } from '../../../../../../shared';
+import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomData, RoomService, sbpBankData } from '../../../../../../shared';
+import { ISellRequestBody, OrderService } from '../../../../../../shared/services/order.service';
+import { environment } from '../../../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-form',
@@ -7,23 +10,114 @@ import { bankData, roomData, sbpBankData } from '../../../../../../shared';
 	styleUrl: './form.component.scss'
 })
 export class FormComponent implements OnInit {
+	mediaUrl = environment.mediaUrl
 	bid_form: boolean = false;
-	wallet = roomData
-	selectWallet = this.wallet[0]
-	curs = this.selectWallet.currencies
-	selectCurs = this.selectWallet.currencies[0]
-	walletTitle: string = this.wallet[0].name
-	ngOnInit(): void {
+	// wallet = roomData
+	// selectWallet = this.wallet[0]
+	// curs = this.selectWallet.currencies
+	// selectCurs = this.selectWallet.currencies[0]
+	// walletTitle: string = this.wallet[0].name 
 
+	body!:ISellRequestBody
+	rooms!:IRoom[]
+	activeRoom!:IRoom
+	currencies!:ICurrency[]
+	activeCurrency!:ICurrency
+	banks!:IBank[]
+	isSbp:boolean = false
+
+	// bankDetails = bankData
+	selectedBank!:IBank
+	// banks = sbpBankData
+
+	calcCurs: number = 0
+	sellRequestId!: number
+
+	fullName!:string
+	detailsValue!:string
+	wantToSellUSD!:number
+	minToSellUSD!:number
+	currencyRate!:number
+	pokerRoomNickname!:string
+
+	constructor(
+		private _roomService: RoomService,
+		private _currencyService: CurrencyService,
+		private _bankService: BankService,
+		private _orderService: OrderService,
+		private router: Router,
+	){}
+
+	ngOnInit(): void {
+		this._roomService.getRoom().subscribe(data => {
+			this.rooms = data
+			this.activeRoom = data[0]
+
+			this._currencyService.getCurrency(this.rooms[0].id).subscribe(data => {
+				this.currencies = data
+				this.activeCurrency = data[0]
+
+				this._bankService.getBank(this.activeCurrency.id).subscribe(data => {
+					this.banks = data
+					this.selectedBank = data[0]
+				})
+			})
+		})
+
+		
 	}
 	bigClick() {
-		this.bid_form = false
+		this.bid_form = true
 	}
-	changeWallet() {
-		this.curs = this.selectWallet.currencies
-		this.selectCurs = this.selectWallet.currencies[0]
-		this.walletTitle = this.selectWallet.name
+
+	setActiveRoom(item: IRoom) {
+		this.activeRoom = item;
+
+		this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
+			this.currencies = data
+			this.setActiveCurrency(data[0])
+		})
 	}
+
+	setActiveCurrency(item: ICurrency) {
+		this.activeCurrency = item;
+	}
+
+	submit1(){
+		this.body = {
+			pokerRoomId:this.activeRoom.id, 
+			currencyId: this.activeCurrency.id, 
+			bankId: this.selectedBank.id,
+			fullName: this.fullName,
+			detailsValue: this.detailsValue,
+			wantToSellUSD: this.wantToSellUSD,
+			minToSellUSD: this.minToSellUSD,
+			currencyRate: this.currencyRate,
+		}
+
+		this._orderService.sellRequest(this.body).subscribe(data => {
+			this.bigClick()
+			this.sellRequestId = data.sellRequestId
+		})
+	}
+
+	submit2(){
+		this._orderService.sellRequestModeration({sellRequestId: this.sellRequestId,  pokerRoomNickname: this.pokerRoomNickname}).subscribe(data => {
+			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
+		})
+	}
+
+	cancel(){
+		this._orderService.sellRequestCancel({sellRequestId: this.sellRequestId}).subscribe(data => {
+			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
+		})
+	}
+
+	changeBank(bank: IBank){
+		this.selectedBank = bank
+		this.isSbp = bank.isSbp;
+	}
+
 	balanceOrAccount: boolean = false;
 	balanceToogle(): void {
 		this.balanceOrAccount = !this.balanceOrAccount
@@ -31,36 +125,24 @@ export class FormComponent implements OnInit {
 
 	maxValu(input: HTMLInputElement, button: HTMLButtonElement): void {
 		if (!input.disabled) {
-			input.value = this.selectWallet.max.toString()
-			input.disabled = true
+			input.value = this.activeCurrency.rateMax.toString()
+			// input.disabled = true
 			button.textContent = 'Очистить'
 		} else {
 			input.value = ''
-			input.disabled = false
+			// input.disabled = false
 			button.textContent = 'Максимум'
 		}
 	}
-	bankDetails = bankData
-	selectedBank = this.bankDetails[0]
-	banks = sbpBankData
-
-	calcCurs: number = 0
+	
 	calculateCurs(input: HTMLInputElement) {
 		if (input.value) {
 			let valu = parseFloat(input.value);
 			console.log(this.calcCurs);
-			this.calcCurs = valu * this.selectCurs.rate_usd
+			this.calcCurs = valu * this.activeCurrency.rateMin
 		}
 	}
-
-	is_sbp: boolean = false
-	changeBank(bank: string) {
-		if (bank == 'sbp') {
-			this.is_sbp = true
-		} else {
-			this.is_sbp = false
-		}
-	}
+	
 	visible: boolean = false;
 
 	showDialog() {

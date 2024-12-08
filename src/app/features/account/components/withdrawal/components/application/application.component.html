@@ -1,108 +1,114 @@
-<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
-	<p-tag icon="pi pi-times-circle" severity="danger" value="Отменена" />
-	<p-tag icon="pi pi-check-circle" severity="success" value="Выполнена" />
-</h3>
-<div class="grid my-3">
-	<div class="col-12 lg:col-4">
-		<div class="grid">
-			<div class="col-6">
-				<p class="text-500 text-sm m-0 mb-1">Продали</p>
-				<h4 class="m-0 font-bold text-700">0 USD</h4>
-			</div>
-			<div class="col-6">
-				<p class="text-500 text-sm m-0 mb-1">Получили</p>
-				<h4 class="m-0 font-bold text-700">0.00 RUB </h4>
+<ng-container *ngIf="order.status == 'CANCELED'">
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
+		<p-tag icon="pi pi-times-circle" severity="danger" value="Отменена" />
+		<p-tag icon="pi pi-check-circle" severity="success" value="Выполнена" />
+	</h3>
+	<div class="grid my-3">
+		<div class="col-12 lg:col-4">
+			<div class="grid">
+				<div class="col-6">
+					<p class="text-500 text-sm m-0 mb-1">Продали</p>
+					<h4 class="m-0 font-bold text-700">0 USD</h4>
+				</div>
+				<div class="col-6">
+					<p class="text-500 text-sm m-0 mb-1">Получили</p>
+					<h4 class="m-0 font-bold text-700">0.00 RUB </h4>
+				</div>
 			</div>
 		</div>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
+				</span></p>
+		</div>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
+			<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
+		</div>
 	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
-			</span></p>
-	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
-		<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
-	</div>
-</div>
-<div class="my-8"></div>
+	<div class="my-8"></div>
+</ng-container>
 
-<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" severity="warning"
-		value="в процессе" /></h3>
-<div class="grid my-3">
-	<div class="col-12 lg:col-4">
-		<div class="grid">
-			<div class="col-6">
-				<p class="text-500 text-sm m-0 mb-1">Продали</p>
-				<h4 class="m-0 font-bold text-700">0 USD</h4>
+<ng-container *ngIf="order.status == 'IN_PROGRESS'">
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" severity="warning"
+			value="в процессе" /></h3>
+	<div class="grid my-3">
+		<div class="col-12 lg:col-4">
+			<div class="grid">
+				<div class="col-6">
+					<p class="text-500 text-sm m-0 mb-1">Продали</p>
+					<h4 class="m-0 font-bold text-700">0 USD</h4>
+				</div>
+				<div class="col-6">
+					<p class="text-500 text-sm m-0 mb-1">Получили</p>
+					<h4 class="m-0 font-bold text-700">0.00 RUB </h4>
+				</div>
+				<div class="col-6"></div>
 			</div>
-			<div class="col-6">
-				<p class="text-500 text-sm m-0 mb-1">Получили</p>
-				<h4 class="m-0 font-bold text-700">0.00 RUB </h4>
+			<div class="flex flex-column lg:flex-column sm:flex-row gap-2 mb-3">
+				<button type="button" pButton class="w-full column-gap-2 align-items-center justify-content-center">
+					<i class="pi pi-file-edit"></i>
+					изменение доли
+				</button>
+				<button type="button" pButton severity="danger"
+					class=" w-full column-gap-2 align-items-center justify-content-center">
+					<i class="pi pi-times-circle"></i>
+					отменить заявку
+				</button>
 			</div>
-			<div class="col-6"></div>
 		</div>
-		<div class="flex flex-column lg:flex-column sm:flex-row gap-2 mb-3">
-			<button type="button" pButton class="w-full column-gap-2 align-items-center justify-content-center">
-				<i class="pi pi-file-edit"></i>
-				изменение доли
-			</button>
-			<button type="button" pButton severity="danger"
-				class=" w-full column-gap-2 align-items-center justify-content-center">
-				<i class="pi pi-times-circle"></i>
-				отменить заявку
-			</button>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
+				</span></p>
+		</div>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
+			<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
 		</div>
 	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
-			</span></p>
-	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
-		<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
-	</div>
-</div>
-<div class="my-8"></div>
+	<div class="my-8"></div>
+</ng-container>
 
-<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" value="Модерация" />
-</h3>
-<div class="grid mt-3">
-	<div class="col-12 lg:col-4">
-		<h3 class="m-0 font-bold mb-1 text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-		<h3 class="m-0 mb-1 font-normal text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-		<button type="button" pButton size="small"
-			class="bg-primary-100 border-none text-yellow-600 text-base column-gap-2 w-full justify-content-center mt-2">
-			<i class="pi pi-arrow-up-right"></i>
-			На главную
-		</button>
+<ng-container *ngIf="order.status == 'MODERATION'">
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" value="Модерация" />
+	</h3>
+	<div class="grid mt-3">
+		<div class="col-12 lg:col-4">
+			<h3 class="m-0 font-bold mb-1 text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+			<h3 class="m-0 mb-1 font-normal text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+			<button type="button" pButton size="small"
+				class="bg-primary-100 border-none text-yellow-600 text-base column-gap-2 w-full justify-content-center mt-2">
+				<i class="pi pi-arrow-up-right"></i>
+				На главную
+			</button>
+		</div>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
+				</span></p>
+		</div>
+		<div class="col-12 lg:col-4 sm:col-6">
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
+			<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
+		</div>
 	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">R542729 15.11.24, 20:26</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">asereio&#64;gmail.com</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">152.00 USD</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">101.99 RUB
-			</span></p>
-	</div>
-	<div class="col-12 lg:col-4 sm:col-6">
-		<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">kjkfdj938948</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">Luxon</span></p>
-		<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">sjdksj398938</span></p>
-		<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p>
-	</div>
-</div>
+</ng-container>
 
 <div class="my-8"></div>
 <h3 class="font-bold m-0 text-xl text-700">Встречные заявки</h3>

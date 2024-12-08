@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomData, RoomService, withdrawalData } from '../../shared';
+import { IOrder, ISellRequests, OrderService } from '../../shared/services/order.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-home',
@@ -7,13 +9,16 @@ import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomDa
 	styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+	mediaUrl = environment.mediaUrl
 	activeRoom!: any
 	activeCurrency!: number
 	toogleActiveButton: 'вывод' | 'депозит' = 'вывод'
 
-	rooms!:IRoom []
-	currencies!:ICurrency[]
-	banks!:IBank[]
+	rooms!: IRoom[]
+	currencies!: ICurrency[]
+	banks!: IBank[]
+	orders!: IOrder[]
+	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'currencyRate', sortDirection: "asc" }
 	withdrawalData = withdrawalData
 	cities = bankData
 	selectedCity!: any
@@ -22,7 +27,8 @@ export class HomeComponent implements OnInit {
 		private _roomService: RoomService,
 		private _currencyService: CurrencyService,
 		private _bankService: BankService,
-	){}
+		private _orderService: OrderService,
+	) { }
 
 	ngOnInit(): void {
 		this.cities = bankData
@@ -34,11 +40,17 @@ export class HomeComponent implements OnInit {
 			this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
 				this.currencies = data
 				this.setActiveCurrency(data[0].id)
-			})
 
+				this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
+				this.getOrders()
+			})
 		})
-		// this._bankService.getBank(2).subscribe()
-		// this._bankService.getExistingBanks(1,2).subscribe()
+	}
+
+	getOrders() {
+		this._orderService.sellRequests(this.orderParams).subscribe(data => {
+			this.orders = data.other
+		});
 	}
 
 
@@ -57,6 +69,9 @@ export class HomeComponent implements OnInit {
 		this._bankService.getBank(this.activeCurrency).subscribe(data => {
 			this.banks = data
 		})
+
+		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
+		this.getOrders()
 	}
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthModalService {
+  localStorageKey = 'telegramToken';
   private modalOpen = new BehaviorSubject<boolean>(false);
 
   isModalOpen$ = this.modalOpen.asObservable();
@@ -16,4 +17,8 @@ export class AuthModalService {
   closeModal() {
     this.modalOpen.next(false);  
   }
+
+  getToken() {
+		return localStorage.getItem(this.localStorageKey)
+	}
 }

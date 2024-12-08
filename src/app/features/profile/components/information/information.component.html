@@ -8,11 +8,11 @@
 			</div>
 			<div class="field mb-3">
 				<label for="firstname1" class="text-sm text-500 block mb-2">Ваш никнейм в PokerTrade:*</label>
-				<input type="text" id="firstname1" pInputText mode="decimal" placeholder="username" required />
+				<input type="text" id="firstname1" pInputText mode="decimal" placeholder="username" required [value]="profile.nickname"/>
 			</div>
 			<label for="firstname1" class="text-sm text-500 block mb-2">Ваш email:</label>
 			<p-inputGroup class="mb-3">
-				<input type="email" pInputText mode="decimal" placeholder="user@luxon.com" />
+				<input type="email" pInputText mode="decimal" placeholder="user@luxon.com"   [value]="profile.email"/>
 				<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2">Отправить код</button>
 			</p-inputGroup>
 			<div class="flex align-items-start column-gap-1 p-2 border-round border-1 border-400">

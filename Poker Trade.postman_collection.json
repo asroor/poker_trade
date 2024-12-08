@@ -1,0 +1,879 @@
+{
+	"info": {
+		"_postman_id": "839bbc46-551e-47d2-a48a-8eb9c3a68d73",
+		"name": "Poker Trade",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18881794"
+	},
+	"item": [
+		{
+			"name": "/sell-requests",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pokerRoomId\": 1,\r\n    \"currencyId\": 2,\r\n    \"page\": 0,\r\n    \"size\": 10,\r\n    \"sortField\": \"currencyRate\",\r\n    \"sortDirection\": \"asc\"\r\n    // \"filterField\": \"bank\",\r\n    // \"filterValue\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-requests",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-requests/my",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 0,\r\n    \"size\": 10\r\n    // \"filterField\": \"bank\",\r\n    // \"filterValue\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-requests/my",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-requests",
+						"my"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-request",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pokerRoomId\": 1,\r\n    \"currencyId\": 2,\r\n    \"wantToSellUSD\": 100.00,\r\n    \"minToSellUSD\": 5.00,\r\n    \"currencyRate\": 110.00,\r\n    \"bankId\": 2,\r\n    \"detailsValue\": \"2200478532452266\",\r\n    \"fullName\": \"Аникин Николай Николаевич\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-request",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-request/to-moderation",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sellRequestId\": 23,\r\n  \"pokerRoomNickname\": \"NikolaBMW\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-request/to-moderation",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-request",
+						"to-moderation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-request/cancel",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sellRequestId\": 22\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-request/cancel",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-request",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sellRequestId\": 23,\r\n    \"wantToBuyUSD\": 10,\r\n    \"pokerRoomNickname\": \"loli\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/email/sent",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"nikolaianikin2002@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/user/email/sent",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"email",
+						"sent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/email/sent Copy",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"619134\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/user/email/verify",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"email",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/i-payed",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"buyRequestId\": 23,\r\n    \"bayerFullName\": \"Рахмат Рахат Лукум\",\r\n    \"lastFourDig\": \"4845\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/i-payed",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"i-payed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/cancel",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"buyRequestId\": 9\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/cancel",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/open-dispute",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"buyRequestId\": 19\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/open-dispute",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"open-dispute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-requests/my",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 0,\r\n    \"size\": 10\r\n    // \"filterField\": \"bank\",\r\n    // \"filterValue\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-requests/my",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-requests",
+						"my"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/chat/text",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"buyRequestId\": 23,\r\n    \"message\": \"hello wtf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/chat/text",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"chat",
+						"text"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/chat/file",
+			"protocolProfileBehavior": {
+				"tlsDisabledProtocols": [],
+				"tlsPreferServerCiphers": false,
+				"strictSSL": false,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "buy_request_id",
+							"value": "23",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "MKwwo8qR-/sample.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/chat/file",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"chat",
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-request/<sell_req_id>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-request/23",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-request",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sell-request/updates/<sell_req_id>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/sell-request/updates/22",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"sell-request",
+						"updates",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/<buy_req_id>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/21",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/updates/<buy_req_id>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/updates/22",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"updates",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/user",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/poker-rooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://poker-trade.com/api/poker-rooms",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"poker-rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/currencies/<pok_room_id>",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://poker-trade.com/api/currencies/1",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"currencies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/banks/<curr_id>",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://poker-trade.com/api/banks/2",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"banks",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buy-request/chat/<buy_req_id>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication",
+						"value": "Bearer x11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "Bearer s11b0tGDbDpPbJyKUF3H5cRk9g6bTX1pCtrXvb3ABRupC9kA9NrvtQiqztG3gtmcbcyb8LrwHYgPfS957ySNJy7loDwu0pxFQxei",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://poker-trade.com/api/buy-request/chat/23",
+					"protocol": "https",
+					"host": [
+						"poker-trade",
+						"com"
+					],
+					"path": [
+						"api",
+						"buy-request",
+						"chat",
+						"23"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

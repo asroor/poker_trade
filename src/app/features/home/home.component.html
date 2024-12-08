@@ -4,7 +4,7 @@
 		<div class="logo-container">
 			<ng-container *ngFor="let item of rooms">
 				<div class="logo-box" [class.active]="activeRoom.id === item.id" (click)="setActiveRoom(item)">
-					<img [src]="'https://poker-trade.com/api/media/' + item.imageUrl" [alt]="item.title" class="logo" />
+					<img [src]="mediaUrl + item.imageUrl" [alt]="item.title" class="logo" />
 				</div>
 			</ng-container>
 		</div>
@@ -25,7 +25,7 @@
 					'вывод' ? 'депозит' : 'вывод'}}</button>
 			</div>
 			<!-- Balance Information -->
-			<div class="balance-info">
+			<div class="balance-info"> 
 				<b class="amount">{{activeRoom.min}} $</b>
 				<b class="amount">{{activeRoom.max}} $</b>
 				<b class="amount">{{toogleActiveButton == 'вывод' ? activeRoom?.express_max_deposit :
@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="withdrawalData" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 25, 50]">
+			<p-table [value]="orders" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 25, 50]">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
@@ -66,26 +66,25 @@
 					<tr [routerLink]="['/account/deposit/form', product.id]">
 						<td>
 							<p-chip>
-								<img width="30" class="block flex-shrink-0" [src]="[product.user.avatar_url]"
-									[alt]="product.user.first_name">
+								<img width="30" class="block flex-shrink-0" [src]="mediaUrl + product.bankImageUrl"
+									[alt]="product.nickname">
 								<div class="table-user flex align-items-center column-gap-1 text-sm font-semibold">
 									<span class="block border-circle p-1"
-										[ngClass]="{'bg-red-600': !product.user.online, 'bg-green-600': product.user.online}">
+										[ngClass]="{'bg-red-600': true}">
 									</span>
-									<span class="table-user__txt">{{product.user.username? product.user.username: product.user.first_name
-										+ product.user.last_name}}</span>
+									<span class="table-user__txt">{{product.nickname}}</span>
 									<img src="images/ok.svg" alt="ok" class="m-0 ml-2 block" style="width: 20px;">
-									{{product.user.success_request}}
+									{{product.id}}
 								</div>
 							</p-chip>
 						</td>
-						<td>{{ product.min_deposit }}</td>
-						<td>{{ product.max_deposit }}</td>
-						<td>{{ product.amount_receive_from }}</td>
+						<td>{{ product.minToSellUSD }}</td>
+						<td>{{ product.wantToSellUSD }}</td>
+						<td>{{ product.currencyRate }}</td>
 						<td>
 							<div class="flex align-content-center column-gap-1">
-								<img class="bank-logo" width="16" [src]="product.bank.image_url" [alt]="product.bank.name">
-								<span class="bank-txt">{{product.bank.name}}</span>
+								<img class="bank-logo" width="16" [src]="mediaUrl + product.bankImageUrl" [alt]="product.bankName">
+								<span class="bank-txt">{{product.bankName}}</span>
 							</div>
 						</td>
 						<td style="width:220px;">

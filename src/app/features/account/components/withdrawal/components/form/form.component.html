@@ -1,6 +1,6 @@
 <div class="container mb-5">
 	<div class="flex align-items-center justify-content-between my-5">
-		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{walletTitle}}</h2>
+		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{activeRoom.title}}</h2>
 		<a routerLink="/home"
 			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-yellow-600 cursor-pointer text-sm">
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
@@ -10,7 +10,7 @@
 			<div class="p-1 border-1 border-yellow-100 w-full flex border-round toogle-buttons">
 				<button [ngClass]="{'bg-yellow-50 text-yellow-600': balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С аккаунта
-					{{walletTitle}}</button>
+					{{activeRoom.title}}</button>
 				<button [ngClass]="{'bg-yellow-50 text-yellow-600': !balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С баланса
 					PokerTrade</button>
@@ -18,81 +18,85 @@
 			<div class="my-4">
 				<label class="font-medium text-sm text-500 mb-2 block">Выберите рум / кошелек и валюту:*</label>
 				<div class="flex w-full align-items-center column-gap-2">
-					<p-dropdown (onChange)="changeWallet()" [ngStyle]="{width: '100%'}" [options]="wallet"
-						[(ngModel)]="selectWallet" optionLabel="name" placeholder="Select a wallet" />
-					<p-dropdown [options]="curs" class="curs" [(ngModel)]="selectCurs" optionLabel="title"
+					<p-dropdown (onChange)="setActiveRoom(activeRoom)" [ngStyle]="{width: '100%'}" [options]="rooms"
+						[(ngModel)]="activeRoom" optionLabel="title" placeholder="Select a wallet" />
+					<p-dropdown [options]="currencies" class="curs" (onChange)="setActiveCurrency(activeCurrency)" [(ngModel)]="activeCurrency" optionLabel="title"
 						placeholder="Select a wallet" [ngStyle]="{width: '100px'}" />
 				</div>
 			</div>
 			<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
 				<i class="pi pi-sync text-yellow-600"></i>
-				<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: {{selectWallet.commission_percent}}% + 2$</p>
+				<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 2% + 2$</p>
 			</div>
 			<div class="my-4">
-				<label class="font-medium text-sm text-500 mb-2 block">Сколько {{selectWallet.currency.code}} хотите продать:*
+				<label class="font-medium text-sm text-500 mb-2 block">Сколько {{activeCurrency.title}} хотите продать:*
 				</label>
 				<p-inputGroup class="mb-3">
-					<input type="number" #maxInp [(ngModel)]="maxInp" pInputText mode="decimal"
-						[placeholder]="'От ' + selectWallet.min + ' ' + selectWallet.currency.code + ' до ' + selectWallet.max + ' ' + selectWallet.currency.code"
-						required (ngModelChange)="calculateCurs(maxInp)" />
+					<input [(ngModel)]="wantToSellUSD" type="number" #maxInp [(ngModel)]="maxInp" pInputText mode="decimal"
+						[placeholder]="'От ' + activeCurrency.rateMin + ' ' + activeCurrency.title + ' до ' + activeCurrency.rateMax + ' ' + activeCurrency.title"
+						required (ngModelChange)="calculateCurs(maxInp)" 
+						[min]="activeCurrency.rateMin"
+						[max]="activeCurrency.rateMax"/>
 					<button type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
 						(click)="maxValu(maxInp, maxFixBtn)">Максимум</button>
 				</p-inputGroup>
 			</div>
 			<div class="mb-4">
-				<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в {{selectWallet.currency.code}} для
+				<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в {{activeCurrency.title}} для
 					покупки:*
 				</label>
 				<p-inputGroup>
-					<input pInputText type="number" disabled
-						[placeholder]="'От ' + selectWallet.min + ' ' + selectWallet.currency.code" />
+					<input [(ngModel)]="minToSellUSD" pInputText type="number" 
+						[placeholder]="'От ' + activeCurrency.rateMin + ' ' + activeCurrency.title" 
+						[min]="activeCurrency.rateMin"
+						[max]="activeCurrency.rateMax"/>
 					<p-inputGroupAddon
-						[pTooltip]="'Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от ' + selectWallet.min + selectWallet.currency.title + ' до ' + selectWallet.max + selectWallet.currency.title + ', чтобы быстрее выкупили'"
+						[pTooltip]="'Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от ' + activeCurrency.rateMin + activeCurrency.title + ' до ' + activeCurrency.rateMax + activeCurrency.title + ', чтобы быстрее выкупили'"
 						tooltipPosition="bottom">
 						<i class="pi pi-question-circle"></i>
 					</p-inputGroupAddon>
 				</p-inputGroup>
 			</div>
 			<p-inputGroup>
-				<input pInputText type="number" [value]="selectCurs.rate_usd" placeholder="Курс" />
+				<input [(ngModel)]="currencyRate" pInputText type="number" [value]="activeCurrency.rateMin" placeholder="Курс" />
 				<p-inputGroupAddon
-					[pTooltip]="'Курс продажи за' + selectWallet.currency.rate_usd + selectWallet.currency.title + '. Чем ниже курс, тем быстрее выкупят заявку'"
+					[pTooltip]="'Курс продажи за' + activeCurrency.rateMin + activeCurrency.title + '. Чем ниже курс, тем быстрее выкупят заявку'"
 					tooltipPosition="bottom">
 					<i class="pi pi-question-circle"></i>
 				</p-inputGroupAddon>
 			</p-inputGroup>
 		</div>
 		<div class="col-12 lg:col-6">
-			<form class="p-3 md:p-4 border-round bg-primary-500">
+			<div class="p-3 md:p-4 border-round bg-primary-500">
 				<label class="font-medium text-sm text-white mb-2 block">Реквизиты для перевода:* </label>
 				<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
-					<p-dropdown [options]="bankDetails" optionLabel="name" class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0">
+					<p-dropdown [options]="banks" optionLabel="title" class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="flex align-items-center gap-2">
-								<img [src]="selectedOption.image_url" [class]="'flag' + selectedBank.name.toLowerCase()"
+								<img [src]="mediaUrl + selectedOption.imageUrl" [class]="'flag' + selectedBank.title.toLowerCase()"
 									style="width: 18px; height:18px;" />
-								<div>{{ selectedOption.name }}</div>
+								<div>{{ selectedOption.title }}</div>
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
-							<div class="flex align-items-center gap-2" (click)="changeBank(country.slug)">
-								<img [src]="country.image_url" [class]="'flag flag-' + selectedBank.name.toLowerCase()"
+							<div class="flex align-items-center gap-2" (click)="changeBank(country)">
+								<img [src]="mediaUrl + country.imageUrl" [class]="'flag flag-' + country.title.toLowerCase()"
 									style="width: 18px; height:18px;" />
-								<div>{{ country.name }}</div>
+								<div>{{ country.title }}</div>
 							</div>
 						</ng-template>
 					</p-dropdown>
 					<p-inputMask [ngStyle]="{width: '100%'}" mask="9999 9999 9999 9999" variant="filled"
-						placeholder="0000 0000 0000 0000" />
+						placeholder="0000 0000 0000 0000" [(ngModel)]="detailsValue"/>
 				</div>
-				<div *ngIf="is_sbp">
+				<div *ngIf="isSbp">
 					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
-					<p-dropdown [options]="banks" optionLabel="name" class="w-full md:w-15rem" />
+					<p-dropdown [options]="banks" optionLabel="title" class="w-full md:w-15rem" />
 				</div>
 				<div class="my-4">
 					<label class="font-medium text-sm text-white mb-2 block">ФИО получателя:* </label>
 					<p-inputGroup>
-						<input pInputText placeholder="Иванов Иван Иванович" />
+						<input pInputText placeholder="Иванов Иван Иванович" [(ngModel)]="fullName"/>
 						<p-inputGroupAddon
 							pTooltip="Это позволит идентифицировать получателя и убедиться, что деньги поступят именно вам"
 							tooltipPosition="bottom">
@@ -100,7 +104,7 @@
 						</p-inputGroupAddon>
 					</p-inputGroup>
 				</div>
-				<div class="my-4">
+				<!-- <div class="my-4"> 
 					<label class="font-medium text-sm text-white mb-2 block">Дополнительная информация для покупателей: </label>
 					<p-inputGroup>
 						<input pInputText placeholder="Укажите любую важную информацию" />
@@ -109,12 +113,12 @@
 							<i class="pi pi-question-circle"></i>
 						</p-inputGroupAddon>
 					</p-inputGroup>
-				</div>
+				</div> -->
 				<div class="my-4 p-2 border-1 border-white border-round flex align-items-center column-gap-2">
 					<i class="pi pi-credit-card text-base text-white"></i>
 					<b class="font-semibold text-sm text-white">Вы получите: {{calcCurs}} RUB</b>
 				</div>
-				<button type="submit" (click)="bigClick()" pButton size="small" severity="success"
+				<button (click)="submit1()" pButton size="small" severity="success"
 					icon="pi font-semibold pi-check-circle" class="w-full justify-content-center column-gap-1">Подать
 					заявку на покупку</button>
 				<div class="flex align-items-start column-gap-2 mt-3">
@@ -126,7 +130,7 @@
 							конфиденциальности</a> и <a class="text-white font-medium" href="#">политикой AML / KYC</a>
 					</label>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 	<div *ngIf="bid_form" class="grid">
@@ -134,13 +138,13 @@
 			<h3 class="font-bold m-0 text-xl text-700">Для продолжения сделайте перевод на аккаунт PokerTrade: </h3>
 			<div class="grid mt-3">
 				<div class="col-12 md:col-4">
-					<div class="mb-3">
+					<!-- <div class="mb-3">
 						<label class="block mb-1 text-sm text-500">Email вашего аккаунта Luxon:* </label>
 						<input type="email" name="" pInputText id="" placeholder="pokertrade">
-					</div>
+					</div> -->
 					<div class="mb-3">
 						<label class="block mb-1 text-sm text-500">Имя и фамилия в аккаунте LUXON:* </label>
-						<input type="email" name="" pInputText id="" placeholder="Введенный текст поля">
+						<input type="text" [(ngModel)]="pokerRoomNickname" name="" pInputText id="" placeholder="Введенный текст поля">
 					</div>
 					<div>
 						<button type="button" severity="success" (click)="showDialog()"
@@ -148,7 +152,7 @@
 							<i class="pi pi-check-circle"></i>
 							Отправил
 						</button>
-						<button severity="danger" type="button"
+						<button (click)="cancel()" severity="danger" type="button"
 							class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
 							<i class="pi pi-times-circle"></i>
 							Отправил
@@ -202,7 +206,7 @@
 			<i class="pi pi-times-circle"></i>
 			Нет
 		</button>
-		<button routerLink="/account/withdrawal/39483943" type="button" severity="success"
+		<button (click)="submit2()" type="button" severity="success"
 			class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
 			<i class="pi pi-check-circle"></i>
 			Да

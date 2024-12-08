@@ -28,7 +28,8 @@ const routes: Routes = [
 			},
 			{
 				path: 'form', component: FormComponent
-			}, {
+			}, 
+			{
 				path: ':id', component: ApplicationComponent
 			}
 		]

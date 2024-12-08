@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IProfile, ProfileService } from '../../../../shared';
 
 @Component({
 	selector: 'app-information',
 	templateUrl: './information.component.html',
 	styleUrl: './information.component.scss'
 })
-export class InformationComponent {
+export class InformationComponent implements OnInit {
 	userIcons: string[] = [
 		"images/user-icon01.svg",
 		"images/user-icon02.svg",
@@ -31,6 +32,19 @@ export class InformationComponent {
 	userimg: string = this.userIcons[0]
 
 	visible: boolean = false;
+
+	profile!:IProfile
+
+	constructor(
+		private _profileService: ProfileService
+	){}
+
+	ngOnInit(): void {
+		this._profileService.getProfile().subscribe(data => {
+			this.profile = data
+		})
+	}
+
 	showDialog() {
 		this.visible = true
 	}
