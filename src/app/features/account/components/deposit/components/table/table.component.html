@@ -1,4 +1,4 @@
-<p-table [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [value]="products">
+<p-table [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [value]="orders">
 	<ng-template pTemplate="header">
 		<tr>
 			<th>Дата</th>
@@ -10,25 +10,25 @@
 		</tr>
 	</ng-template>
 	<ng-template pTemplate="body" let-product>
-		<tr routerLink="39483943">
-			<td>{{ product.code }}</td>
-			<td>{{ product.name }}</td>
+		<tr [routerLink]="product.id">
+			<td>{{ product.createdAt }}</td>
+			<td>{{ product.id }}</td>
 			<td>
 				<div class="flex align-items-center column-gap-1">
-					<img src="images/sber.svg" alt="sberbank" width="17">
-					{{ product.category }}
+					<!-- <img src="images/sber.svg" alt="sberbank" width="17"> -->
+					{{ product.received }}
 				</div>
 			</td>
 			<td>
 				<div class="flex align-items-center column-gap-1">
-					<img src="images/LUX-mini.svg" alt="lux" width="17">
-					{{ product.quantity }}
+					<!-- <img [src]="mediaUrl + product.roomImageUrl" alt="lux" width="17"> -->
+					{{ product.gave }}
 				</div>
 			</td>
-			<td>{{ product.exchangeRate }}</td>
+			<td>{{ product.currencyRate }}</td>
 			<td>
 				<p-tag class="w-full" [icon]="product.status ? 'pi pi-check-circle' : 'pi pi-times-circle'"
-					[severity]="product.status ? 'success' : 'danger'" [value]="product.status ? 'утверждена' : 'отменена'">
+					[severity]="product.status ? 'success' : 'danger'" [value]="product.status">
 				</p-tag>
 			</td>
 		</tr>

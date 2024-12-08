@@ -77,6 +77,35 @@ export interface IOrderOne {
     status: string
     wantToSellUSD: number
   }
+
+export interface IOrderBuy{
+    bankImageUrl: string
+  createdAt: string
+  currencyName: string
+  currencyRate: number
+  gave: number
+  id: number
+  received: number
+  roomImageUrl: string
+  sell_request_id: number
+  status: string
+  }
+
+export interface IOrderBuyOne{
+    bankName: string
+  createdAt: string
+  currencyName: string
+  currencyRate: number
+  detailsValue: string
+  isSbpBank: boolean
+  pokerRoomName: string
+  pokerRoomNickname: string
+  sellRequestId: number
+  sellerFullName: string
+  sellerNickname: string
+  status: string
+  wantToBuyUSD: number
+}
   
 
 
@@ -91,12 +120,24 @@ export class OrderService {
         return this._http.post<IBaseOrder>(`${this._url}/sell-requests`, {...param})
     }
 
+    buyRequestsMy(param: ISellRequestsMy) {
+        return this._http.post<{result: IOrderBuy[], total:number}>(`${this._url}/buy-requests/my`, {...param})
+    }
+
+    buyRequestsOne(id:number) {
+        return this._http.get<IOrderBuyOne>(`${this._url}/buy-request/${id}`)
+    }
+
     sellRequestsMy(param: ISellRequestsMy) {
         return this._http.post<{result:IOrderMy[], total:number}>(`${this._url}/sell-requests/my`, {...param})
     }
 
     sellRequest(param: ISellRequestBody) {
         return this._http.post<{sellRequestId: number}>(`${this._url}/sell-request`, {...param})
+    }
+
+    buyRequest(param: { sellRequestId:number, wantToBuyUSD: number, pokerRoomNickname: string }) {
+        return this._http.post<{buyRequestId: number}>(`${this._url}/buy-request`, {...param})
     }
 
     sellRequestModeration(data: {sellRequestId:number, pokerRoomNickname:string}){

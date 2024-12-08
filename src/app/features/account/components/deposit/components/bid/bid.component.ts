@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IOrderBuyOne, OrderService } from '../../../../../../shared/services/order.service';
 
 @Component({
 	selector: 'app-bid',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 	styleUrl: './bid.component.scss'
 })
 export class BidComponent implements OnInit {
+	
+// WAIT_FOR_SELLER_ACCEPT
 	transfer: boolean = false;
 	canceled: boolean = true
 	pending: boolean = false
@@ -13,15 +17,22 @@ export class BidComponent implements OnInit {
 	visible: boolean = false;
 	request: boolean = false
 	transactions: boolean = false
+	id!:number
+	order!:IOrderBuyOne
+
+	constructor(
+		private _orderService: OrderService,
+		private router: Router,
+		private route: ActivatedRoute,
+	){}
+
 	showModal() {
 		this.visible = !this.visible
 	}
 	ngOnInit(): void {
-		setInterval(() => {
-			this.waiting = false;
-			if (!this.waiting && this.canceled) {
-				this.pending = true;
-			}
-		}, 2000);
+		this.id = Number(this.route.snapshot.paramMap.get('id'));
+		this._orderService.buyRequestsOne(this.id).subscribe(data => {
+			this.order = data
+		})
 	}
 }

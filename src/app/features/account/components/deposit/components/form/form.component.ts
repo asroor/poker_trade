@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../../../../../../interface/interfaceData';
-import { ActivatedRoute } from '@angular/router';
-import { withdrawalData } from '../../../../../../shared';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BankService, CurrencyService, RoomService, withdrawalData } from '../../../../../../shared';
 import { Location } from '@angular/common';
+import { IOrder, IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
 
 @Component({
 	selector: 'app-form',
@@ -11,16 +12,39 @@ import { Location } from '@angular/common';
 })
 export class FormComponent implements OnInit{
 
-	depositData!: Transaction | undefined;
-	currentId!: number;
+	sellRequestId!: number;
 	countValu!: number;
 	infoOrder: boolean = false;
+	order!:IOrderOne
 
-	constructor(private location: Location, private routes: ActivatedRoute) { }
+	wantToBuyUSD!:number
+	pokerRoomNickname!:string
+
+	constructor(
+		private location: Location, 
+		private routes: ActivatedRoute,
+		private _roomService: RoomService,
+		private _currencyService: CurrencyService,
+		private _bankService: BankService,
+		private _orderService: OrderService,
+		private router: Router,
+	) { }
 
 	ngOnInit(): void {
-		this.currentId = +this.routes.snapshot.params['id'];
-		this.depositData = withdrawalData!.find(item => item.id === this.currentId);
+		this.sellRequestId = +this.routes.snapshot.params['id'];
+		this._orderService.getSellRequest(this.sellRequestId).subscribe(data => {
+			this.order = data
+		})
+	}
+
+	submit(){
+		this._orderService.buyRequest({
+			sellRequestId:this.sellRequestId, 
+			wantToBuyUSD: this.wantToBuyUSD, 
+			pokerRoomNickname: this.pokerRoomNickname
+		}).subscribe(data => {
+			this.router.navigate(['/account', 'deposit', data.buyRequestId])
+		})
 	}
 
 	goBack(): void {
@@ -39,7 +63,7 @@ export class FormComponent implements OnInit{
 			btn.textContent = 'Максимум'
 			input.disabled = false;
 		} else {
-			input.value = this.depositData?.bank.refill_max_amount?.toString() || '';
+			input.value = this.order?.wantToSellUSD?.toString() || '';
 			btn.textContent = 'Очистить'
 			input.disabled = true;
 		}
