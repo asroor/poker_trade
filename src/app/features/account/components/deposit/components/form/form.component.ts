@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
 
 	sellRequestId: number;
 	countValu!: number;
-	infoOrder: boolean = false;
+	infoOrder: boolean = true;
 	order!: IOrderOne
 
 	wantToBuyUSD!: number
@@ -86,6 +86,9 @@ export class FormComponent implements OnInit {
 			btn.textContent = 'Максимум'
 		} else {
 			input.value = this.order.wantToSellUSD.toString();
+			this.depostiForm.patchValue({
+				wantToBuyUSD: this.order.wantToSellUSD
+			});
 			btn.textContent = 'Очистить'
 		}
 	}
