@@ -1,4 +1,4 @@
-<ng-container *ngIf="order?.status == 'CANCELED'">
+<ng-container *ngIf="order?.status == 'CANCELED' || order?.status == 'REJECTED'">
 	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
 		<p-tag icon="pi pi-times-circle" severity="danger" value="Отменена" />
 		<p-tag icon="pi pi-check-circle" severity="success" value="Выполнена" />

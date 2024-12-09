@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
 import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrderOne, ISellRequests, ISellRequestsMy } from "../../interface";
+import { MessageService } from "primeng/api";
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrder
 })
 export class OrderService {
 	_url = `${environment.apiUrl}`
-	constructor(private _http: HttpClient) { }
+	constructor(private _http: HttpClient,private msg: MessageService) { }
 
 	/**
 	 * 
@@ -198,8 +199,11 @@ export class OrderService {
 		let errMsg = 'Произошла неизвестная ошибка';
 		if (err instanceof ErrorEvent) {
 			errMsg = `Ошибка: ${err}`;
+            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
 		} else {
 			errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
+            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.message });
+            
 		}
 		return throwError(() => new Error(errMsg));
 	}

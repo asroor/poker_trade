@@ -3,24 +3,53 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthModalService } from '../../auth/auth.modal.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+    constructor(private router: Router, private modalService: AuthModalService,  private msg: MessageService) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          this.handle401Error();
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 401 || error.status === 403) {
+                    this.openModal()
+                    this.handle401Error();
+                }
+                this.handleError(error)
+                return throwError(error);
+            })
+        );
+    }
+
+    private handle401Error() {
+        this.router.navigate(['/login']);
+    }
+
+    openModal() {
+        if (this.isUserLoginned()) {
+            this.router.navigate(['/profile'])
+        } else {
+            this.modalService.openModal();
         }
-        return throwError(error);
-      })
-    );
-  }
+    }
 
-  private handle401Error() {
-    this.router.navigate(['/login']);
-  }
+    isUserLoginned() {
+        return localStorage.getItem('telegramToken') != null
+    }
+
+    private handleError(err: HttpErrorResponse): Observable<never> {
+		let errMsg = 'Произошла неизвестная ошибка';
+		if (err instanceof ErrorEvent) {
+			errMsg = `Ошибка: ${err}`;
+            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
+		} else {
+			errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
+            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.message });
+            
+		}
+		return throwError(() => new Error(errMsg));
+	}
 }

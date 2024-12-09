@@ -14,4 +14,8 @@ export class ProfileService {
 	getProfile(): Observable<IProfile> {
 		return this._http.get<IProfile>(`${this._url}/user`)
 	}
+
+    isUserLoginned() {
+		return localStorage.getItem('telegramToken') != null
+	}
 }

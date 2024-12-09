@@ -17,6 +17,9 @@ const routes: Routes = [
 		component: ProfileComponent,
 		children: [
 			{
+				path: 'token/:token', component: InformationComponent
+			},
+			{
 				path: 'information', component: InformationComponent
 			},
 			{

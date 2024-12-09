@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OrderService } from '../../../../../../shared';
 import { environment } from '../../../../../../../environments/environment';
 import { IOrderMy, ISellRequestsMy } from '../../../../../../interface';
+import { interval, switchMap } from 'rxjs';
 
 @Component({
 	selector: 'app-table',
@@ -21,5 +22,11 @@ export class TableComponent {
 		this._orderService.sellRequestsMy(this.orderParam).subscribe(data => {
 			this.orders = data.result
 		})
+
+		// interval(1000)
+		// 	.pipe(switchMap(() => this._orderService.sellRequestsMy(this.orderParam)))
+		// 	.subscribe(data => {
+		// 		this.orders = data.result
+		// 	})
 	}
 }

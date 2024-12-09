@@ -41,7 +41,9 @@ export class BidComponent implements OnInit {
 		this._orderService.buyRequestCancel({
 			buyRequestId:this.id, 
 		}).subscribe(data => {
-			this.router.navigate(['/account', 'deposit'])
+			this._orderService.buyRequestsOne(this.id).subscribe(data => {
+				this.order = data
+			})
 		})
 	}
 
@@ -51,6 +53,9 @@ export class BidComponent implements OnInit {
 			bayerFullName: this.bayerFullName, 
 			lastFourDig: this.lastFourDig, 
 		}).subscribe(data => {
+			this._orderService.buyRequestsOne(this.id).subscribe(data => {
+				this.order = data
+			})
 		})
 	}
 

@@ -16,6 +16,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceprors/auth.interceptor';
 import { ErrorInterceptor } from './shared/interceprors/error.interceptor';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
 	declarations: [
@@ -35,10 +37,12 @@ import { ErrorInterceptor } from './shared/interceprors/error.interceptor';
 		AvatarModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		ToastModule
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		MessageService 
 	],
 	bootstrap: [AppComponent]
 })

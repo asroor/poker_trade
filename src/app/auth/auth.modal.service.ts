@@ -21,4 +21,9 @@ export class AuthModalService {
   getToken() {
 		return localStorage.getItem(this.localStorageKey)
 	}
+
+  isUserLoginned() {
+		return localStorage.getItem(this.localStorageKey) != null
+	}
+
 }

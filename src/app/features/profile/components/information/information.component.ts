@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../../shared';
 import { IProfile } from '../../../../interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-information',
@@ -31,16 +32,25 @@ export class InformationComponent implements OnInit {
 		"images/user-icon20.svg"
 	];
 	userimg: string = this.userIcons[0]
+	token!: string | null
 
 	visible: boolean = false;
 
 	profile!: IProfile
 
 	constructor(
-		private _profileService: ProfileService
+		private _profileService: ProfileService,
+		private routes: ActivatedRoute,
+		private router: Router,
 	) { }
 
 	ngOnInit(): void {
+		this.token =  this.routes.snapshot.paramMap.get('token');
+		if(this.token){
+			localStorage.setItem('telegramToken', this.token);
+			this.router.navigate(['/profile/information'])
+		}
+
 		this._profileService.getProfile().subscribe(data => {
 			this.profile = data
 		})

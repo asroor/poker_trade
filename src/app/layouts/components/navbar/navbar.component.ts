@@ -3,6 +3,7 @@ import { AuthModalService } from '../../../auth/auth.modal.service';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../../shared';
 import { IProfile } from '../../../interface';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-navbar',
@@ -11,7 +12,7 @@ import { IProfile } from '../../../interface';
 })
 export class NavbarComponent implements OnInit {
 	localStorageKey = 'telegramToken';
-	profile!: IProfile
+	profile!: Observable<IProfile>
 
 	constructor(
 		private modalService: AuthModalService,
@@ -20,9 +21,7 @@ export class NavbarComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this._profileService.getProfile().subscribe(data => {
-			this.profile = data
-		})
+		this.profile = this._profileService.getProfile()
 	}
 
 	openModal() {

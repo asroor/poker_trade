@@ -41,31 +41,31 @@ export class ApplicationComponent implements OnInit {
 
 	buyAccept(id: number) {
 		this._orderService.buyRequestAccept({ buyRequestId: id }).subscribe(data => {
-			// this._orderService.getSellRequest(this.id).subscribe(data => {
-			// 	this._orderService.buyRequests(this.id).subscribe(data => {
-			// 		this.ordeBuy = data
-			// 	})
-			// })
+			this._orderService.getSellRequest(this.id).subscribe(data => {
+				this._orderService.buyRequests(this.id).subscribe(data => {
+					this.ordeBuy = data
+				})
+			})
 		})
 	}
 
 	buyCancel(id: number) {
 		this._orderService.buyRequestCancel({ buyRequestId: id }).subscribe(data => {
-			// this._orderService.getSellRequest(this.id).subscribe(data => {
-			// 	this._orderService.buyRequests(this.id).subscribe(data => {
-			// 		this.ordeBuy = data
-			// 	})
-			// })
+			this._orderService.getSellRequest(this.id).subscribe(data => {
+				this._orderService.buyRequests(this.id).subscribe(data => {
+					this.ordeBuy = data
+				})
+			})
 		})
 	}
 
 	buyReceiveApprove() {
 		this._orderService.buyRequestReceiveApprove({ buyRequestId: this.buyId }).subscribe(data => {
-			// this._orderService.getSellRequest(this.id).subscribe(data => {
-			// 	this._orderService.buyRequests(this.id).subscribe(data => {
-			// 		this.ordeBuy = data
-			// 	})
-			// })
+			this._orderService.getSellRequest(this.id).subscribe(data => {
+				this._orderService.buyRequests(this.id).subscribe(data => {
+					this.ordeBuy = data
+				})
+			})
 		})
 	}
 

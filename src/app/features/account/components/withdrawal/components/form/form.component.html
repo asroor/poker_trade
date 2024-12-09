@@ -1,21 +1,21 @@
-@if (currencies) {
+@if (rooms) {
 <div class="container mb-5">
 	<div class="flex align-items-center justify-content-between my-5">
-		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{activeRoom.title}}</h2>
+		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{activeRoom.title ? activeRoom.title : ""}}</h2>
 		<a routerLink="/home"
 			class="no-underline flex flex-shrink-0 align-items-center column-gap-1 m-0 line-height-1 text-yellow-600 cursor-pointer text-sm">
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
 	</div>
 	<div class="grid" *ngIf="!bid_form">
 		<div class="col-12 lg:col-6">
-			<div class="p-1 border-1 border-yellow-100 w-full flex border-round toogle-buttons">
+			<!-- <div class="p-1 border-1 border-yellow-100 w-full flex border-round toogle-buttons">
 				<button [ngClass]="{'bg-yellow-50 text-yellow-600': balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С аккаунта
-					{{activeRoom.title}}</button>
+					{{activeRoom ? activeRoom.title : ""}}</button>
 				<button [ngClass]="{'bg-yellow-50 text-yellow-600': !balanceOrAccount}" (click)="balanceToogle()"
 					class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">С баланса
 					PokerTrade</button>
-			</div>
+			</div> -->
 			<div class="my-4">
 				<label class="font-medium text-sm text-500 mb-2 block">Выберите рум / кошелек и валюту:*</label>
 				<div class="flex w-full align-items-center column-gap-2">
