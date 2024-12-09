@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService, CurrencyService, BankService } from '../../../../../../shared';
-import { IOrder, IOrderBuy, IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { IOrderBuy, IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-application',
@@ -13,16 +12,12 @@ export class ApplicationComponent implements OnInit {
 	order!: IOrderOne
 	ordeBuy!: IOrderBuy[]
 	id!: number
-	buyId!:number
+	buyId!: number
 
 	constructor(
-		private _roomService: RoomService,
-		private _currencyService: CurrencyService,
-		private _bankService: BankService,
 		private _orderService: OrderService,
 		private route: ActivatedRoute,
-		private router: Router
-	){}
+	) { }
 
 	ngOnInit(): void {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -35,16 +30,16 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
-	cancel(){
-		this._orderService.sellRequestCancel({sellRequestId: this.id}).subscribe(data => {
+	cancel() {
+		this._orderService.sellRequestCancel({ sellRequestId: this.id }).subscribe(data => {
 			this._orderService.getSellRequest(this.id).subscribe(data => {
 				this.order = data
 			})
 		})
 	}
 
-	buyAccept(id:number){
-		this._orderService.buyRequestAccept({buyRequestId: id}).subscribe(data => {
+	buyAccept(id: number) {
+		this._orderService.buyRequestAccept({ buyRequestId: id }).subscribe(data => {
 			// this._orderService.getSellRequest(this.id).subscribe(data => {
 			// 	this._orderService.buyRequests(this.id).subscribe(data => {
 			// 		this.ordeBuy = data
@@ -53,8 +48,8 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
-	buyCancel(id:number){
-		this._orderService.buyRequestCancel({buyRequestId: id}).subscribe(data => {
+	buyCancel(id: number) {
+		this._orderService.buyRequestCancel({ buyRequestId: id }).subscribe(data => {
 			// this._orderService.getSellRequest(this.id).subscribe(data => {
 			// 	this._orderService.buyRequests(this.id).subscribe(data => {
 			// 		this.ordeBuy = data
@@ -63,8 +58,8 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
-	buyReceiveApprove(){
-		this._orderService.buyRequestReceiveApprove({buyRequestId: this.buyId}).subscribe(data => {
+	buyReceiveApprove() {
+		this._orderService.buyRequestReceiveApprove({ buyRequestId: this.buyId }).subscribe(data => {
 			// this._orderService.getSellRequest(this.id).subscribe(data => {
 			// 	this._orderService.buyRequests(this.id).subscribe(data => {
 			// 		this.ordeBuy = data
@@ -73,7 +68,7 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
-	showDialog(buyId:number) {
+	showDialog(buyId: number) {
 		this.visible = true;
 		this.buyId = buyId
 	}

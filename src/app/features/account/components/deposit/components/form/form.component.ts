@@ -1,32 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from '../../../../../../interface/interfaceData';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BankService, CurrencyService, RoomService, withdrawalData } from '../../../../../../shared';
 import { Location } from '@angular/common';
-import { IOrder, IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
+import { IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
 
 @Component({
 	selector: 'app-form',
 	templateUrl: './form.component.html',
 	styleUrl: './form.component.scss'
 })
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit {
 
 	sellRequestId!: number;
 	countValu!: number;
 	infoOrder: boolean = false;
-	order!:IOrderOne
+	order!: IOrderOne
 
-	wantToBuyUSD!:number
-	pokerRoomNickname!:string
-	buyRequestId!:number
+	wantToBuyUSD!: number
+	pokerRoomNickname!: string
+	buyRequestId!: number
 
 	constructor(
-		private location: Location, 
+		private location: Location,
 		private routes: ActivatedRoute,
-		private _roomService: RoomService,
-		private _currencyService: CurrencyService,
-		private _bankService: BankService,
 		private _orderService: OrderService,
 		private router: Router,
 	) { }
@@ -38,10 +33,10 @@ export class FormComponent implements OnInit{
 		// })
 	}
 
-	submit(){
+	submit() {
 		this._orderService.buyRequest({
-			sellRequestId:this.sellRequestId, 
-			wantToBuyUSD: this.wantToBuyUSD, 
+			sellRequestId: this.sellRequestId,
+			wantToBuyUSD: this.wantToBuyUSD,
 			pokerRoomNickname: this.pokerRoomNickname
 		}).subscribe(data => {
 			this.buyRequestId = data.buyRequestId
@@ -49,9 +44,9 @@ export class FormComponent implements OnInit{
 		})
 	}
 
-	cancel(){
+	cancel() {
 		this._orderService.buyRequestCancel({
-			buyRequestId:this.buyRequestId, 
+			buyRequestId: this.buyRequestId,
 		}).subscribe(data => {
 			this.router.navigate(['/account', 'deposit'])
 		})

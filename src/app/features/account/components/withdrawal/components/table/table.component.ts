@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BankService, CurrencyService, products, RoomService } from '../../../../../../shared';
-import { IOrder, IOrderMy, ISellRequestsMy, OrderService } from '../../../../../../shared/services/order.service';
+import { IOrderMy, ISellRequestsMy, OrderService } from '../../../../../../shared/services/order.service';
 import { environment } from '../../../../../../../environments/environment';
 
 @Component({
@@ -10,8 +10,8 @@ import { environment } from '../../../../../../../environments/environment';
 })
 export class TableComponent {
 	mediaUrl = environment.mediaUrl
-	orders!:IOrderMy[]
-	orderParam:ISellRequestsMy = {page:0, size:10}
+	orders!: IOrderMy[]
+	orderParam: ISellRequestsMy = { page: 0, size: 10 }
 
 	constructor(
 		private _roomService: RoomService,

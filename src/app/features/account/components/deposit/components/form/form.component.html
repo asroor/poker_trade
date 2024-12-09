@@ -20,10 +20,10 @@
 				<div class="bg-blue-100 border-round mt-2 p-2 grid">
 					<p class="col-6 m-0 text-sm text-500">№ заявки: <b class="text-900 font-semibold">R541267 12.11.24, 12:49</b>
 					</p>
-					<p class="col-6 m-0 text-sm text-500">Продавец: <b
-							class="text-900 font-semibold">{{order.fullName}}</b>
+					<p class="col-6 m-0 text-sm text-500">Продавец: <b class="text-900 font-semibold">{{order.fullName}}</b>
 					</p>
-					<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate || 0}}
+					<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate ||
+							0}}
 							RUB</b>
 					</p>
 					<p class="col-6 m-0 text-sm text-500">Банк: <b class="text-900 font-semibold">{{order.bankName || ''}}</b>
@@ -32,7 +32,8 @@
 				}
 				<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в RUB:* </label>
 				<p-inputGroup class="mb-3">
-					<input [(ngModel)]="wantToBuyUSD" type="number" #input pInputText mode="decimal" [placeholder]="'От '+ order?.minToSellUSD || 0 +' до '+ (order.wantToSellUSD || 100) + (order.currencyName || '')"
+					<input [(ngModel)]="wantToBuyUSD" type="number" #input pInputText mode="decimal"
+						[placeholder]="'От '+ order.minToSellUSD || 0 +' до '+ (order.wantToSellUSD || 100) + (order.currencyName || '')"
 						[disabled]="isInputDisabled" required />
 					<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn
 						(click)="valueToogle(input, btn)">Максимум</button>
@@ -54,16 +55,16 @@
 			<div class="border-round p-3 md:p-4 bg-primary-500">
 				<div class="field mb-3">
 					<label for="firstname1" class="text-sm text-white block mb-2">Ваш никнейм в </label>
-					<input type="text" [(ngModel)]="pokerRoomNickname" id="firstname1" pInputText mode="decimal" placeholder="PokerTrade" required />
+					<input type="text" [(ngModel)]="pokerRoomNickname" id="firstname1" pInputText mode="decimal"
+						placeholder="PokerTrade" required />
 				</div>
 				<div class="flex mb-3 align-items-center p-2 column-gap-1 border-1 border-white border-round">
 					<i class="pi pi-exclamation-circle text-white"></i>
 					<p class="m-0 text-white text-xs">Внимательно заполняйте поле! Перевод средств сделают на указанный аккаунт.
 					</p>
 				</div>
-				<button (click)="submit()" type="submit" pButton size="small"
-					severity="success" icon="pi font-semibold pi-check-circle"
-					class="w-full justify-content-center column-gap-1">Подать
+				<button (click)="submit()" type="submit" pButton size="small" severity="success"
+					icon="pi font-semibold pi-check-circle" class="w-full justify-content-center column-gap-1">Подать
 					заявку на покупку</button>
 				<div class="flex align-items-start column-gap-2 mt-3">
 					<p-checkbox [binary]="true" inputId="binary" />

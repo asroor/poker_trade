@@ -24,12 +24,12 @@ export class BankService {
 	}
 
 	private handleError(err: HttpErrorResponse): Observable<never> {
-		let errMsg = 'Nomalum xatolik yuz berdi'
+		let errMsg = 'Произошла неизвестная ошибка';
 		if (err instanceof ErrorEvent) {
-			errMsg = `Xato: ${err}`
+			errMsg = `Ошибка: ${err}`;
 		} else {
-			errMsg = `Xatolik: ${err.message}, Error status: ${err.status}`
+			errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
 		}
-		return throwError(errMsg)
+		return throwError(() => new Error(errMsg));
 	}
 }

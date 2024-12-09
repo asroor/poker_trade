@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomData, RoomService, withdrawalData } from '../../shared';
-import { IOrder, ISellRequests, OrderService } from '../../shared/services/order.service';
+import { bankData, BankService, CurrencyService, ICurrency, IRoom, RoomService, withdrawalData } from '../../shared';
+import { ISellRequests, OrderService } from '../../shared/services/order.service';
 import { environment } from '../../../environments/environment';
+import { IBank, IOrder } from '../../interface';
 
 @Component({
 	selector: 'app-home',
