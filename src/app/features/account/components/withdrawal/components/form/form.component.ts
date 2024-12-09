@@ -26,6 +26,7 @@ export class FormComponent implements OnInit {
 	currencies!: ICurrency[]
 	activeCurrency!: ICurrency
 	banks!: IBank[]
+	bankSbp!: { label: string, value: string }[]
 	isSbp: Observable<boolean> = of(false)
 
 	// bankDetails = bankData
@@ -41,6 +42,7 @@ export class FormComponent implements OnInit {
 	minToSellUSD!: number
 	currencyRate!: number
 	pokerRoomNickname!: string
+	byNumberBank!:string
 
 	constructor(
 		private _roomService: RoomService,
@@ -62,9 +64,15 @@ export class FormComponent implements OnInit {
 					this.banks = data
 					this.changeBank(data[0])
 				})
+
+				this._bankService.getBankSbp().subscribe(data => {
+					this.bankSbp = data.map(item => ({ label: item, value: item }))
+					this.byNumberBank = data[0]
+				})
 			})
 		})
 
+		
 
 	}
 	bigClick() {
@@ -98,6 +106,10 @@ export class FormComponent implements OnInit {
 			wantToSellUSD: this.wantToSellUSD,
 			minToSellUSD: this.minToSellUSD,
 			currencyRate: this.currencyRate,
+		}
+
+		if(this.isSbp){
+			this.body.byNumberBank = this.byNumberBank
 		}
 
 		this._orderService.sellRequest(this.body).subscribe(data => {

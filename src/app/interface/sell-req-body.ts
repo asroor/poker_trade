@@ -7,4 +7,5 @@ export interface ISellRequestBody {
 	bankId: number
 	detailsValue: string
 	fullName: string
+	byNumberBank?:string
 }

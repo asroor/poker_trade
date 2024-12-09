@@ -89,12 +89,12 @@
 							</div>
 						</ng-template>
 					</p-dropdown>
-					<p-inputMask [ngStyle]="{width: '100%'}" mask="9999 9999 9999 9999" variant="filled"
-						placeholder="0000 0000 0000 0000" [(ngModel)]="detailsValue" />
+					<p-inputMask [ngStyle]="{width: '100%'}" [mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+79999999999'" variant="filled"
+						[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+79999999999'" [(ngModel)]="detailsValue" />
 				</div>
 				<div *ngIf="isSbp | async">
 					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
-					<p-dropdown [options]="banks" optionLabel="title" class="w-full md:w-15rem" />
+					<p-dropdown [(ngModel)]="byNumberBank" [options]="bankSbp" class="w-full md:w-15rem" />
 				</div>
 				<div class="my-4">
 					<label class="font-medium text-sm text-white mb-2 block">ФИО получателя:* </label>
