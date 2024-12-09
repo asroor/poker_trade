@@ -81,10 +81,12 @@ export class FormComponent implements OnInit {
 
 	isInputDisabled: boolean = false;
 	valueToogle(input: HTMLInputElement, btn: HTMLButtonElement): void {
-		if (input.value) {
+		if (input.disabled) {
+			input.disabled = false
 			input.value = '';
 			btn.textContent = 'Максимум'
 		} else {
+			input.disabled = true
 			input.value = this.order.wantToSellUSD.toString();
 			this.depostiForm.patchValue({
 				wantToBuyUSD: this.order.wantToSellUSD

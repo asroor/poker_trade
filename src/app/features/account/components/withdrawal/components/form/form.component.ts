@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BankService, CurrencyService, ICurrency, IRoom, RoomService, } from '../../../../../../shared';
-import { OrderService } from '../../../../../../shared/services/order.service';
+import { BankService, CurrencyService, RoomService, } from '../../../../../../shared';
+import { OrderService } from '../../../../../../shared';
 import { environment } from '../../../../../../../environments/environment';
 import { Router } from '@angular/router';
-import { IBank, ISellRequestBody } from '../../../../../../interface';
+import { IBank, ICurrency, IRoom, ISellRequestBody } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-form',
@@ -53,7 +53,6 @@ export class FormComponent implements OnInit {
 		this._roomService.getRoom().subscribe(data => {
 			this.rooms = data
 			this.activeRoom = data[0]
-
 			this._currencyService.getCurrency(this.rooms[0].id).subscribe(data => {
 				this.currencies = data
 				this.activeCurrency = data[0]
