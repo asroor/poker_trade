@@ -1,4 +1,4 @@
-@if (rooms) {
+@if (rooms && activeRoom && activeCurrency) {
 <div class="container mb-5">
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Заявка на продажу {{activeRoom.title ? activeRoom.title : ""}}</h2>
@@ -35,10 +35,10 @@
 				<label class="font-medium text-sm text-500 mb-2 block">Сколько {{activeCurrency.title}} хотите продать:*
 				</label>
 				<p-inputGroup class="mb-3">
-					<input [(ngModel)]="wantToSellUSD" type="number" #maxInp [(ngModel)]="maxInp" pInputText mode="decimal"
+					<input [(ngModel)]="wantToSellUSD" type="number" #maxInp pInputText mode="decimal"
 						[placeholder]="'От ' + activeCurrency.rateMin + '' + activeCurrency.title + ' до ' + activeCurrency.rateMax + ' ' + activeCurrency.title"
 						required (ngModelChange)="calculateCurs(maxInp)" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax" />
+						[max]="activeCurrency.rateMax"/>
 					<button type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
 						(click)="maxValu(maxInp, maxFixBtn)">Максимум</button>
 				</p-inputGroup>
@@ -50,7 +50,7 @@
 				<p-inputGroup>
 					<input [(ngModel)]="minToSellUSD" pInputText type="number"
 						[placeholder]="'От ' + activeCurrency.rateMin + ' ' + activeCurrency.title" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax" />
+						[max]="activeCurrency.rateMax"/>
 					<p-inputGroupAddon
 						[pTooltip]="'Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от ' + activeCurrency.rateMin + activeCurrency.title + ' до ' + activeCurrency.rateMax + activeCurrency.title + ', чтобы быстрее выкупили'"
 						tooltipPosition="bottom">
@@ -92,7 +92,7 @@
 					<p-inputMask [ngStyle]="{width: '100%'}" mask="9999 9999 9999 9999" variant="filled"
 						placeholder="0000 0000 0000 0000" [(ngModel)]="detailsValue" />
 				</div>
-				<div *ngIf="isSbp">
+				<div *ngIf="isSbp | async">
 					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
 					<p-dropdown [options]="banks" optionLabel="title" class="w-full md:w-15rem" />
 				</div>
@@ -119,7 +119,7 @@
 					</div> -->
 				<div class="my-4 p-2 border-1 border-white border-round flex align-items-center column-gap-2">
 					<i class="pi pi-credit-card text-base text-white"></i>
-					<b class="font-semibold text-sm text-white">Вы получите: {{calcCurs}} RUB</b>
+					<b class="font-semibold text-sm text-white">Вы получите: {{wantToSellUSD * currencyRate}} RUB</b>
 				</div>
 				<button (click)="submit1()" pButton size="small" severity="success" icon="pi font-semibold pi-check-circle"
 					class="w-full justify-content-center column-gap-1">Подать

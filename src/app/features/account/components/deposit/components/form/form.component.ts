@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { OrderService } from '../../../../../../shared/services/order.service';
-import { IOrderOne } from '../../../../../../interface';
+import { IOrder, IOrderOne } from '../../../../../../interface';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
 	sellRequestId: number;
 	countValu!: number;
 	infoOrder: boolean = true;
-	order!: IOrderOne
+	order!: IOrder
 
 	wantToBuyUSD!: number
 	pokerRoomNickname!: string
@@ -42,7 +42,7 @@ export class FormComponent implements OnInit {
 	}
 
 	getSelReq() {
-		this._orderService.getSellRequest(this.sellRequestId).subscribe({
+		this._orderService.getSellRequestShared(this.sellRequestId).subscribe({
 			next: data => {
 				this.order = data
 			},
@@ -51,6 +51,7 @@ export class FormComponent implements OnInit {
 			},
 		})
 	}
+
 	submit() {
 		const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
 		console.log(sellRequestId, wantToBuyUSD, pokerRoomNickname);

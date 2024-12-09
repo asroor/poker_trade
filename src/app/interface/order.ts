@@ -7,4 +7,7 @@ export interface IOrder {
 	minToSellUSD: number
 	nickname: string
 	wantToSellUSD: number
+	sellerNickname: string
+	createdAt:Date
+	currencyName:string
 }

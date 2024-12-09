@@ -41,15 +41,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     private handleError(err: HttpErrorResponse): Observable<never> {
-		let errMsg = 'Произошла неизвестная ошибка';
-		if (err instanceof ErrorEvent) {
-			errMsg = `Ошибка: ${err}`;
-            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
-		} else {
-			errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
-            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.message });
+		// if (err instanceof ErrorEvent) {
+        //     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
+		// } else {
             
-		}
-		return throwError(() => new Error(errMsg));
+        // }
+        this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: JSON.stringify(err.error.message) });
+		return throwError(() => err);
 	}
 }

@@ -1,5 +1,4 @@
 @if (order) {
-@if (order) {
 <div class="container mb-5">
 	<div class="flex align-items-center justify-content-between my-5">
 		<h2 class="m-0 font-medium text-xl">Заявка на покупку ПокерОК</h2>
@@ -21,14 +20,11 @@
 					</label>
 					@if (infoOrder) {
 					<div class="bg-blue-100 border-round mt-2 p-2 grid">
-						<p class="col-6 m-0 text-sm text-500">№ заявки: <b class="text-900 font-semibold">R541267 12.11.24,
-								12:49</b>
+						<p class="col-6 m-0 text-sm text-500">№ заявки: <b class="text-900 font-semibold">{{order.createdAt}}</b>
 						</p>
-						<p class="col-6 m-0 text-sm text-500">Продавец: <b class="text-900 font-semibold">{{order.fullName}}</b>
+						<p class="col-6 m-0 text-sm text-500">Продавец: <b class="text-900 font-semibold">{{order.sellerNickname}}</b>
 						</p>
-						<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate
-								||
-								0}}
+						<p class="col-6 m-0 text-sm text-500">Курс и валюта: <b class="text-900 font-semibold">{{order.currencyRate}}
 								RUB</b>
 						</p>
 						<p class="col-6 m-0 text-sm text-500">Банк: <b class="text-900 font-semibold">{{order.bankName || ''}}</b>
@@ -52,7 +48,7 @@
 								</p-inputGroup> -->
 					<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
 						<i class="pi pi-sync text-yellow-600"></i>
-						<p class="m-0 text-yellow-600">Курс обмена: 1 USD / 107.8 RUB</p>
+						<p class="m-0 text-yellow-600">Курс обмена: 1 USD / {{order.currencyRate}} {{order.currencyName}}</p>
 					</div>
 				</div>
 			</div>
@@ -86,5 +82,4 @@
 		</div>
 	</form>
 </div>
-}
 }

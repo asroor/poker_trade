@@ -4,6 +4,7 @@ import { OrderService } from '../../../../../../shared';
 import { environment } from '../../../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { IBank, ICurrency, IRoom, ISellRequestBody } from '../../../../../../interface';
+import { Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'app-form',
@@ -25,7 +26,7 @@ export class FormComponent implements OnInit {
 	currencies!: ICurrency[]
 	activeCurrency!: ICurrency
 	banks!: IBank[]
-	isSbp: boolean = false
+	isSbp: Observable<boolean> = of(false)
 
 	// bankDetails = bankData
 	selectedBank!: IBank
@@ -55,11 +56,11 @@ export class FormComponent implements OnInit {
 			this.activeRoom = data[0]
 			this._currencyService.getCurrency(this.rooms[0].id).subscribe(data => {
 				this.currencies = data
-				this.activeCurrency = data[0]
+				this.setActiveCurrency(data[0])
 
 				this._bankService.getBank(this.activeCurrency.id).subscribe(data => {
 					this.banks = data
-					this.selectedBank = data[0]
+					this.changeBank(data[0])
 				})
 			})
 		})
@@ -81,6 +82,10 @@ export class FormComponent implements OnInit {
 
 	setActiveCurrency(item: ICurrency) {
 		this.activeCurrency = item;
+
+		this.wantToSellUSD = item.rateMax
+		this.minToSellUSD = item.rateMin
+		this.currencyRate = item.rateMin
 	}
 
 	submit1() {
@@ -115,7 +120,7 @@ export class FormComponent implements OnInit {
 
 	changeBank(bank: IBank) {
 		this.selectedBank = bank
-		this.isSbp = bank.isSbp;
+		this.isSbp = of(bank.isSbp);
 	}
 
 	balanceOrAccount: boolean = false;

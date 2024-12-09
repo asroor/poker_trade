@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
-import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrderOne, ISellRequests, ISellRequestsMy } from "../../interface";
+import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrderOne, ISellRequests, ISellRequestsMy, IOrder } from "../../interface";
 import { MessageService } from "primeng/api";
 
 
@@ -117,7 +117,13 @@ export class OrderService {
 	 * @param id 
 	 * @returns 
 	 */
-	getSellRequest(id: number): Observable<IOrderOne> {
+	getSellRequestShared(id: number): Observable<IOrder> {
+		return this._http.get<IOrder>(`${this._url}/sell-request/shared/${id}`).pipe(
+			catchError(this.handleError)
+		)
+	}
+
+    getSellRequest(id: number): Observable<IOrderOne> {
 		return this._http.get<IOrderOne>(`${this._url}/sell-request/${id}`).pipe(
 			catchError(this.handleError)
 		)
@@ -197,15 +203,15 @@ export class OrderService {
 	 */
 	private handleError(err: HttpErrorResponse): Observable<never> {
 		let errMsg = 'Произошла неизвестная ошибка';
-		if (err instanceof ErrorEvent) {
-			errMsg = `Ошибка: ${err}`;
-            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
-		} else {
-			errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
-            this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.message });
+		// if (err instanceof ErrorEvent) {
+		// 	errMsg = `Ошибка: ${err}`;
+        //     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
+		// } else {
+		// 	errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
+        //     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.error });
             
-		}
-		return throwError(() => new Error(errMsg));
+		// }
+		return throwError(() => err);
 	}
 
 }
