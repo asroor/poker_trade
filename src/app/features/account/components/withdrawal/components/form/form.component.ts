@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, BankService, CurrencyService, IBank, ICurrency, IRoom, roomData, RoomService, sbpBankData } from '../../../../../../shared';
+import { BankService, CurrencyService, ICurrency, IRoom, RoomService, } from '../../../../../../shared';
 import { ISellRequestBody, OrderService } from '../../../../../../shared/services/order.service';
 import { environment } from '../../../../../../../environments/environment';
 import { Router } from '@angular/router';
+import { IBank } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-form',
@@ -18,27 +19,27 @@ export class FormComponent implements OnInit {
 	// selectCurs = this.selectWallet.currencies[0]
 	// walletTitle: string = this.wallet[0].name 
 
-	body!:ISellRequestBody
-	rooms!:IRoom[]
-	activeRoom!:IRoom
-	currencies!:ICurrency[]
-	activeCurrency!:ICurrency
-	banks!:IBank[]
-	isSbp:boolean = false
+	body!: ISellRequestBody
+	rooms!: IRoom[]
+	activeRoom!: IRoom
+	currencies!: ICurrency[]
+	activeCurrency!: ICurrency
+	banks!: IBank[]
+	isSbp: boolean = false
 
 	// bankDetails = bankData
-	selectedBank!:IBank
+	selectedBank!: IBank
 	// banks = sbpBankData
 
 	calcCurs: number = 0
 	sellRequestId!: number
 
-	fullName!:string
-	detailsValue!:string
-	wantToSellUSD!:number
-	minToSellUSD!:number
-	currencyRate!:number
-	pokerRoomNickname!:string
+	fullName!: string
+	detailsValue!: string
+	wantToSellUSD!: number
+	minToSellUSD!: number
+	currencyRate!: number
+	pokerRoomNickname!: string
 
 	constructor(
 		private _roomService: RoomService,
@@ -46,7 +47,7 @@ export class FormComponent implements OnInit {
 		private _bankService: BankService,
 		private _orderService: OrderService,
 		private router: Router,
-	){}
+	) { }
 
 	ngOnInit(): void {
 		this._roomService.getRoom().subscribe(data => {
@@ -64,7 +65,7 @@ export class FormComponent implements OnInit {
 			})
 		})
 
-		
+
 	}
 	bigClick() {
 		this.bid_form = true
@@ -83,10 +84,10 @@ export class FormComponent implements OnInit {
 		this.activeCurrency = item;
 	}
 
-	submit1(){
+	submit1() {
 		this.body = {
-			pokerRoomId:this.activeRoom.id, 
-			currencyId: this.activeCurrency.id, 
+			pokerRoomId: this.activeRoom.id,
+			currencyId: this.activeCurrency.id,
 			bankId: this.selectedBank.id,
 			fullName: this.fullName,
 			detailsValue: this.detailsValue,
@@ -101,19 +102,19 @@ export class FormComponent implements OnInit {
 		})
 	}
 
-	submit2(){
-		this._orderService.sellRequestModeration({sellRequestId: this.sellRequestId,  pokerRoomNickname: this.pokerRoomNickname}).subscribe(data => {
+	submit2() {
+		this._orderService.sellRequestModeration({ sellRequestId: this.sellRequestId, pokerRoomNickname: this.pokerRoomNickname }).subscribe(data => {
 			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
 		})
 	}
 
-	cancel(){
-		this._orderService.sellRequestCancel({sellRequestId: this.sellRequestId}).subscribe(data => {
+	cancel() {
+		this._orderService.sellRequestCancel({ sellRequestId: this.sellRequestId }).subscribe(data => {
 			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
 		})
 	}
 
-	changeBank(bank: IBank){
+	changeBank(bank: IBank) {
 		this.selectedBank = bank
 		this.isSbp = bank.isSbp;
 	}
@@ -134,7 +135,7 @@ export class FormComponent implements OnInit {
 			button.textContent = 'Максимум'
 		}
 	}
-	
+
 	calculateCurs(input: HTMLInputElement) {
 		if (input.value) {
 			let valu = parseFloat(input.value);
@@ -142,7 +143,7 @@ export class FormComponent implements OnInit {
 			this.calcCurs = valu * this.activeCurrency.rateMin
 		}
 	}
-	
+
 	visible: boolean = false;
 
 	showDialog() {
