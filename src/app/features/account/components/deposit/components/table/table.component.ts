@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { products } from '../../../../../../shared';
 import { Router } from '@angular/router';
-import { IOrderBuy, OrderService } from '../../../../../../shared/services/order.service';
+import {  OrderService } from '../../../../../../shared/';
 import { environment } from '../../../../../../../environments/environment';
+import { IOrderBuy } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-table',

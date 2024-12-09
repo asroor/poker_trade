@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IOrderBuyOne, OrderService } from '../../../../../../shared/services/order.service';
+import { IOrderBuyOne } from '../../../../../../interface';
+import { OrderService } from '../../../../../../shared';
 
 @Component({
 	selector: 'app-bid',
@@ -8,8 +9,6 @@ import { IOrderBuyOne, OrderService } from '../../../../../../shared/services/or
 	styleUrl: './bid.component.scss'
 })
 export class BidComponent implements OnInit {
-	
-
 	transfer: boolean = false;
 	canceled: boolean = true
 	pending: boolean = false

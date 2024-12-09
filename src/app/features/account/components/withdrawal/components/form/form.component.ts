@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BankService, CurrencyService, ICurrency, IRoom, RoomService, } from '../../../../../../shared';
-import { ISellRequestBody, OrderService } from '../../../../../../shared/services/order.service';
+import { OrderService } from '../../../../../../shared/services/order.service';
 import { environment } from '../../../../../../../environments/environment';
 import { Router } from '@angular/router';
-import { IBank } from '../../../../../../interface';
+import { IBank, ISellRequestBody } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-form',

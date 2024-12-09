@@ -5,8 +5,8 @@
 				<a routerLink="/" class="w-4rem flex-shrink-0 logo">
 					<img src="images/logo.png" alt="Logo" class="w-full" />
 				</a>
-				<p-button (click)="navigateByAuth()" routerLink="withdrawal/form" class="flex-shrink-0 hidden md:flex" severity="success"
-					icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
+				<p-button (click)="navigateByAuth()" routerLink="withdrawal/form" class="flex-shrink-0 hidden md:flex"
+					severity="success" icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
 				<div class="p-1 border-1 border-yellow-100 hidden sm:flex border-round w-full">
 					<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
@@ -18,7 +18,7 @@
 			</div>
 			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
 				<div routerLink="/profile/balance" class="flex align-items-center cursor-pointer column-gap-1">
-					<b class="line-height-1 m-0 text-yellow-600 text-lg">{{profile.balance}}$</b>
+					<b class="line-height-1 m-0 text-yellow-600 text-lg">{{profile?.balance}}$</b>
 					<i class="pi pi-wallet text-xl text-yellow-600 font-bold"></i>
 				</div>
 				<div class="flex align-items-center column-gap-2 profile">
@@ -37,7 +37,6 @@
 		</div>
 	</div>
 </header>
-
 <div class="bg-white border-round-top shadow-1 z-3 block md:hidden fixed bottom-0 py-2 left-0 right-0">
 	<div class="container">
 		<div class="p-1 border-1 border-yellow-100 flex mb-2 sm:hidden border-round w-full">

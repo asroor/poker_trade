@@ -241,13 +241,13 @@
         <div>
           <div class="mb-3">
             <label class="text-500 mb-1 block text-sm">ФИО отправителя:*</label>
-            <input [(ngModel)]="bayerFullName" type="text" pInputText placeholder="Иванов Иван Иванович" />
+            <input type="text" pInputText placeholder="Иванов Иван Иванович" />
           </div>
           <div class="mb-3">
             <label class="text-500 mb-1 block text-sm"
               >Последние 4 символа вашего номера телефона:*</label
             >
-            <input [(ngModel)]="lastFourDig" type="text" pInputText placeholder="1234" />
+            <input type="text" pInputText placeholder="1234" />
           </div>
           <div *ngIf="!transactions">
             <button

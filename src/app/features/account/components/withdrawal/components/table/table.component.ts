@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BankService, CurrencyService, products, RoomService } from '../../../../../../shared';
-import { IOrderMy, ISellRequestsMy, OrderService } from '../../../../../../shared/services/order.service';
+import { OrderService } from '../../../../../../shared';
 import { environment } from '../../../../../../../environments/environment';
+import { IOrderMy, ISellRequestsMy } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-table',
@@ -14,9 +14,6 @@ export class TableComponent {
 	orderParam: ISellRequestsMy = { page: 0, size: 10 }
 
 	constructor(
-		private _roomService: RoomService,
-		private _currencyService: CurrencyService,
-		private _bankService: BankService,
 		private _orderService: OrderService,
 	) { }
 

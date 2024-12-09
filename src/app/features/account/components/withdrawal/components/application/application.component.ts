@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrderBuy, IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
+import { OrderService } from '../../../../../../shared/services/order.service';
 import { ActivatedRoute } from '@angular/router';
+import { IOrderBuy, IOrderOne } from '../../../../../../interface';
 
 @Component({
 	selector: 'app-application',

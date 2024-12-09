@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { IOrderOne, OrderService } from '../../../../../../shared/services/order.service';
+import { OrderService } from '../../../../../../shared/services/order.service';
+import { IOrderOne } from '../../../../../../interface';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-form',
@@ -10,7 +12,7 @@ import { IOrderOne, OrderService } from '../../../../../../shared/services/order
 })
 export class FormComponent implements OnInit {
 
-	sellRequestId!: number;
+	sellRequestId: number;
 	countValu!: number;
 	infoOrder: boolean = false;
 	order!: IOrderOne
@@ -19,26 +21,41 @@ export class FormComponent implements OnInit {
 	pokerRoomNickname!: string
 	buyRequestId!: number
 
+	depostiForm: FormGroup
 	constructor(
 		private location: Location,
 		private routes: ActivatedRoute,
 		private _orderService: OrderService,
 		private router: Router,
-	) { }
-
-	ngOnInit(): void {
+		private fb: NonNullableFormBuilder
+	) {
 		this.sellRequestId = +this.routes.snapshot.params['id'];
-		// this._orderService.getSellRequest(this.sellRequestId).subscribe(data => {
-		// 	this.order = data
-		// })
+		this.depostiForm = this.fb.group({
+			sellRequestId: [this.sellRequestId, Validators.required],
+			wantToBuyUSD: ['', Validators.required],
+			pokerRoomNickname: ['', Validators.required]
+		})
 	}
 
+	ngOnInit(): void {
+		this.getSelReq()
+	}
+
+	getSelReq() {
+		this._orderService.getSellRequest(this.sellRequestId).subscribe({
+			next: data => {
+				this.order = data
+			},
+			error(err) {
+				console.error(err)
+			},
+		})
+	}
 	submit() {
-		this._orderService.buyRequest({
-			sellRequestId: this.sellRequestId,
-			wantToBuyUSD: this.wantToBuyUSD,
-			pokerRoomNickname: this.pokerRoomNickname
-		}).subscribe(data => {
+		const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
+		console.log(sellRequestId, wantToBuyUSD, pokerRoomNickname);
+
+		this._orderService.buyRequest({ sellRequestId, wantToBuyUSD, pokerRoomNickname }).subscribe(data => {
 			this.buyRequestId = data.buyRequestId
 			this.router.navigate(['/account', 'deposit', data.buyRequestId])
 		})
@@ -64,15 +81,12 @@ export class FormComponent implements OnInit {
 
 	isInputDisabled: boolean = false;
 	valueToogle(input: HTMLInputElement, btn: HTMLButtonElement): void {
-		if (input.disabled) {
+		if (input.value) {
 			input.value = '';
 			btn.textContent = 'Максимум'
-			input.disabled = false;
 		} else {
-			input.value = this.order?.wantToSellUSD?.toString() || '';
+			input.value = this.order.wantToSellUSD.toString();
 			btn.textContent = 'Очистить'
-			input.disabled = true;
 		}
 	}
-
 }

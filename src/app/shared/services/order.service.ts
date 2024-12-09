@@ -2,100 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
-import { IBaseOrder } from "../../interface";
-
-export interface ISellRequests {
-	pokerRoomId?: number
-	currencyId?: number
-	page: number
-	size: number
-	sortField: string
-	sortDirection: string
-	filterField?: string
-	filterValue?: number
-}
-
-export interface ISellRequestsMy {
-	page: number
-	size: number
-	filterField?: string
-	filterValue?: number
-}
-
-export interface ISellRequestBody {
-	pokerRoomId?: number
-	currencyId?: number
-	wantToSellUSD: number
-	minToSellUSD: number
-	currencyRate: number
-	bankId: number
-	detailsValue: string
-	fullName: string
-}
-
-export interface IOrderMy {
-	bankImageUrl: string
-	createdAt: string
-	currencyName: string
-	currencyRate: number
-	factSellerProfit: number
-	factUSDSold: number
-	id: number
-	roomImageUrl: string
-	status: string
-}
-
-
-export interface IOrderOne {
-	adminProfitUSD: number
-	bankName: string
-	bill: string
-	createdAt: string
-	currencyName: string
-	currencyRate: number
-	detailsValue: string
-	fullName: string
-	minToSellUSD?: number
-	pokerRoomName: string
-	pokerRoomNickname: any
-	received: number
-	soldUSD: number
-	status: string
-	wantToSellUSD: number
-}
-
-export interface IOrderBuy {
-	bankImageUrl: string
-	createdAt: string
-	currencyName: string
-	currencyRate: number
-	gave: number
-	id: number
-	received: number
-	roomImageUrl: string
-	sell_request_id: number
-	status: string
-	buyerFullName: any
-	buyerLastFourDig: any
-	wantToBuyUSD: number
-}
-
-export interface IOrderBuyOne {
-	bankName: string
-	createdAt: string
-	currencyName: string
-	currencyRate: number
-	detailsValue: string
-	isSbpBank: boolean
-	pokerRoomName: string
-	pokerRoomNickname: string
-	sellRequestId: number
-	sellerFullName: string
-	sellerNickname: string
-	status: string
-	wantToBuyUSD: number
-}
-
+import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrderOne, ISellRequests, ISellRequestsMy } from "../../interface";
 
 
 @Injectable({
@@ -105,73 +12,188 @@ export class OrderService {
 	_url = `${environment.apiUrl}`
 	constructor(private _http: HttpClient) { }
 
+	/**
+	 * 
+	 * @param param 
+	 * @returns 
+	 */
 	sellRequests(param: ISellRequests): Observable<IBaseOrder> {
 		return this._http.post<IBaseOrder>(`${this._url}/sell-requests`, { ...param }).pipe(
 			catchError(this.handleError)
 		)
 	}
 
-	buyRequests(id: number) {
-		return this._http.get<IOrderBuy[]>(`${this._url}/buy-requests/${id}`)
+	/**
+	 * 
+	 * @param id 
+	 * @returns 
+	 */
+	buyRequests(id: number): Observable<IOrderBuy[]> {
+		return this._http.get<IOrderBuy[]>(`${this._url}/buy-requests/${id}`).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestsMy(param: ISellRequestsMy) {
-		return this._http.post<{ result: IOrderBuy[], total: number }>(`${this._url}/buy-requests/my`, { ...param })
+	/**
+	 * 
+	 * @param param 
+	 * @returns 
+	 */
+	buyRequestsMy(param: ISellRequestsMy): Observable<{ result: IOrderBuy[], total: number }> {
+		return this._http.post<{ result: IOrderBuy[], total: number }>(`${this._url}/buy-requests/my`, { ...param }).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestsOne(id: number) {
-		return this._http.get<IOrderBuyOne>(`${this._url}/buy-request/${id}`)
+	/**
+	 * 
+	 * @param id 
+	 * @returns 
+	 */
+	buyRequestsOne(id: number): Observable<IOrderBuyOne> {
+		return this._http.get<IOrderBuyOne>(`${this._url}/buy-request/${id}`).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	sellRequestsMy(param: ISellRequestsMy) {
-		return this._http.post<{ result: IOrderMy[], total: number }>(`${this._url}/sell-requests/my`, { ...param })
+	/**
+	 * 
+	 * @param param 
+	 * @returns 
+	 */
+	sellRequestsMy(param: ISellRequestsMy): Observable<{ result: IOrderMy[], total: number }> {
+		return this._http.post<{ result: IOrderMy[], total: number }>(`${this._url}/sell-requests/my`, { ...param }).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	sellRequest(param: ISellRequestBody) {
-		return this._http.post<{ sellRequestId: number }>(`${this._url}/sell-request`, { ...param })
+	/**
+	 * 
+	 * @param param 
+	 * @returns 
+	 */
+	sellRequest(param: ISellRequestBody): Observable<{ sellRequestId: number }> {
+		return this._http.post<{ sellRequestId: number }>(`${this._url}/sell-request`, { ...param }).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequest(param: { sellRequestId: number, wantToBuyUSD: number, pokerRoomNickname: string }) {
-		return this._http.post<{ buyRequestId: number }>(`${this._url}/buy-request`, { ...param })
+	/**
+	 * 
+	 * @param param 
+	 * @returns 
+	 */
+	buyRequest(param: { sellRequestId: number, wantToBuyUSD: number, pokerRoomNickname: string }): Observable<{ buyRequestId: number }> {
+		return this._http.post<{ buyRequestId: number }>(`${this._url}/buy-request`, { ...param }).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	sellRequestModeration(data: { sellRequestId: number, pokerRoomNickname: string }) {
-		return this._http.post<string>(`${this._url}/sell-request/to-moderation`, { ...data })
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	sellRequestModeration(data: { sellRequestId: number, pokerRoomNickname: string }): Observable<string> {
+		return this._http.post<string>(`${this._url}/sell-request/to-moderation`, { ...data }).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	sellRequestCancel(data: { sellRequestId: number }) {
-		return this._http.post<string>(`${this._url}/sell-request/cancel`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	sellRequestCancel(data: { sellRequestId: number }): Observable<string> {
+		return this._http.post<string>(`${this._url}/sell-request/cancel`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	getSellRequest(id: number) {
-		return this._http.get<IOrderOne>(`${this._url}/sell-request/${id}`)
+	/**
+	 * 
+	 * @param id 
+	 * @returns 
+	 */
+	getSellRequest(id: number): Observable<IOrderOne> {
+		return this._http.get<IOrderOne>(`${this._url}/sell-request/${id}`).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestAccept(data: { buyRequestId: number }) {
-		return this._http.post<any>(`${this._url}/buy-request/accept`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestAccept(data: { buyRequestId: number }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/accept`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestReject(data: { buyRequestId: number }) {
-		return this._http.post<any>(`${this._url}/buy-request/reject`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestReject(data: { buyRequestId: number }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/reject`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestReceiveApprove(data: { buyRequestId: number }) {
-		return this._http.post<any>(`${this._url}/buy-request/receive-approve`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestReceiveApprove(data: { buyRequestId: number }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/receive-approve`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestOpenDispute(data: { buyRequestId: number }) {
-		return this._http.post<any>(`${this._url}/buy-request/open-dispute`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestOpenDispute(data: { buyRequestId: number }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/open-dispute`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestCancel(data: { buyRequestId: number }) {
-		return this._http.post<any>(`${this._url}/buy-request/cancel`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestCancel(data: { buyRequestId: number }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/cancel`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
-	buyRequestPayed(data: { buyRequestId: number, bayerFullName: string, lastFourDig: string }) {
-		return this._http.post<any>(`${this._url}/buy-request/i-payed`, data)
+	/**
+	 * 
+	 * @param data 
+	 * @returns 
+	 */
+	buyRequestPayed(data: { buyRequestId: number, bayerFullName: string, lastFourDig: string }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/i-payed`, data).pipe(
+			catchError(this.handleError)
+		)
 	}
 
 
+	/**
+	 * 
+	 * @param err 
+	 * @returns 
+	 */
 	private handleError(err: HttpErrorResponse): Observable<never> {
 		let errMsg = 'Произошла неизвестная ошибка';
 		if (err instanceof ErrorEvent) {

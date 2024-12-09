@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DepositComponent } from './deposit.component';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BidComponent } from './components/bid/bid.component';
 import { TableComponent } from './components/table/table.component';
 import { ButtonModule } from 'primeng/button';
@@ -43,7 +43,7 @@ const routes: Routes = [
 		InputGroupAddonModule,
 		TableModule,
 		TagModule,
-		FormsModule,
+		ReactiveFormsModule,
 		ButtonModule,
 		CheckboxModule,
 		BlockUIModule,
