@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthModalService } from '../../../auth/auth.modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IProfile, ProfileService } from '../../../shared';
+import { Router } from '@angular/router';
+import { ProfileService } from '../../../shared';
+import { IProfile } from '../../../interface';
 
 @Component({
 	selector: 'app-navbar',
@@ -10,11 +11,11 @@ import { IProfile, ProfileService } from '../../../shared';
 })
 export class NavbarComponent implements OnInit {
 	localStorageKey = 'telegramToken';
-	profile!:IProfile
+	profile!: IProfile
 
 	constructor(
-		private modalService: AuthModalService, 
-		private _profileService: ProfileService, 
+		private modalService: AuthModalService,
+		private _profileService: ProfileService,
 		private router: Router
 	) { }
 

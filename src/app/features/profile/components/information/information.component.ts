@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IProfile, ProfileService } from '../../../../shared';
+import { ProfileService } from '../../../../shared';
+import { IProfile } from '../../../../interface';
 
 @Component({
 	selector: 'app-information',
@@ -33,11 +34,11 @@ export class InformationComponent implements OnInit {
 
 	visible: boolean = false;
 
-	profile!:IProfile
+	profile!: IProfile
 
 	constructor(
 		private _profileService: ProfileService
-	){}
+	) { }
 
 	ngOnInit(): void {
 		this._profileService.getProfile().subscribe(data => {
