@@ -115,11 +115,7 @@ export class FormComponent implements OnInit {
 		this._orderService.sellRequest(this.body).subscribe(data => {
 			this.bigClick()
 			this.sellRequestId = data.sellRequestId
-		})
-	}
 
-	submit2() {
-		this._orderService.sellRequestModeration({ sellRequestId: this.sellRequestId, pokerRoomNickname: this.pokerRoomNickname }).subscribe(data => {
 			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
 		})
 	}
@@ -158,11 +154,5 @@ export class FormComponent implements OnInit {
 			console.log(this.calcCurs);
 			this.calcCurs = valu * this.activeCurrency.rateMin
 		}
-	}
-
-	visible: boolean = false;
-
-	showDialog() {
-		this.visible = !this.visible
 	}
 }

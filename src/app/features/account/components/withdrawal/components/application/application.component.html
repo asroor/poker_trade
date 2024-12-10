@@ -1,321 +1,411 @@
-<ng-container *ngIf="order?.status == 'CANCELED' || order?.status == 'REJECTED'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
-		<p-tag icon="pi pi-times-circle" severity="danger" value="Отменена" />
-		<p-tag icon="pi pi-check-circle" severity="success" value="Выполнена" />
-	</h3>
-	<div class="grid my-3">
-		<div class="col-12 lg:col-4">
-			<div class="grid">
-				<div class="col-6">
-					<p class="text-500 text-sm m-0 mb-1">Продали</p>
-					<h4 class="m-0 font-bold text-700">0 USD</h4>
-				</div>
-				<div class="col-6">
-					<p class="text-500 text-sm m-0 mb-1">Получили</p>
-					<h4 class="m-0 font-bold text-700">0.00 RUB </h4>
+<ng-container *ngIf="order">
+	<ng-container *ngIf="order?.status == 'CANCELED' || order?.status == 'REJECTED' || order?.status == 'EXPIRED'">
+		<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
+			<p-tag *ngIf="order.status == 'REJECTED' || order.status == 'CANCELED' || order.status == 'EXPIRED' " icon="pi pi-times-circle" severity="danger" value="Отменена" />
+			<p-tag *ngIf="order.status == 'COMPLETED'" icon="pi pi-check-circle" severity="success" value="Выполнена" />
+		</h3>
+		<div class="grid my-3">
+			<div class="col-12 lg:col-4">
+				<div class="grid">
+					<div class="col-6">
+						<p class="text-500 text-sm m-0 mb-1">Продали</p>
+						<h4 class="m-0 font-bold text-700">{{order.soldUSD}} USD</h4>
+					</div>
+					<div class="col-6">
+						<p class="text-500 text-sm m-0 mb-1">Получили</p>
+						<h4 class="m-0 font-bold text-700">{{order.received}} RUB </h4>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
-				</span></p>
-		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
-			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
-		</div>
-	</div>
-	<div class="my-8"></div>
-</ng-container>
-
-<ng-container *ngIf="order?.status == 'IN_PROGRESS'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" severity="warning"
-			value="в процессе" /></h3>
-	<div class="grid my-3">
-		<div class="col-12 lg:col-4">
-			<div class="grid">
-				<div class="col-6">
-					<p class="text-500 text-sm m-0 mb-1">Продали</p>
-					<h4 class="m-0 font-bold text-700">{{order.soldUSD}} USD</h4>
-				</div>
-				<div class="col-6">
-					<p class="text-500 text-sm m-0 mb-1">Получили</p>
-					<h4 class="m-0 font-bold text-700">{{order.received}} RUB </h4>
-				</div>
-				<div class="col-6"></div>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
+					</span></p>
 			</div>
-			<div class="flex flex-column lg:flex-column sm:flex-row gap-2 mb-3">
-				<!-- <button type="button" pButton class="w-full column-gap-2 align-items-center justify-content-center">
-					<i class="pi pi-file-edit"></i>
-					изменение доли
-				</button> -->
-				<button (click)="cancel()" type="button" pButton severity="danger"
-					class=" w-full column-gap-2 align-items-center justify-content-center">
-					<i class="pi pi-times-circle"></i>
-					отменить заявку
-				</button>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
+				<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
 			</div>
 		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
-				</span></p>
-		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
-			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
-		</div>
-	</div>
-	<div class="my-8"></div>
-</ng-container>
-
-<ng-container *ngIf="order?.status == 'MODERATION'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" value="Модерация" />
-	</h3>
-	<div class="grid mt-3">
-		<div class="col-12 lg:col-4">
-			<h3 class="m-0 font-bold mb-1 text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-			<h3 class="m-0 mb-1 font-normal text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-			<button type="button" pButton size="small"
-				class="bg-primary-100 border-none text-yellow-600 text-base column-gap-2 w-full justify-content-center mt-2">
-				<i class="pi pi-arrow-up-right"></i>
-				На главную
-			</button>
-		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
-				</span></p>
-		</div>
-		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
-			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
-			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
-		</div>
-	</div>
-</ng-container>
-
-<ng-container *ngIf="ordeBuy">
-	<div class="my-8"></div>
-	<h3 class="font-bold m-0 text-xl text-700">Встречные заявки</h3>
-	<div class="grid mt-3">
-		<ng-container *ngFor="let item of ordeBuy">
-			<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
-				<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center column-gap-3">
-								<div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
-									<i class="pi text-sm pi-stopwatch"></i>
-									02:23
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">{{item.id}}</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
-								</div>
-							</div>
-						</ng-template>
-						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm text-yellow-600 font-medium bg-primary-100">
-							<i class="pi text-sm pi-stopwatch"></i>
-							Примите новую заявку
+		<div class="my-8"></div>
+	</ng-container>
+	
+	<ng-container *ngIf="order?.status == 'NEW'">
+		<div class="grid">
+			<div class="col-12">
+				<h3 class="font-bold m-0 text-xl text-700">Для продолжения сделайте перевод на аккаунт {{order.pokerRoomName}}: </h3>
+				<div class="grid mt-3">
+					<div class="col-12 md:col-4">
+						<!-- <div class="mb-3">
+								<label class="block mb-1 text-sm text-500">Email вашего аккаунта Luxon:* </label>
+								<input type="email" name="" pInputText id="" placeholder="pokertrade">
+							</div> -->
+						<div class="mb-3">
+							<label class="block mb-1 text-sm text-500">Имя и фамилия в аккаунте {{order.pokerRoomName}}:* </label>
+							<input type="text" [(ngModel)]="pokerRoomNickname" name="" pInputText id=""
+								placeholder="Введенный текст поля">
 						</div>
-						<h4 class="m-0 mb-2 text-700 text-lg">Lorem ipsum dolor sit amet.</h4>
-						<h3 class="m-0 mb-2 font-medium text-700">Lorem ipsum dolor sit amet.</h3>
-						<div class="flex column-gap-2 mt-3">
-							<button (click)="buyCancel(item.id)" severity="danger" size="small" type="button"
+						<div>
+							<button type="button" severity="success" (click)="showDialog2()"
+								class="flex mb-3 align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+								<i class="pi pi-check-circle"></i>
+								Отправил
+							</button>
+							<button (click)="cancel()" severity="danger" type="button"
 								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
 								<i class="pi pi-times-circle"></i>
-								Отмена
-							</button>
-							<button (click)="buyAccept(item.id)" type="button" severity="success"
-								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
-								<i class="pi pi-check-circle"></i>
-								принять
+								Отправил
 							</button>
 						</div>
-					</p-accordionTab>
-				</p-accordion>
+					</div>
+					<div class="col-12 md:col-8">
+						<div class="grid">
+							<div class="col-12 md:col-4">
+								<div class="mb-2">
+									<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
+									<b class="text-yellow-600 font-bold text-base">{{order.pokerRoomName}}</b>
+								</div>
+								<div class="mb-2">
+									<p class="m-0 mb-1 text-sm text-500">Аккаунт:</p>
+									<b class="text-yellow-600 font-bold text-base">{{order.fullName}}</b>
+								</div>
+								<div class="mb-2">
+									<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
+									<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD}} USD</b>
+								</div>
+							</div>
+							<div class="col-12 sm:col-4">
+								<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}}</span></p>
+								<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
+								<!-- <p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">-</span></p> -->
+								<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
+								<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} {{order.currencyName}}
+									</span></p>
+							</div>
+							<div class="col-12 sm:col-4">
+								<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+								<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
+								<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
+								<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">{{order.fullName}}</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
+	</ng-container>
 	
-			<div *ngIf="item.status=='WAIT_FOR_BUYER_PAY'" class="col-12 lg:col-6">
-				<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">39439489</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">1023 RUB</b>
-								</div>
-							</div>
-						</ng-template>
-						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-gray-100 text-gray-500">
-							<i class="pi text-sm pi-send"></i>
-							Ожидайте оплаты от покупателя
-						</div>
-						<div class="grid mb">
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">№ отклика</p>
-								<b class="m-0 text-700">23232-0-02020932</b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">ФИО</p>
-								<b class="m-0 text-700">Muslim Shodiyev</b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Сумма:</p>
-								<b class="m-0 text-700">232 203 RUB <span class="font-light text-500">(200 USD)</span></b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Счет отправителя </p>
-								<b class="m-0 text-700">0930cxoc0w90</b>
-							</div>
-						</div>
-						<button severity="danger" size="small" type="button"
-							class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
-							<i class="pi pi-exclamation-triangle"></i>
-							Жаловаться на покупателя
-						</button>
-					</p-accordionTab>
-				</p-accordion>
+	
+	<ng-container *ngIf="order?.status == 'IN_PROGRESS'">
+		<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" severity="warning"
+				[value]="'в процессе'" /></h3>
+		<div class="grid my-3">
+			<div class="col-12 lg:col-4">
+				<div class="grid">
+					<div class="col-6">
+						<p class="text-500 text-sm m-0 mb-1">Продали</p>
+						<h4 class="m-0 font-bold text-700">{{order.soldUSD}} USD</h4>
+					</div>
+					<div class="col-6">
+						<p class="text-500 text-sm m-0 mb-1">Получили</p>
+						<h4 class="m-0 font-bold text-700">{{order.received}} RUB </h4>
+					</div>
+					<div class="col-6"></div>
+				</div>
+				<div class="flex flex-column lg:flex-column sm:flex-row gap-2 mb-3">
+					<!-- <button type="button" pButton class="w-full column-gap-2 align-items-center justify-content-center">
+						<i class="pi pi-file-edit"></i>
+						изменение доли
+					</button> -->
+					<button (click)="cancel()" type="button" pButton severity="danger"
+						class=" w-full column-gap-2 align-items-center justify-content-center">
+						<i class="pi pi-times-circle"></i>
+						отменить заявку
+					</button>
+				</div>
 			</div>
-			<div *ngIf="item.status=='BUYER_PAYED'" class="col-12 lg:col-6">
-				<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">39439489</b>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
+					</span></p>
+			</div>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
+				<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
+			</div>
+		</div>
+		<div class="my-8"></div>
+	</ng-container>
+	
+	<ng-container *ngIf="order?.status == 'MODERATION'">
+		<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" value="Модерация" />
+		</h3>
+		<div class="grid mt-3">
+			<div class="col-12 lg:col-4">
+				<h3 class="m-0 font-bold mb-1 text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+				<h3 class="m-0 mb-1 font-normal text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+				<button type="button" pButton size="small"
+					class="bg-primary-100 border-none text-yellow-600 text-base column-gap-2 w-full justify-content-center mt-2">
+					<i class="pi pi-arrow-up-right"></i>
+					На главную
+				</button>
+			</div>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Курс и валюта: <span class="text-700">{{order.currencyRate}} RUB
+					</span></p>
+			</div>
+			<div class="col-12 lg:col-4 sm:col-6">
+				<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
+				<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
+				<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
+			</div>
+		</div>
+	</ng-container>
+	
+	<ng-container *ngIf="ordeBuy | async as ordeBuy">
+		<div class="my-8"></div>
+		<h3 *ngIf="order.status == 'IN_PROGRESS'" class="font-bold m-0 text-xl text-700">Встречные заявки</h3>
+		<div class="grid mt-3">
+			<ng-container *ngFor="let item of ordeBuy">
+				<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
+					<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+						<p-accordionTab iconPos="end">
+							<ng-template pTemplate="header">
+								<div class="flex align-items-center column-gap-3">
+									<div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
+										<i class="pi text-sm pi-stopwatch"></i>
+										02:23
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">{{item.id}}</b>
+										<b class="font-medium text-sm text-700">{{item.id}}</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Сумма:</b>
+										<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									</div>
 								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">1023 RUB</b>
+							</ng-template>
+							<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm text-yellow-600 font-medium bg-primary-100">
+								<i class="pi text-sm pi-stopwatch"></i>
+								Примите новую заявку
+							</div>
+							<h4 class="m-0 mb-2 text-700 text-lg">Lorem ipsum dolor sit amet.</h4>
+							<h3 class="m-0 mb-2 font-medium text-700">Lorem ipsum dolor sit amet.</h3>
+							<div class="flex column-gap-2 mt-3">
+								<button (click)="buyCancel(item.id)" severity="danger" size="small" type="button"
+									class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+									<i class="pi pi-times-circle"></i>
+									Отмена
+								</button>
+								<button (click)="buyAccept(item.id)" type="button" severity="success"
+									class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+									<i class="pi pi-check-circle"></i>
+									принять
+								</button>
+							</div>
+						</p-accordionTab>
+					</p-accordion>
+				</div>
+		
+				<div *ngIf="item.status=='WAIT_FOR_BUYER_PAY'" class="col-12 lg:col-6">
+					<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+						<p-accordionTab iconPos="end">
+							<ng-template pTemplate="header">
+								<div class="flex align-items-center h-2rem column-gap-3">
+									<div>
+										<b class="font-medium block text-xs text-500">№ отклика:</b>
+										<b class="font-medium text-sm text-700">{{item.id}}</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Сумма:</b>
+										<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									</div>
 								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Счет:</b>
-									<b class="font-medium text-sm text-700">3403490</b>
+							</ng-template>
+							<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-gray-100 text-gray-500">
+								<i class="pi text-sm pi-send"></i>
+								Ожидайте оплаты от покупателя
+							</div>
+							<div class="grid mb">
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">№ отклика</p>
+									<b class="m-0 text-700">{{item.id}}</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">ФИО</p>
+									<b class="m-0 text-700">{{item.buyerFullName}}</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Сумма:</p>
+									<b class="m-0 text-700">{{item.wantToBuyUSD}} {{item.currencyName}} 
+										<!-- <span class="font-light text-500">(200 USD)</span> -->
+									</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Счет отправителя </p>
+									<b class="m-0 text-700">{{item.buyerLastFourDig}}</b>
 								</div>
 							</div>
-						</ng-template>
-						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-yellow-200 text-700">
-							<i class="pi text-sm pi-stopwatch"></i>
-							Ожидайте оплаты от покупателя
-						</div>
-						<div class="grid mb">
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">№ отклика</p>
-								<b class="m-0 text-700">23232-0-02020932</b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">ФИО</p>
-								<b class="m-0 text-700">Muslim Shodiyev</b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Сумма:</p>
-								<b class="m-0 text-700">232 203 RUB <span class="font-light text-500">(200 USD)</span></b>
-							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Счет отправителя </p>
-								<b class="m-0 text-700">0930cxoc0w90</b>
-							</div>
-						</div>
-						<div class="flex column-gap-2">
 							<button severity="danger" size="small" type="button"
-								class="flex align-items-center column-gap-2 w-1 justify-content-center" size="small" pButton>
+								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
 								<i class="pi pi-exclamation-triangle"></i>
+								Жаловаться на покупателя
 							</button>
-							<button type="button" (click)="showDialog(item.id)" severity="success" pButton
-								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small">
-								<i class="pi pi-check-circle"></i>
-								Подтвердить получение
-							</button>
-						</div>
-					</p-accordionTab>
-				</p-accordion>
-			</div>
-			<!-- <div  class="col-12 lg:col-6">
-				<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">39439489</b>
+						</p-accordionTab>
+					</p-accordion>
+				</div>
+				<div *ngIf="item.status=='BUYER_PAYED'" class="col-12 lg:col-6">
+					<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+						<p-accordionTab iconPos="end">
+							<ng-template pTemplate="header">
+								<div class="flex align-items-center h-2rem column-gap-3">
+									<div>
+										<b class="font-medium block text-xs text-500">№ отклика:</b>
+										<b class="font-medium text-sm text-700">{{item.id}}</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Сумма:</b>
+										<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Счет:</b>
+										<b class="font-medium text-sm text-700">3403490</b>
+									</div>
 								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">1023 RUB</b>
+							</ng-template>
+							<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-yellow-200 text-700">
+								<i class="pi text-sm pi-stopwatch"></i>
+								Ожидайте оплаты от покупателя
+							</div>
+							<div class="grid mb">
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">№ отклика</p>
+									<b class="m-0 text-700">{{item.id}}</b>
 								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Счет:</b>
-									<b class="font-medium text-sm text-700">3403490</b>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">ФИО</p>
+									<b class="m-0 text-700">Muslim Shodiyev</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Сумма:</p>
+									<b class="m-0 text-700">{{item.wantToBuyUSD}} {{item.currencyName}} 
+										<!-- <span class="font-light text-500">(200 USD)</span> -->
+									</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Счет отправителя </p>
+									<b class="m-0 text-700">{{item.buyerLastFourDig}}</b>
 								</div>
 							</div>
-						</ng-template>
-						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-primary text-700">
-							<i class="pi text-sm pi-bolt"></i>
-							Заявка на оплате у модератора
-						</div>
-						<div class="grid mb">
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">№ отклика</p>
-								<b class="m-0 text-700">23232-0-02020932</b>
+							<div class="flex column-gap-2">
+								<button severity="danger" size="small" type="button"
+									class="flex align-items-center column-gap-2 w-1 justify-content-center" size="small" pButton>
+									<i class="pi pi-exclamation-triangle"></i>
+								</button>
+								<button type="button" (click)="showDialog(item.id)" severity="success" pButton
+									class="flex align-items-center column-gap-2 w-full justify-content-center" size="small">
+									<i class="pi pi-check-circle"></i>
+									Подтвердить получение
+								</button>
 							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">ФИО</p>
-								<b class="m-0 text-700">Muslim Shodiyev</b>
+						</p-accordionTab>
+					</p-accordion>
+				</div>
+				<!-- <div  class="col-12 lg:col-6">
+					<p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+						<p-accordionTab iconPos="end">
+							<ng-template pTemplate="header">
+								<div class="flex align-items-center h-2rem column-gap-3">
+									<div>
+										<b class="font-medium block text-xs text-500">№ отклика:</b>
+										<b class="font-medium text-sm text-700">{{item.id}}</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Сумма:</b>
+										<b class="font-medium text-sm text-700">1023 RUB</b>
+									</div>
+									<div>
+										<b class="font-medium block text-xs text-500">Счет:</b>
+										<b class="font-medium text-sm text-700">3403490</b>
+									</div>
+								</div>
+							</ng-template>
+							<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-primary text-700">
+								<i class="pi text-sm pi-bolt"></i>
+								Заявка на оплате у модератора
 							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Сумма:</p>
-								<b class="m-0 text-700">232 203 RUB <span class="font-light text-500">(200 USD)</span></b>
+							<div class="grid mb">
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">№ отклика</p>
+									<b class="m-0 text-700">23232-0-02020932</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">ФИО</p>
+									<b class="m-0 text-700">Muslim Shodiyev</b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Сумма:</p>
+									<b class="m-0 text-700">232 203 RUB <span class="font-light text-500">(200 USD)</span></b>
+								</div>
+								<div class="col-12 sm:col-6">
+									<p class="m-0 mb-1 text-500">Счет отправителя </p>
+									<b class="m-0 text-700">0930cxoc0w90</b>
+								</div>
 							</div>
-							<div class="col-12 sm:col-6">
-								<p class="m-0 mb-1 text-500">Счет отправителя </p>
-								<b class="m-0 text-700">0930cxoc0w90</b>
-							</div>
-						</div>
-					</p-accordionTab>
-				</p-accordion>
-			</div> -->
-		</ng-container>
-	</div>
+						</p-accordionTab>
+					</p-accordion>
+				</div> -->
+			</ng-container>
+		</div>
+	</ng-container>
+	
+	
+	<p-dialog header="Подтверждение операции" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+		<h4>Вы подтверждаете, что получили верную сумму и реквизиты контрагента совпадают с указанными в заявке?</h4>
+	
+		<div class="flex column-gap-2">
+			<button type="button" pButton severity="danger" (click)="visible = false"
+				class="w-full justify-content-center column-gap-2">
+				<i class="pi pi-check-circle"></i>
+				Нет</button>
+			<button (click)="buyReceiveApprove()" type="button" pButton severity="success" (click)="visible = false"
+				class="w-full justify-content-center column-gap-2">
+				<i class="pi pi-check-circle"></i>
+				Да</button>
+		</div>
+	</p-dialog>
+	
+	<p-dialog header="Подтверждение операции" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+		<b class="text-700 text-lg font-light mb-3 block">Вы подтверждаете, что перевели указанную сумму в полном объеме и на
+			аккаунт,
+			который указан? </b>
+		<div class="flex column-gap-2">
+			<button severity="danger" size="small" type="button" (click)="showDialog2()"
+				class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+				<i class="pi pi-times-circle"></i>
+				Нет
+			</button>
+			<button (click)="submit2()" type="button" severity="success"
+				class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
+				<i class="pi pi-check-circle"></i>
+				Да
+			</button>
+		</div>
+	</p-dialog>
 </ng-container>
-
-
-<p-dialog header="Подтверждение операции" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-	<h4>Вы подтверждаете, что получили верную сумму и реквизиты контрагента совпадают с указанными в заявке?</h4>
-
-	<div class="flex column-gap-2">
-		<button type="button" pButton severity="danger" (click)="visible = false"
-			class="w-full justify-content-center column-gap-2">
-			<i class="pi pi-check-circle"></i>
-			Нет</button>
-		<button (click)="buyReceiveApprove()" type="button" pButton severity="success" (click)="visible = false"
-			class="w-full justify-content-center column-gap-2">
-			<i class="pi pi-check-circle"></i>
-			Да</button>
-	</div>
-</p-dialog>
