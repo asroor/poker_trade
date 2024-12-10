@@ -49,6 +49,7 @@ const routes: Routes = [
 		BlockUIModule,
 		PanelModule,
 		DialogModule,
+		FormsModule,
 		RouterModule.forChild(routes)
 	]
 })

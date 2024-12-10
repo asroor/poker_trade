@@ -198,11 +198,11 @@
 				<div>
 					<div class="mb-3">
 						<label class="text-500 mb-1 block text-sm">ФИО отправителя:*</label>
-						<input type="text" pInputText placeholder="Иванов Иван Иванович" />
+						<input type="text" [(ngModel)]="bayerFullName" pInputText placeholder="Иванов Иван Иванович" />
 					</div>
 					<div class="mb-3">
 						<label class="text-500 mb-1 block text-sm">Последние 4 символа вашего номера телефона:*</label>
-						<input type="text" pInputText placeholder="1234" />
+						<input type="text" [(ngModel)]="lastFourDig" pInputText placeholder="1234" />
 					</div>
 					<div *ngIf="!transactions">
 						<button type="button" (click)="request = true" severity="success" pButton
@@ -302,7 +302,7 @@
 		</div>
 	</ng-container>
 
-	<ng-container *ngIf="order.status =='BUYER_PAYED'">
+	<ng-container *ngIf="order.status =='BUYER_PAYED' || order.status == 'WAIT_FOR_ADMIN_MOVE'">
 		<div class="mt-8">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
 				Заявка на покупку ПокерОК
@@ -449,7 +449,7 @@
 			</div>
 		</div>
 	</ng-container>
-
+946039222
 	<p-dialog header="Подтверждение операций" [modal]="true" [(visible)]="request" [style]="{ width: '25rem' }">
 		<p class="m-0 font-light text-lg">
 			Вы подтверждаете, что перевели указанную сумму в полном объеме и на

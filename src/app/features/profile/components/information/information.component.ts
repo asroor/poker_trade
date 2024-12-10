@@ -28,8 +28,13 @@ export class InformationComponent implements OnInit {
 			this.router.navigate(['/profile/information'])
 		}
 
+		this.getData()
+	}
+
+	getData(){
 		this._profileService.getProfile().subscribe(data => {
 			this.profile = data
+			this.profileForm.patchValue(data)
 		})
 	}
 
@@ -58,9 +63,7 @@ export class InformationComponent implements OnInit {
 		const { code } = this.profileForm.getRawValue()
 		this._profileService.emailVerify(code.toString()).subscribe({
 			next: () => {
-				this.router.navigate(['/profile']).then(() => {
-					window.location.reload()
-				})
+				this.getData()
 			}
 		})
 	}
