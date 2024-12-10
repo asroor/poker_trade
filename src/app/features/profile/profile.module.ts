@@ -5,11 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { BalanceComponent } from './components/balance/balance.component';
 import { InformationComponent } from './components/information/information.component';
 import { DialogModule } from 'primeng/dialog';
+import { InputOtpModule } from 'primeng/inputotp';
 
 const routes: Routes = [
 	{
@@ -44,6 +45,8 @@ const routes: Routes = [
 		InputTextModule,
 		ButtonModule,
 		InputGroupModule,
+		FormsModule,
+		InputOtpModule,
 		InputGroupAddonModule,
 		ReactiveFormsModule,
 		DialogModule

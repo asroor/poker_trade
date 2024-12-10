@@ -11,7 +11,13 @@
 				<input type="email" formControlName="email" pInputText mode="decimal" placeholder="user@luxon.com"
 					[value]="profile.email" />
 				<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2"
-					(click)="sendCodeFn()">Отправить код</button>
+					(click)="sendCodeFn($event)">Отправить код</button>
+			</p-inputGroup>
+			<p-inputGroup class="mb-3" *ngIf="senCode">
+				<input type="number" formControlName="code" pInputText mode="decimal" placeholder="1234" maxlength="4" />
+				<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2" (click)="emailVerifyFN()">
+					<i class="pi pi-send"></i>
+				</button>
 			</p-inputGroup>
 			<div class="flex align-items-start column-gap-1 p-2 border-round border-1 border-400">
 				<i class="pi text-500 text-sm pi-exclamation-circle"></i>
