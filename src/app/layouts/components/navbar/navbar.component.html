@@ -18,13 +18,17 @@
 				</div>
 			</div>
 			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
-				<div *ngIf="isUserLoginned()" routerLink="/profile/balance" class="flex align-items-center cursor-pointer column-gap-1">
-					<b *ngIf="profile | async as profile" class="line-height-1 m-0 text-yellow-600 text-lg">{{profile.balance}}$</b>
+				<div *ngIf="isUserLoginned()" routerLink="/profile/balance"
+					class="flex align-items-center cursor-pointer column-gap-1">
+					<b *ngIf="profile | async as profile"
+						class="line-height-1 m-0 text-yellow-600 text-lg">{{profile.balance}}$</b>
 					<i class="pi pi-wallet text-xl text-yellow-600 font-bold"></i>
 				</div>
 				<div class="flex align-items-center column-gap-2 profile">
-					<p-avatar routerLink="/profile" shape="circle" class="cursor-pointer" image="images/user-icon01.svg"
-						styleClass="mr-2" *ngIf="isUserLoginned()" />
+					<button type="button" routerLink="/profile" *ngIf="isUserLoginned()" pButton size="small"
+					class="bg-yellow-50 border-none">
+					<i class="pi pi-user text-yellow-600 font-bold"></i>
+				</button>
 					<button type="button" (click)="openModal()" *ngIf="!isUserLoginned()" pButton size="small"
 						class="bg-yellow-50 border-none" (click)="logout()">
 						<i class="pi pi-user text-yellow-600 font-bold"></i>
