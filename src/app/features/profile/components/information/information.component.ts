@@ -59,11 +59,12 @@ export class InformationComponent implements OnInit {
 		});
 	}
 
-	emailVerifyFN() {
+	emailVerifyFN(btn: HTMLButtonElement) {
 		const { code } = this.profileForm.getRawValue()
 		this._profileService.emailVerify(code.toString()).subscribe({
 			next: () => {
 				this.getData()
+				btn.remove()
 			}
 		})
 	}
