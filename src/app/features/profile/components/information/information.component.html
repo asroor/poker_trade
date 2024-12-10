@@ -15,7 +15,8 @@
 			</p-inputGroup>
 			<p-inputGroup class="mb-3" *ngIf="senCode">
 				<input type="number" formControlName="code" pInputText mode="decimal" placeholder="1234" maxlength="4" />
-				<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2" (click)="emailVerifyFN(senCodeBtn)">
+				<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2"
+					(click)="emailVerifyFN(senCodeBtn)">
 					<i class="pi pi-send"></i>
 				</button>
 			</p-inputGroup>

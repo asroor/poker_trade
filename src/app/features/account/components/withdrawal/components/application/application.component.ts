@@ -17,7 +17,7 @@ export class ApplicationComponent implements OnInit {
 	id!: number
 	buyId!: number
 	pokerRoomNickname!: string
-	byNumberBank!:string
+	byNumberBank!: string
 
 	constructor(
 		private _orderService: OrderService,
@@ -27,20 +27,17 @@ export class ApplicationComponent implements OnInit {
 	ngOnInit(): void {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 		this.getOrder()
-
-		this.intervalSubscription = interval(2000).subscribe((data) => {
-			this.getOrder();
-		});
+		this.getOrder();
 	}
 	ngOnDestroy(): void {
 		if (this.intervalSubscription) {
-		  this.intervalSubscription.unsubscribe();
+			this.intervalSubscription.unsubscribe();
 		}
-	  }
+	}
 
-	getOrder(){
+	getOrder() {
 		this._orderService.getSellRequest(this.id).subscribe((data) => {
-			if(data.status == 'IN_PROGRESS'){
+			if (data.status == 'IN_PROGRESS') {
 				this.getOrdcerBy()
 			}
 			this.order = data
@@ -48,7 +45,7 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
-	getOrdcerBy(){
+	getOrdcerBy() {
 		this.ordeBuy = this._orderService.buyRequests(this.id)
 	}
 

@@ -21,7 +21,6 @@
 				<div class="flex w-full align-items-center column-gap-2">
 					<p-dropdown (onChange)="setActiveRoom(activeRoom)" [ngStyle]="{width: '100%'}" [options]="rooms"
 						[(ngModel)]="activeRoom" optionLabel="title" placeholder="Select a wallet" />
-
 					<p-dropdown [options]="currencies" class="curs" (onChange)="setActiveCurrency(activeCurrency)"
 						[(ngModel)]="activeCurrency" optionLabel="title" placeholder="Select a wallet"
 						[ngStyle]="{width: '100px'}" />
@@ -38,7 +37,7 @@
 					<input [(ngModel)]="wantToSellUSD" type="number" #maxInp pInputText mode="decimal"
 						[placeholder]="'От ' + activeCurrency.rateMin + '' + activeCurrency.title + ' до ' + activeCurrency.rateMax + ' ' + activeCurrency.title"
 						required (ngModelChange)="calculateCurs(maxInp)" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax"/>
+						[max]="activeCurrency.rateMax" />
 					<button type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
 						(click)="maxValu(maxInp, maxFixBtn)">Максимум</button>
 				</p-inputGroup>
@@ -50,7 +49,7 @@
 				<p-inputGroup>
 					<input [(ngModel)]="minToSellUSD" pInputText type="number"
 						[placeholder]="'От ' + activeCurrency.rateMin + ' ' + activeCurrency.title" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax"/>
+						[max]="activeCurrency.rateMax" />
 					<p-inputGroupAddon
 						[pTooltip]="'Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от ' + activeCurrency.rateMin + activeCurrency.title + ' до ' + activeCurrency.rateMax + activeCurrency.title + ', чтобы быстрее выкупили'"
 						tooltipPosition="bottom">
@@ -82,15 +81,16 @@
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
-							<div class="flex align-items-center gap-2" (click)="changeBank(country)">
+							<div class="flex align-items-center w-full item-bank gap-2" (click)="changeBank(country)">
 								<img [src]="mediaUrl + country.imageUrl" [class]="'flag flag-' + country.title.toLowerCase()"
 									style="width: 18px; height:18px;" />
 								<div>{{ country.title }}</div>
 							</div>
 						</ng-template>
 					</p-dropdown>
-					<p-inputMask [ngStyle]="{width: '100%'}" [mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+79999999999'" variant="filled"
-						[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+79999999999'" [(ngModel)]="detailsValue" />
+					<p-inputMask [ngStyle]="{width: '100%'}"
+						[mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" variant="filled"
+						[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" [(ngModel)]="detailsValue" />
 				</div>
 				<div *ngIf="isSbp | async">
 					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
