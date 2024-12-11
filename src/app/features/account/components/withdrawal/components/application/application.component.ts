@@ -27,7 +27,6 @@ export class ApplicationComponent implements OnInit {
 	ngOnInit(): void {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 		this.getOrder()
-		this.getOrder();
 	}
 	ngOnDestroy(): void {
 		if (this.intervalSubscription) {

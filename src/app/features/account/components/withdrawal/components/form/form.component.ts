@@ -14,6 +14,7 @@ import { Observable, of } from 'rxjs';
 export class FormComponent implements OnInit {
 	mediaUrl = environment.mediaUrl
 	bid_form: boolean = false;
+	maxUSD: number = 5000
 	// wallet = roomData
 	// selectWallet = this.wallet[0]
 	// curs = this.selectWallet.currencies
@@ -42,7 +43,7 @@ export class FormComponent implements OnInit {
 	minToSellUSD!: number
 	currencyRate!: number
 	pokerRoomNickname!: string
-	byNumberBank!:string
+	byNumberBank!: string
 
 	constructor(
 		private _roomService: RoomService,
@@ -72,7 +73,7 @@ export class FormComponent implements OnInit {
 			})
 		})
 
-		
+
 
 	}
 	bigClick() {
@@ -90,10 +91,6 @@ export class FormComponent implements OnInit {
 
 	setActiveCurrency(item: ICurrency) {
 		this.activeCurrency = item;
-
-		this.wantToSellUSD = item.rateMax
-		this.minToSellUSD = item.rateMin
-		this.currencyRate = item.rateMin
 	}
 
 	submit1() {
@@ -108,7 +105,7 @@ export class FormComponent implements OnInit {
 			currencyRate: this.currencyRate,
 		}
 
-		if(this.isSbp){
+		if (this.isSbp) {
 			this.body.byNumberBank = this.byNumberBank
 		}
 
@@ -139,11 +136,11 @@ export class FormComponent implements OnInit {
 	maxValu(input: HTMLInputElement, button: HTMLButtonElement): void {
 		if (!input.disabled) {
 			input.value = this.activeCurrency.rateMax.toString()
-			// input.disabled = true
+			input.disabled = true
 			button.textContent = 'Очистить'
 		} else {
 			input.value = ''
-			// input.disabled = false
+			input.disabled = false
 			button.textContent = 'Максимум'
 		}
 	}
@@ -154,5 +151,10 @@ export class FormComponent implements OnInit {
 			console.log(this.calcCurs);
 			this.calcCurs = valu * this.activeCurrency.rateMin
 		}
+	}
+
+	calcMacUSD(input: HTMLInputElement) {
+		this.maxUSD = Number(input.value)
+		return this.maxUSD
 	}
 }

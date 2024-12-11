@@ -26,53 +26,79 @@
 						[ngStyle]="{width: '100px'}" />
 				</div>
 			</div>
-			<!-- <div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
-					<i class="pi pi-sync text-yellow-600"></i>
-					<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 2% + 2$</p>
-				</div> -->
+			<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
+				<i class="pi pi-sync text-yellow-600"></i>
+				<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 4% + 1$</p>
+			</div>
 			<div class="my-4">
-				<label class="font-medium text-sm text-500 mb-2 block">Сколько {{activeCurrency.title}} хотите продать:*
-				</label>
-				<p-inputGroup class="mb-3">
-					<input [(ngModel)]="wantToSellUSD" type="number" #maxInp pInputText mode="decimal"
-						[placeholder]="'От ' + activeCurrency.rateMin + '' + activeCurrency.title + ' до ' + activeCurrency.rateMax + ' ' + activeCurrency.title"
-						required (ngModelChange)="calculateCurs(maxInp)" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax" />
+				<label class="font-medium text-sm text-500 mb-2 block">Сколько USD хотите продать:*</label>
+				<p-inputGroup>
+					<input [(ngModel)]="wantToSellUSD" type="number" (ngModelChange)="calcMacUSD(maxInp)" #maxInp pInputText
+						mode="decimal" placeholder="От 5 USD до 5000 USD" min="5" max="5000" #maxUsd="ngModel" required
+						[ngClass]="maxUsd.errors?.['required'] && maxUsd.touched && maxUsd.errors?.['min'] && maxUsd.errors?.['max']?'border-red-500 text-red-500': ''" />
 					<button type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
 						(click)="maxValu(maxInp, maxFixBtn)">Максимум</button>
 				</p-inputGroup>
+				@if (maxUsd.errors?.['required'] && maxUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+				}
+				@if (maxUsd.errors?.['min'] && maxUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум 5</p>
+				}
+				@if (maxUsd.errors?.['max'] && maxUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум 5000</p>
+				}
 			</div>
 			<div class="mb-4">
-				<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в {{activeCurrency.title}} для
-					покупки:*
-				</label>
+				<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в USD для покупки:*</label>
 				<p-inputGroup>
-					<input [(ngModel)]="minToSellUSD" pInputText type="number"
-						[placeholder]="'От ' + activeCurrency.rateMin + ' ' + activeCurrency.title" [min]="activeCurrency.rateMin"
-						[max]="activeCurrency.rateMax" />
+					<input [(ngModel)]="minToSellUSD" pInputText type="number" placeholder="От 5 USD"
+						[max]="activeCurrency.rateMax" min="5" [max]="maxUSD" #minUsd="ngModel" required class="border-1"
+						[ngClass]="minUsd.errors?.['required'] && minUsd.touched && minUsd.errors?.['min'] && minUsd.errors?.['max']?'border-red-500 text-red-500': ''" />
 					<p-inputGroupAddon
 						[pTooltip]="'Минимальная часть заявки, которую можно приобрести за одну сделку. Рекомендуем от ' + activeCurrency.rateMin + activeCurrency.title + ' до ' + activeCurrency.rateMax + activeCurrency.title + ', чтобы быстрее выкупили'"
 						tooltipPosition="bottom">
 						<i class="pi pi-question-circle"></i>
 					</p-inputGroupAddon>
 				</p-inputGroup>
+				@if (minUsd.errors?.['required'] && minUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+				}
+				@if (minUsd.errors?.['min'] && minUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум 5</p>
+				}
+				@if (minUsd.errors?.['max'] && minUsd.touched) {
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{maxUSD}}</p>
+				}
 			</div>
+			<label class="font-medium text-sm text-500 mb-2 block">Курс RUB для продажи:*</label>
 			<p-inputGroup>
 				<input [(ngModel)]="currencyRate" pInputText type="number" [value]="activeCurrency.rateMin"
-					placeholder="Курс" />
+					[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax" placeholder="Курс" #curr_val="ngModel"
+					required />
 				<p-inputGroupAddon
 					[pTooltip]="'Курс продажи за' + activeCurrency.rateMin + activeCurrency.title + '. Чем ниже курс, тем быстрее выкупят заявку'"
 					tooltipPosition="bottom">
 					<i class="pi pi-question-circle"></i>
 				</p-inputGroupAddon>
 			</p-inputGroup>
+			@if (curr_val.errors?.['required'] && curr_val.touched) {
+			<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+			}
+			@if (curr_val.errors?.['min'] && curr_val.touched) {
+			<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум
+				{{activeCurrency.rateMin}}</p>
+			}
+			@if (curr_val.errors?.['max'] && curr_val.touched) {
+			<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{maxUSD}}</p>
+			}
 		</div>
 		<div class="col-12 lg:col-6">
-			<div class="p-3 md:p-4 border-round bg-primary-500">
-				<label class="font-medium text-sm text-white mb-2 block">Реквизиты для перевода:* </label>
+			<div class="p-3 md:p-4 border-round border-1 border-100">
+				<label class="font-medium text-sm text-500 mb-2 block">Реквизиты для перевода:* </label>
 				<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
 					<p-dropdown [options]="banks" [(ngModel)]="selectedBank" optionLabel="title"
-						class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0">
+						class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0 sbpDropdown">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="flex align-items-center gap-2">
 								<img [src]="mediaUrl + selectedOption.imageUrl" [class]="'flag' + selectedBank.title"
@@ -93,11 +119,11 @@
 						[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" [(ngModel)]="detailsValue" />
 				</div>
 				<div *ngIf="isSbp | async">
-					<label class="font-medium text-sm text-white mb-2 block">Банк для отправки перевода по СБП:* </label>
+					<label class="font-medium text-sm text-500 mb-2 block">Банк для отправки перевода по СБП:* </label>
 					<p-dropdown [(ngModel)]="byNumberBank" [options]="bankSbp" class="w-full md:w-15rem" />
 				</div>
 				<div class="my-4">
-					<label class="font-medium text-sm text-white mb-2 block">ФИО получателя:* </label>
+					<label class="font-medium text-sm text-500 mb-2 block">ФИО получателя:* </label>
 					<p-inputGroup>
 						<input pInputText placeholder="Иванов Иван Иванович" [(ngModel)]="fullName" />
 						<p-inputGroupAddon
@@ -108,7 +134,7 @@
 					</p-inputGroup>
 				</div>
 				<!-- <div class="my-4"> 
-						<label class="font-medium text-sm text-white mb-2 block">Дополнительная информация для покупателей: </label>
+						<label class="font-medium text-sm text-700 mb-2 block">Дополнительная информация для покупателей: </label>
 						<p-inputGroup>
 							<input pInputText placeholder="Укажите любую важную информацию" />
 							<p-inputGroupAddon pTooltip="Время, когда вы онлайн, особенности счёта, предпочитаемый банк и другие детали"
@@ -118,19 +144,19 @@
 						</p-inputGroup>
 					</div> -->
 				<div class="my-4 p-2 border-1 border-white border-round flex align-items-center column-gap-2">
-					<i class="pi pi-credit-card text-base text-white"></i>
-					<b class="font-semibold text-sm text-white">Вы получите: {{wantToSellUSD * currencyRate}} RUB</b>
+					<i class="pi pi-credit-card text-base text-700"></i>
+					<b class="font-semibold text-sm text-700">Вы получите: {{wantToSellUSD * currencyRate}} RUB</b>
 				</div>
 				<button (click)="submit1()" pButton size="small" severity="success" icon="pi font-semibold pi-check-circle"
 					class="w-full justify-content-center column-gap-1">Подать
 					заявку на покупку</button>
 				<div class="flex align-items-start column-gap-2 mt-3">
 					<p-checkbox [binary]="true" inputId="binary" />
-					<label for="binary" class="text-xs text-white font-light">
-						Подавая заявку, вы принимаете условия <a class="text-white font-medium" href="#">лицензионного договора</a>,
+					<label for="binary" class="text-xs text-700 font-light">
+						Подавая заявку, вы принимаете условия <a class="text-700 font-medium" href="#">лицензионного договора</a>,
 						а также
-						соглашаетесь с <a class="text-white font-medium" href="#">политикой
-							конфиденциальности</a> и <a class="text-white font-medium" href="#">политикой AML / KYC</a>
+						соглашаетесь с <a class="text-700 font-medium" href="#">политикой
+							конфиденциальности</a> и <a class="text-700 font-medium" href="#">политикой AML / KYC</a>
 					</label>
 				</div>
 			</div>
