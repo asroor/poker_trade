@@ -53,6 +53,11 @@
 
 /* Reset CSS */
 @layer reset {
+	.p-checkbox .p-checkbox-box.p-highlight {
+		border-color: var(--yellow-500);
+		background: var(--yellow-500);
+	}
+
 	.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
 		background-color: #fff0c3;
 		color: #d9a406;

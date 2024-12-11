@@ -64,15 +64,8 @@
 				<ng-template pTemplate="body" let-product>
 					<tr [routerLink]="['/account/deposit/form', product.id]" class="cursor-pointer">
 						<td>
-							<p-chip>
-								<div class="table-user py-2 flex align-items-center column-gap-1 text-sm font-semibold">
-									<!-- <span class="block border-circle p-1" [ngClass]="{'bg-red-600': true}">
-									</span> -->
-									<span class="table-user__txt">{{product.nickname}}</span>
-									<!-- <img src="images/ok.svg" alt="ok" class="m-0 ml-2 block" style="width: 20px;"> -->
-									<!-- id: {{product.id}} -->
-								</div>
-							</p-chip>
+							<p class="m-0 py-1 px-3 font-medium border-round surface-50 border-1 w-auto inline-block border-200">
+								{{product.nickname}}</p>
 						</td>
 						<td>{{ product.minToSellUSD }}</td>
 						<td>{{ product.wantToSellUSD }}</td>

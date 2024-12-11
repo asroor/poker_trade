@@ -1,8 +1,8 @@
 <div class="mt-3">
-	<form class="border-1 border-200 p-4 border-round" *ngIf="profile" [formGroup]="profileForm">
+	<form class="border-1 border-200 surface-50 p-4 border-round" *ngIf="profile" [formGroup]="profileForm">
 		<div class="field mb-3">
 			<label for="firstname1" class="text-sm text-500 block mb-2">Ваш никнейм в PokerTrade:*</label>
-			<input type="text" id="firstname1" disabled pInputText mode="decimal" placeholder="username" required
+			<input type="text" id="firstname1" class="bg-white" disabled pInputText mode="decimal" placeholder="username" required
 				[value]="profile.nickname" />
 		</div>
 		<label for="firstname1" class="text-sm text-500 block mb-2">Ваш email:</label>
@@ -19,7 +19,7 @@
 				<i class="pi pi-send"></i>
 			</button>
 		</p-inputGroup>
-		<div class="flex align-items-start column-gap-1 p-2 border-round border-1 border-400">
+		<div class="flex align-items-start bg-white column-gap-1 p-2 border-round border-1 border-200">
 			<i class="pi text-500 text-sm pi-exclamation-circle"></i>
 			<p class="m-0 text-500 text-sm">Важно! Изменить данные после сохранения можно только через техподдержку
 				PokerTrade</p>
