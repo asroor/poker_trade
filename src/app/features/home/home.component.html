@@ -25,7 +25,7 @@
 					'вывод' ? 'депозит' : 'вывод'}}</button>
 			</div>
 			<!-- Balance Information -->
-			<div class="balance-info"> 
+			<div class="balance-info">
 				<b class="amount">{{activeRoom.min}} $</b>
 				<b class="amount">{{activeRoom.max}} $</b>
 				<b class="amount">{{toogleActiveButton == 'вывод' ? activeRoom?.express_max_deposit :
@@ -41,9 +41,8 @@
 		<!-- Currency Selector -->
 		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
 			<ng-container *ngFor="let item of currencies">
-				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2 sm:py-3"
-					[class.bg-yellow-50]="activeCurrency === item.id"
-					(click)="setActiveCurrency(item.id)">{{item.title}}</button>
+				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2"
+					[class.bg-yellow-50]="activeCurrency === item.id" (click)="setActiveCurrency(item.id)">{{item.title}}</button>
 			</ng-container>
 		</div>
 
@@ -63,13 +62,12 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr [routerLink]="['/account/deposit/form', product.id]">
+					<tr [routerLink]="['/account/deposit/form', product.id]" class="cursor-pointer">
 						<td>
 							<p-chip>
 								<div class="table-user py-2 flex align-items-center column-gap-1 text-sm font-semibold">
-									<span class="block border-circle p-1"
-										[ngClass]="{'bg-red-600': true}">
-									</span>
+									<!-- <span class="block border-circle p-1" [ngClass]="{'bg-red-600': true}">
+									</span> -->
 									<span class="table-user__txt">{{product.nickname}}</span>
 									<!-- <img src="images/ok.svg" alt="ok" class="m-0 ml-2 block" style="width: 20px;"> -->
 									<!-- id: {{product.id}} -->
@@ -86,7 +84,8 @@
 							</div>
 						</td>
 						<td style="width:220px;">
-							<button pButton severity="primary" class="w-full font-semibold border-0 justify-content-center column-gap-1" size="small">
+							<button pButton severity="primary"
+								class="w-full font-semibold border-0 justify-content-center column-gap-1" size="small">
 								<i class="pi pi-plus-circle"></i>
 								<span>Купить ПокерОК</span>
 							</button>
@@ -95,5 +94,5 @@
 				</ng-template>
 			</p-table>
 		</div>
-</div>
+	</div>
 </div>

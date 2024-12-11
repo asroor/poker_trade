@@ -1,7 +1,7 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeflex/primeflex.scss";
+@import "primeng/resources/themes/lara-light-indigo/theme.css";
+@import "primeng/resources/primeng.min.css";
 @import "primeicons/primeicons.css";
+@import "primeflex/primeflex.scss";
 
 :root {
 	--primary-color: #ffd965;
@@ -22,6 +22,7 @@
 	--warning-color: #FF9800;
 	--light-color: #E0E0E0;
 	--text-color-light: #ffffff;
+
 }
 
 /* Primary Button */

@@ -6,7 +6,7 @@
 .logo-container {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	column-gap: 15px;
 
 	.logo-box {
@@ -107,10 +107,12 @@
 		max-width: 100px;
 		padding: 0;
 	}
-.table-dn .p-dropdown {
-	border: none;
-	background: local;
-}
+
+	.table-dn .p-dropdown {
+		border: none;
+		background: local;
+	}
+
 	.p-overlay {
 		width: fit-content;
 		left: auto;

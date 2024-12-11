@@ -1,50 +1,44 @@
-<div class="grid flex-column-reverse lg:flex-row mt-3">
-	<div class="col-12 lg:col-6">
-		<form class="bg-blue-100 p-4 border-round" *ngIf="profile" [formGroup]="profileForm">
-			<div class="field mb-3">
-				<label for="firstname1" class="text-sm text-500 block mb-2">Ваш никнейм в PokerTrade:*</label>
-				<input type="text" id="firstname1" disabled pInputText mode="decimal" placeholder="username" required
-					[value]="profile.nickname" />
+<div class="mt-3">
+	<form class="border-1 border-200 p-4 border-round" *ngIf="profile" [formGroup]="profileForm">
+		<div class="field mb-3">
+			<label for="firstname1" class="text-sm text-500 block mb-2">Ваш никнейм в PokerTrade:*</label>
+			<input type="text" id="firstname1" disabled pInputText mode="decimal" placeholder="username" required
+				[value]="profile.nickname" />
+		</div>
+		<label for="firstname1" class="text-sm text-500 block mb-2">Ваш email:</label>
+		<p-inputGroup class="mb-3">
+			<input type="email" formControlName="email" pInputText mode="decimal" placeholder="user@luxon.com"
+				[value]="profile.email" />
+			<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2"
+				(click)="sendCodeFn($event)" #senCodeBtn>Отправить код</button>
+		</p-inputGroup>
+		<p-inputGroup class="mb-3" *ngIf="senCode">
+			<input type="number" formControlName="code" pInputText mode="decimal" placeholder="1234" maxlength="4" />
+			<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2"
+				(click)="emailVerifyFN(senCodeBtn)">
+				<i class="pi pi-send"></i>
+			</button>
+		</p-inputGroup>
+		<div class="flex align-items-start column-gap-1 p-2 border-round border-1 border-400">
+			<i class="pi text-500 text-sm pi-exclamation-circle"></i>
+			<p class="m-0 text-500 text-sm">Важно! Изменить данные после сохранения можно только через техподдержку
+				PokerTrade</p>
+		</div>
+	</form>
+	<h5 class="m-0 my-2 block text-yellow-600 text-sm">Моя статистика: </h5>
+	<div class="border-1 border-200 border-round p-2">
+		<div class="grid">
+			<div class="col-6">
+				<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
 			</div>
-			<label for="firstname1" class="text-sm text-500 block mb-2">Ваш email:</label>
-			<p-inputGroup class="mb-3">
-				<input type="email" formControlName="email" pInputText mode="decimal" placeholder="user@luxon.com"
-					[value]="profile.email" />
-				<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2"
-					(click)="sendCodeFn($event)" #senCodeBtn>Отправить код</button>
-			</p-inputGroup>
-			<p-inputGroup class="mb-3" *ngIf="senCode">
-				<input type="number" formControlName="code" pInputText mode="decimal" placeholder="1234" maxlength="4" />
-				<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2"
-					(click)="emailVerifyFN(senCodeBtn)">
-					<i class="pi pi-send"></i>
-				</button>
-			</p-inputGroup>
-			<div class="flex align-items-start column-gap-1 p-2 border-round border-1 border-400">
-				<i class="pi text-500 text-sm pi-exclamation-circle"></i>
-				<p class="m-0 text-500 text-sm">Важно! Изменить данные после сохранения можно только через техподдержку
-					PokerTrade</p>
+			<div class="col-6">
+				<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
 			</div>
-		</form>
-	</div>
-	<div class="col-12 lg:col-6">
-		<div>
-			<h5 class="m-0 mb-2 block text-yellow-600 text-sm">Моя статистика: </h5>
-			<div class="bg-blue-100 border-round p-2">
-				<div class="grid">
-					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
-					</div>
-					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
-					</div>
-					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
-					</div>
-					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
-					</div>
-				</div>
+			<div class="col-6">
+				<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
+			</div>
+			<div class="col-6">
+				<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
 			</div>
 		</div>
 	</div>

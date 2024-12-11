@@ -95,7 +95,7 @@
 			}
 		</div>
 		<div class="col-12 lg:col-6">
-			<div class="p-3 md:p-4 border-round border-1 border-100">
+			<div class="p-3 md:p-4 border-round border-1 border-200 surface-50">
 				<label class="font-medium text-sm text-500 mb-2 block">Реквизиты для перевода:* </label>
 				<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
 					<p-dropdown [options]="banks" [(ngModel)]="selectedBank" optionLabel="title"
@@ -144,7 +144,7 @@
 							</p-inputGroupAddon>
 						</p-inputGroup>
 					</div> -->
-				<div class="my-4 p-2 border-1 border-white border-round flex align-items-center column-gap-2">
+				<div class="my-4 p-2 border-1 border-200 bg-white border-round flex align-items-center column-gap-2">
 					<i class="pi pi-credit-card text-base text-700"></i>
 					<b class="font-semibold text-sm text-700">Вы получите: {{wantToSellUSD * currencyRate}} RUB</b>
 				</div>

@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.cities = bankData
-
 		this._roomService.getRoom().subscribe(data => {
 			this.rooms = data
 			this.setActiveRoom(data[0])
@@ -41,7 +40,6 @@ export class HomeComponent implements OnInit {
 			this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
 				this.currencies = data
 				this.setActiveCurrency(data[0].id)
-
 				this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
 				this.getOrders()
 			})
@@ -57,7 +55,6 @@ export class HomeComponent implements OnInit {
 
 	setActiveRoom(item: any) {
 		this.activeRoom = item;
-
 		this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
 			this.currencies = data
 			this.setActiveCurrency(data[0].id)
@@ -72,7 +69,6 @@ export class HomeComponent implements OnInit {
 		})
 
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
-		this.getOrders()
 	}
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {
