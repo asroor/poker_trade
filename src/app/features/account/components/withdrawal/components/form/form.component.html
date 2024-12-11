@@ -90,7 +90,8 @@
 				{{activeCurrency.rateMin}}</p>
 			}
 			@if (curr_val.errors?.['max'] && curr_val.touched) {
-			<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{maxUSD}}</p>
+			<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум
+				{{activeCurrency.rateMax}}</p>
 			}
 		</div>
 		<div class="col-12 lg:col-6">
