@@ -71,10 +71,10 @@
 				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{maxUSD}}</p>
 				}
 			</div>
-			<label class="font-medium text-sm text-500 mb-2 block">Курс RUB для продажи:*</label>
+			<label class="font-medium text-sm text-500 mb-2 block">Курс {{activeCurrency.title}} для продажи:*</label>
 			<p-inputGroup>
 				<input [(ngModel)]="currencyRate" pInputText type="number" [value]="activeCurrency.rateMin"
-					[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax" placeholder="Курс" #curr_val="ngModel"
+					[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax" [placeholder]="'От ' + activeCurrency.rateMin + ' до ' + activeCurrency.rateMax + ''" #curr_val="ngModel"
 					required />
 				<p-inputGroupAddon
 					[pTooltip]="'Курс продажи за' + activeCurrency.rateMin + activeCurrency.title + '. Чем ниже курс, тем быстрее выкупят заявку'"

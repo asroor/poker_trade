@@ -3,6 +3,7 @@ import { bankData, BankService, CurrencyService, RoomService, withdrawalData } f
 import { OrderService } from '../../shared/services/order.service';
 import { environment } from '../../../environments/environment';
 import { IBank, ICurrency, IOrder, IRoom, ISellRequests } from '../../interface';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
 	selector: 'app-home',
@@ -19,10 +20,16 @@ export class HomeComponent implements OnInit {
 	currencies!: ICurrency[]
 	banks!: IBank[]
 	orders!: IOrder[]
-	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'currencyRate', sortDirection: "asc" }
+	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'currencyRate', sortDirection: "asc", filterField:'bank'}
 	withdrawalData = withdrawalData
 	cities = bankData
 	selectedCity!: any
+	filterValue!:IBank
+
+	totalData: number = 1;
+	size: number = 10;
+	loading: boolean = false;
+	loadData: boolean = false;
 
 	constructor(
 		private _roomService: RoomService,
@@ -36,19 +43,19 @@ export class HomeComponent implements OnInit {
 		this._roomService.getRoom().subscribe(data => {
 			this.rooms = data
 			this.setActiveRoom(data[0])
-
-			this._currencyService.getCurrency(this.activeRoom.id).subscribe(data => {
-				this.currencies = data
-				this.setActiveCurrency(data[0].id)
-				this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
-				this.getOrders()
-			})
 		})
 	}
 
-	getOrders() {
-		this._orderService.sellRequests(this.orderParams).subscribe(data => {
+	getOrders(event:any) {
+		this.loading = true;
+		const page = event.first / event.rows; // Current page (0-based index)
+		const size = event.rows; // Number of rows per page
+
+		this._orderService.sellRequests({...this.orderParams, page, size}).subscribe(data => {
 			this.orders = data.other
+			this.totalData = data.total
+			this.loading = false;
+			this.loadData = true
 		});
 	}
 
@@ -64,11 +71,22 @@ export class HomeComponent implements OnInit {
 	setActiveCurrency(item: number) {
 		this.activeCurrency = item;
 
+		// this._bankService.getExistingBank(this.activeRoom.id,this.activeCurrency).subscribe(data => {
+		// 	this.banks = data
+		// })
+
 		this._bankService.getBank(this.activeCurrency).subscribe(data => {
 			this.banks = data
 		})
 
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
+
+		this.getOrders({first:0, rows: this.size})
+	}
+
+	filteOrderBank(){
+		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency, filterField: 'bank', filterValue: this.filterValue.title }
+		this.getOrders({first:0, rows: this.size})
 	}
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {

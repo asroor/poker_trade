@@ -47,7 +47,16 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="orders" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 25, 50]">
+			<p-table 
+				[value]="orders" 
+				[paginator]="true" 
+				[rowsPerPageOptions]="[10, 20, 30, 40, 50]"
+				[lazy]="true"
+				[rows]="size"
+				[totalRecords]="totalData"
+				(onLazyLoad)="orders ? getOrders($event) : {}"
+				[loading]="loading"
+			>
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
@@ -56,7 +65,7 @@
 						<th pSortableColumn="amount_receive_from"><p-sortIcon field="amount_receive_from" />Курс
 						</th>
 						<th>
-							<p-dropdown class="table-dn" [options]="banks" optionLabel="title" placeholder="Банк" />
+							<p-dropdown class="table-dn" [options]="banks" (onChange)="filteOrderBank()" [(ngModel)]="filterValue" optionLabel="title" placeholder="Банк" />
 						</th>
 						<th></th>
 					</tr>

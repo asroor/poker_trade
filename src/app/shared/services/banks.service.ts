@@ -17,6 +17,12 @@ export class BankService {
 		)
 	}
 
+	getExistingBank(roomId:number, currencyId: number): Observable<IBank[]> {
+		return this._http.get<IBank[]>(`${this._url}/existing-banks/${roomId}/${currencyId}`).pipe(
+			catchError(this.handleError)
+		)
+	}
+
 	getBankSbp(): Observable<string[]> {
 		return this._http.get<string[]>(`${this._url}/sbp`).pipe(
 			catchError(this.handleError)

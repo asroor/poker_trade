@@ -6,5 +6,5 @@ export interface ISellRequests {
 	sortField: string
 	sortDirection: string
 	filterField?: string
-	filterValue?: number
+	filterValue?: string
 }

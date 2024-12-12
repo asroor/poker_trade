@@ -90,7 +90,8 @@ export class ApplicationComponent implements OnInit {
 
 	submit2() {
 		this._orderService.sellRequestModeration({ sellRequestId: this.id, pokerRoomNickname: this.pokerRoomNickname }).subscribe(data => {
-			// this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
+			this.visible2 = false
+			this.getOrder()
 		})
 	}
 
