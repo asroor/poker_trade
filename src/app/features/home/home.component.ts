@@ -72,14 +72,10 @@ export class HomeComponent implements OnInit {
 	setActiveCurrency(item: number) {
 		this.activeCurrency = item;
 
-		// this._bankService.getExistingBank(this.activeRoom.id,this.activeCurrency).subscribe(data => {
-		// 	this.banks = data
-		// })
-
-		this._bankService.getBank(this.activeCurrency).subscribe(data => {
+		this._bankService.getExistingBank(this.activeRoom.id,this.activeCurrency).subscribe(data => {
 			this.banks = data
 		})
-
+		
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
 
 		this.getOrders({first:0, rows: this.tablePagination.size, sortField: 'wantToSellUSD', sortOrder:-1 })

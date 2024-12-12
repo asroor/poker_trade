@@ -35,18 +35,18 @@
 					}
 					<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в {{order.currencyName}}:* </label>
 					<p-inputGroup class="mb-3">
-						<input type="number" #input pInputText mode="decimal" formControlName="wantToBuyUSD"
-							[placeholder]="'От '+ order.minToSellUSD + ' до '+ order.wantToSellUSD + ' ' + order.currencyName"
+						<input type="number" (input)="changeCurrency('changeCurrency')" #inputCurrency pInputText mode="decimal" formControlName="wantToBuyCurrency"
+							[placeholder]="'От '+ (order.minToSellUSD * order.currencyRate) + ' до '+ (order.wantToSellUSD * order.currencyRate) + ' ' + order.currencyName"
 							required />
-						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn
-							(click)="valueToogle(input, btn)">Максимум</button>
+						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btnCurrency
+							(click)="valueToogleCurrency(inputCurrency, btnCurrency, order.wantToSellUSD * order.currencyRate)">Максимум</button>
 					</p-inputGroup>
 					<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в USD:* </label>
 					<p-inputGroup class="mb-3">
-						<input type="number" #input pInputText mode="decimal" formControlName="wantToBuyUSD"
+						<input type="number" (input)="changeCurrency('changeUSD')" #inputUSD pInputText mode="decimal" formControlName="wantToBuyUSD"
 							[placeholder]="'От '+ order.minToSellUSD + ' до '+ order.wantToSellUSD + ' ' + 'USD'" required />
-						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btn
-							(click)="valueToogle(input, btn)">Максимум</button>
+						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btnUSD
+							(click)="valueToogleUSD(inputUSD, btnUSD, order.wantToSellUSD)">Максимум</button>
 					</p-inputGroup>
 					<!-- <label class="text-sm text-500 block mb-2">Сумма покупки в RUB:* </label>
 								<p-inputGroup class="mb-3">
@@ -64,8 +64,8 @@
 			<div class="col-12 lg:col-6">
 				<div class="border-round p-3 md:p-4 surface-50 border-1 border-200">
 					<div class="field mb-3">
-						<label for="firstname1" class="text-sm text-700 block mb-2">Ваш никнейм в </label>
-						<input type="text" id="firstname1" pInputText mode="decimal" placeholder="PokerTrade"
+						<label for="firstname1" class="text-sm text-700 block mb-2">Ваш никнейм в {{order.pokerRoom}}</label>
+						<input type="text" id="firstname1" pInputText mode="decimal" [placeholder]="order.pokerRoom + ' никнейм'"
 							formControlName="pokerRoomNickname" required />
 					</div>
 					<div class="flex mb-3 align-items-center p-2 column-gap-1 border-1 border-200 bg-white border-round">

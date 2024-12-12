@@ -74,7 +74,7 @@ export class TableComponent {
 	}
 
 	getBank(){
-		this._bankService.getBank(2).subscribe(bank => {
+		this._bankService.getExistingBankMySell().subscribe(bank => {
 			this.bankData = bank
 		})
 	}

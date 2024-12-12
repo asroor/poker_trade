@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
 		this.depostiForm = this.fb.group({
 			sellRequestId: [this.sellRequestId, Validators.required],
 			wantToBuyUSD: ['', Validators.required],
+			wantToBuyCurrency: [''],
 			pokerRoomNickname: ['', Validators.required]
 		})
 	}
@@ -53,13 +54,17 @@ export class FormComponent implements OnInit {
 	}
 
 	submit() {
-		const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
-		console.log(sellRequestId, wantToBuyUSD, pokerRoomNickname);
+		if(this.depostiForm.valid){
+			const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
+			console.log(sellRequestId, wantToBuyUSD, pokerRoomNickname);
+	
+			this._orderService.buyRequest({ sellRequestId, wantToBuyUSD, pokerRoomNickname }).subscribe(data => {
+				this.buyRequestId = data.buyRequestId
+				this.router.navigate(['/account', 'deposit', data.buyRequestId])
+			})
+		}else{
 
-		this._orderService.buyRequest({ sellRequestId, wantToBuyUSD, pokerRoomNickname }).subscribe(data => {
-			this.buyRequestId = data.buyRequestId
-			this.router.navigate(['/account', 'deposit', data.buyRequestId])
-		})
+		}
 	}
 
 	cancel() {
@@ -81,18 +86,47 @@ export class FormComponent implements OnInit {
 
 
 	isInputDisabled: boolean = false;
-	valueToogle(input: HTMLInputElement, btn: HTMLButtonElement): void {
-		if (input.disabled) {
-			input.disabled = false
-			input.value = '';
+	valueToogleCurrency(input: HTMLInputElement, btn: HTMLButtonElement, max:number): void {
+		if (btn.textContent == 'Очистить') {
 			btn.textContent = 'Максимум'
+			this.depostiForm.reset();
 		} else {
-			input.disabled = true
-			input.value = this.order.wantToSellUSD.toString();
 			this.depostiForm.patchValue({
-				wantToBuyUSD: this.order.wantToSellUSD
+				wantToBuyCurrency: max
 			});
 			btn.textContent = 'Очистить'
+			this.changeCurrency('changeCurrency')
 		}
+	}
+
+	valueToogleUSD(input: HTMLInputElement, btn: HTMLButtonElement, max:number): void {
+		if (btn.textContent == 'Очистить') {
+			btn.textContent = 'Максимум'
+			this.depostiForm.reset();
+		} else {
+			this.depostiForm.patchValue({
+				wantToBuyUSD: max
+			});
+			btn.textContent = 'Очистить'
+			this.changeCurrency('changeUSD')
+		}
+	}
+
+	changeCurrency(type: 'changeCurrency' | 'changeUSD'){
+		const { wantToBuyUSD, wantToBuyCurrency } = this.depostiForm.getRawValue()
+
+		if(type == 'changeCurrency') {
+			this.depostiForm.patchValue({
+				wantToBuyUSD: wantToBuyCurrency / this.order.currencyRate,
+				wantToBuyCurrency,
+			});
+		}
+		if(type == 'changeUSD') {
+			this.depostiForm.patchValue({
+				wantToBuyUSD,
+				wantToBuyCurrency: wantToBuyUSD * this.order.currencyRate,
+			});
+		}
+		
 	}
 }

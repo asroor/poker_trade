@@ -23,6 +23,18 @@ export class BankService {
 		)
 	}
 
+	getExistingBankMySell(): Observable<IBank[]> {
+		return this._http.get<IBank[]>(`${this._url}/sell-requests/my/existing-banks`).pipe(
+			catchError(this.handleError)
+		)
+	}
+
+	getExistingBankMyBuy(): Observable<IBank[]> {
+		return this._http.get<IBank[]>(`${this._url}/buy-requests/my/existing-banks`).pipe(
+			catchError(this.handleError)
+		)
+	}
+
 	getBankSbp(): Observable<string[]> {
 		return this._http.get<string[]>(`${this._url}/sbp`).pipe(
 			catchError(this.handleError)

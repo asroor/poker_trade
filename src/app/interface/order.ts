@@ -10,4 +10,5 @@ export interface IOrder {
 	sellerNickname: string
 	createdAt:Date
 	currencyName:string
+	pokerRoom:string
 }
