@@ -1,35 +1,5 @@
 <div class="pt-3 pb-5">
 	<div class="container">
-		<div class="grid mb-3" *ngIf="application">
-			<div class="col-12 lg:col-5">
-				<div class="p-1 border-1 bg-white border-yellow-100 w-full flex border-round toogle-buttons">
-					<button routerLink="withdrawal" routerLinkActive="bg-yellow-50 text-yellow-600"
-						class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">Продажи</button>
-					<button routerLink="deposit" routerLinkActive="bg-yellow-50 text-yellow-600"
-						class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">Покупки</button>
-				</div>
-			</div>
-			<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-				<p-calendar [(ngModel)]="dates" [ngStyle]="{width: '100%'}" placeholder="Дата" selectionMode="multiple"
-					[readonlyInput]="true" />
-			</div>
-			<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-				<p-dropdown [ngStyle]="{ width: '100%' }" [options]="status" [(ngModel)]="selectStatus" optionLabel="name"
-					placeholder="Статус">
-				</p-dropdown>
-			</div>
-			<div class="flex align-items-center col-10 lg:col-2 md:col-4 sm:col-10">
-				<p-dropdown [ngStyle]="{ width: '100%' }" [options]="bankData" [(ngModel)]="selectBank" optionLabel="name"
-					placeholder="Банк">
-				</p-dropdown>
-			</div>
-			<div class="flex align-items-center col-2 md:col-1">
-				<button type="button" class=" bg-yellow-50 install-btn w-full justify-content-center border-none" size="small"
-					pButton>
-					<i class="pi pi-download font-bold text-yellow-600 text-base"></i>
-				</button>
-			</div>
-		</div>
 		<router-outlet></router-outlet>
 	</div>
 </div>

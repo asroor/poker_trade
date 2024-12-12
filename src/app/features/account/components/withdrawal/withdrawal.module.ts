@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ApplicationComponent } from './components/application/application.component';
 import { AccordionModule } from 'primeng/accordion';
+import { CalendarModule } from 'primeng/calendar';
 
 const routes: Routes = [
 	{
@@ -45,6 +46,9 @@ const routes: Routes = [
 	],
 	imports: [
 		CommonModule,
+		RouterModule.forChild(routes),
+		FormsModule,
+		
 		AccordionModule,
 		TagModule,
 		TableModule,
@@ -52,13 +56,13 @@ const routes: Routes = [
 		FormsModule,
 		TooltipModule,
 		InputGroupAddonModule,
-		DropdownModule,
 		InputGroupModule,
 		CheckboxModule,
 		InputTextModule,
 		ButtonModule,
 		InputMaskModule,
-		RouterModule.forChild(routes)
+		DropdownModule,
+		CalendarModule,
 	]
 })
 export class WithdrawalModule { }

@@ -32,6 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (this.isUserLoginned()) {
             this.router.navigate(['/profile'])
         } else {
+            this.router.navigate(['/home'])
             this.modalService.openModal();
         }
     }

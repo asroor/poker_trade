@@ -29,14 +29,6 @@ export class BankService {
 		)
 	}
 
-	
-
-	getExistingBanks(roomId: number, currencyId: number) {
-		return this._http.get<IBank[]>(`${this._url}/existing-banks/${roomId}/${currencyId}`).pipe(
-			catchError(this.handleError)
-		)
-	}
-
 	private handleError(err: HttpErrorResponse): Observable<never> {
 		let errMsg = 'Произошла неизвестная ошибка';
 		if (err instanceof ErrorEvent) {

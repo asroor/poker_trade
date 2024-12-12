@@ -47,8 +47,8 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="size"
-				[totalRecords]="totalData" (onLazyLoad)="orders ? getOrders($event) : {}" [loading]="loading">
+			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="tablePagination.size"
+				[totalRecords]="tablePagination.totalData" (onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>

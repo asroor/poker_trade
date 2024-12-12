@@ -35,13 +35,6 @@ const routes: Routes = [
 	],
 	imports: [
 		CommonModule,
-		DropdownModule,
-		ButtonModule,
-		CalendarModule,
-		FormsModule,
-		DialogModule,
-		AccordionModule,
-		TagModule,
 		RouterModule.forChild(routes)
 	]
 })

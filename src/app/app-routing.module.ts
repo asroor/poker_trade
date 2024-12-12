@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
 	{
@@ -10,23 +11,27 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'home',
-				loadChildren: () => import('./features').then((m) => m.HomeModule)
+				loadChildren: () => import('./features').then((m) => m.HomeModule),
 			},
 			{
 				path: 'withdrawal',
-				loadChildren: () => import('./features').then((m) => m.AccountModule)
+				loadChildren: () => import('./features').then((m) => m.AccountModule),
+				canActivate: [AuthGuard],
 			},
 			{
 				path: 'account',
-				loadChildren: () => import('./features').then((m) => m.AccountModule)
+				loadChildren: () => import('./features').then((m) => m.AccountModule),
+				canActivate: [AuthGuard],
 			},
 			{
 				path: 'order',
-				loadChildren: () => import('./features').then((m) => m.OrderModule)
+				loadChildren: () => import('./features').then((m) => m.OrderModule),
+				canActivate: [AuthGuard],
 			},
 			{
 				path: 'profile',
-				loadChildren: () => import('./features').then((m) => m.ProfileModule)
+				loadChildren: () => import('./features').then((m) => m.ProfileModule),
+				canActivate: [AuthGuard],
 			},
 			{
 				path: '**', redirectTo: '/home', pathMatch: 'full'

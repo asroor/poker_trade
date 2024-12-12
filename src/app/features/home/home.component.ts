@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { bankData, BankService, CurrencyService, RoomService, withdrawalData } from '../../shared';
+import { BankService, CurrencyService, RoomService } from '../../shared';
 import { OrderService } from '../../shared/services/order.service';
 import { environment } from '../../../environments/environment';
 import { IBank, ICurrency, IOrder, IRoom, ISellRequests } from '../../interface';
@@ -21,16 +21,13 @@ export class HomeComponent implements OnInit {
 	banks!: IBank[]
 	orders!: IOrder[]
 	orders_mine!: number[]
-	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'wantToSellUSD', sortDirection: "asc", filterField:'bank'}
-	withdrawalData = withdrawalData
-	cities = bankData
+	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'wantToSellUSD', sortDirection: "desc", filterField:'bank'}
 	selectedCity!: any
 	filterValue!:IBank
 
-	totalData: number = 1;
-	size: number = 10;
-	loading: boolean = false;
+	tablePagination = { totalData:1,size:10 };
 	loadData: boolean = false;
+	loading: boolean = true;
 
 	constructor(
 		private _roomService: RoomService,
@@ -40,7 +37,6 @@ export class HomeComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.cities = bankData
 		this._roomService.getRoom().subscribe(data => {
 			this.rooms = data
 			this.setActiveRoom(data[0])
@@ -48,7 +44,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	getOrders(event:any) {
-		console.log(event)
 		this.loading = true;
 		const page = event.first / event.rows; // Current page (0-based index)
 		const size = event.rows; // Number of rows per page
@@ -58,7 +53,7 @@ export class HomeComponent implements OnInit {
 
 		this._orderService.sellRequests({...this.orderParams, page, size, sortField, sortDirection}).subscribe(data => {
 			this.orders = data.other
-			this.totalData = data.total
+			this.tablePagination.totalData = data.total
 			this.orders_mine = data.my
 			this.loading = false;
 			this.loadData = true
@@ -87,12 +82,12 @@ export class HomeComponent implements OnInit {
 
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
 
-		this.getOrders({first:0, rows: this.size, sortField: 'wantToSellUSD', sortOrder:-1 })
+		this.getOrders({first:0, rows: this.tablePagination.size, sortField: 'wantToSellUSD', sortOrder:-1 })
 	}
 
 	filteOrderBank(){
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency, filterField: 'bank', filterValue: this.filterValue.title }
-		this.getOrders({first:0, rows: this.size, sortField: 'wantToSellUSD', sortOrder:-1 })
+		this.getOrders({first:0, rows: this.tablePagination.size, sortField: 'wantToSellUSD', sortOrder:-1 })
 	}
 
 	isMine(order_id:number){

@@ -16,6 +16,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { BlockUIModule } from 'primeng/blockui';
 import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 const routes: Routes = [
 	{
@@ -38,6 +40,9 @@ const routes: Routes = [
 	declarations: [DepositComponent, BidComponent, TableComponent, FormComponent],
 	imports: [
 		CommonModule,
+		RouterModule.forChild(routes),
+		FormsModule,
+
 		InputTextModule,
 		InputGroupModule,
 		InputGroupAddonModule,
@@ -49,8 +54,8 @@ const routes: Routes = [
 		BlockUIModule,
 		PanelModule,
 		DialogModule,
-		FormsModule,
-		RouterModule.forChild(routes)
+		DropdownModule,
+		CalendarModule,
 	]
 })
 export class DepositModule { }
