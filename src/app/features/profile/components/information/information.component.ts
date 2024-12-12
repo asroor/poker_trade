@@ -38,7 +38,13 @@ export class InformationComponent implements OnInit {
 
   senCode: boolean = false;
   profileForm = this.fb.group({
-    email: [this.profile?.email, [Validators.required, Validators.email]],
+    email: [
+      {
+        value: this.profile?.email,
+        disabled: !this.profile?.verified,
+      },
+      [Validators.required, Validators.email],
+    ],
     code: ["", Validators.required],
   });
 
