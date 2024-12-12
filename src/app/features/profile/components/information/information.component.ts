@@ -27,11 +27,10 @@ export class InformationComponent implements OnInit {
 			localStorage.setItem('telegramToken', this.token);
 			this.router.navigate(['/profile/information'])
 		}
-
 		this.getData()
 	}
 
-	getData(){
+	getData() {
 		this._profileService.getProfile().subscribe(data => {
 			this.profile = data
 			this.profileForm.patchValue(data)
@@ -58,13 +57,11 @@ export class InformationComponent implements OnInit {
 			}
 		});
 	}
-
-	emailVerifyFN(btn: HTMLButtonElement) {
+	emailVerifyFN() {
 		const { code } = this.profileForm.getRawValue()
 		this._profileService.emailVerify(code.toString()).subscribe({
 			next: () => {
 				this.getData()
-				btn.remove()
 			}
 		})
 	}
@@ -79,7 +76,7 @@ export class InformationComponent implements OnInit {
 				btn.disabled = false
 				clearInterval(this.timerSubscription);
 				btn.textContent = 'Отправить код';
-				this.timer = 3;
+				this.timer = 60;
 			}
 		}, 1000);
 	}

@@ -47,16 +47,8 @@
 		</div>
 
 		<div class="card">
-			<p-table 
-				[value]="orders" 
-				[paginator]="true" 
-				[rowsPerPageOptions]="[10, 30, 50]"
-				[lazy]="true"
-				[rows]="size"
-				[totalRecords]="totalData"
-				(onLazyLoad)="orders ? getOrders($event) : {}"
-				[loading]="loading"
-			>
+			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="size"
+				[totalRecords]="totalData" (onLazyLoad)="orders ? getOrders($event) : {}" [loading]="loading">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
@@ -65,15 +57,16 @@
 						<th pSortableColumn="currencyRate"><p-sortIcon field="currencyRate" />Курс
 						</th>
 						<th>
-							<p-dropdown class="table-dn" [options]="banks" (onChange)="filteOrderBank()" [(ngModel)]="filterValue" optionLabel="title" placeholder="Банк" />
+							<p-dropdown class="table-dn" [options]="banks" (onChange)="filteOrderBank()" [(ngModel)]="filterValue"
+								optionLabel="title" placeholder="Банк" />
 						</th>
 						<th></th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr class="cursor-pointer">
+					<tr>
 						<td>
-							<p class="m-0 py-1 px-3 font-medium border-round surface-50 border-1 w-auto inline-block border-200">
+							<p class="m-0 py-1 px-2 font-medium border-round surface-50 border-1 w-auto inline-block border-200">
 								{{product.nickname}}</p>
 						</td>
 						<td>{{ product.minToSellUSD }}</td>
@@ -86,8 +79,9 @@
 							</div>
 						</td>
 						<td style="width:220px;">
-							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton severity="primary"
-								class="w-full font-semibold border-0 justify-content-center column-gap-1" size="small">
+							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton
+								severity="primary" class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1"
+								size="small">
 								<i class="pi pi-plus-circle"></i>
 								<span>Купить {{activeRoom.title}}</span>
 							</button>

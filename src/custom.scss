@@ -53,6 +53,13 @@
 
 /* Reset CSS */
 @layer reset {
+	.p-inputtext.p-variant-filled {
+		background-color: white;
+	}
+	.p-datatable-loading-overlay {
+		background-color: rgba(255, 255, 255, 0.8);
+	}
+
 	.p-checkbox .p-checkbox-box.p-highlight {
 		border-color: var(--yellow-500);
 		background: var(--yellow-500);
