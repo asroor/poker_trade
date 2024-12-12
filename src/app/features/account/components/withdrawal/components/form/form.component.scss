@@ -4,6 +4,9 @@
 
 
 ::ng-deep {
+	.p-dropdown {
+		width: 100%;
+	}
 	.sbpDropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
 		padding: 0;
 	}
