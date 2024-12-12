@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
 	currencies!: ICurrency[]
 	banks!: IBank[]
 	orders!: IOrder[]
-	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'currencyRate', sortDirection: "asc", filterField:'bank'}
+	orders_mine!: number[]
+	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'wantToSellUSD', sortDirection: "asc", filterField:'bank'}
 	withdrawalData = withdrawalData
 	cities = bankData
 	selectedCity!: any
@@ -47,13 +48,18 @@ export class HomeComponent implements OnInit {
 	}
 
 	getOrders(event:any) {
+		console.log(event)
 		this.loading = true;
 		const page = event.first / event.rows; // Current page (0-based index)
 		const size = event.rows; // Number of rows per page
 
-		this._orderService.sellRequests({...this.orderParams, page, size}).subscribe(data => {
+		const sortField = event.sortField; // Current page (0-based index)
+		const sortDirection = event.sortOrder == 1 ? 'asc' : 'desc'; // Number of rows per page
+
+		this._orderService.sellRequests({...this.orderParams, page, size, sortField, sortDirection}).subscribe(data => {
 			this.orders = data.other
 			this.totalData = data.total
+			this.orders_mine = data.my
 			this.loading = false;
 			this.loadData = true
 		});
@@ -81,12 +87,16 @@ export class HomeComponent implements OnInit {
 
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency }
 
-		this.getOrders({first:0, rows: this.size})
+		this.getOrders({first:0, rows: this.size, sortField: 'wantToSellUSD', sortOrder:-1 })
 	}
 
 	filteOrderBank(){
 		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency, filterField: 'bank', filterValue: this.filterValue.title }
-		this.getOrders({first:0, rows: this.size})
+		this.getOrders({first:0, rows: this.size, sortField: 'wantToSellUSD', sortOrder:-1 })
+	}
+
+	isMine(order_id:number){
+		return this.orders_mine.some(item => item === order_id)
 	}
 
 	changeToogleActiveButton(item: 'вывод' | 'депозит') {

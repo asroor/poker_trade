@@ -50,7 +50,7 @@
 			<p-table 
 				[value]="orders" 
 				[paginator]="true" 
-				[rowsPerPageOptions]="[10, 20, 30, 40, 50]"
+				[rowsPerPageOptions]="[10, 30, 50]"
 				[lazy]="true"
 				[rows]="size"
 				[totalRecords]="totalData"
@@ -60,9 +60,9 @@
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
-						<th pSortableColumn="min_deposit"><p-sortIcon field="min_deposit" /> Мин.</th>
-						<th pSortableColumn="max_deposit"><p-sortIcon field="max_deposit" />Макс.</th>
-						<th pSortableColumn="amount_receive_from"><p-sortIcon field="amount_receive_from" />Курс
+						<th pSortableColumn="minToSellUSD"><p-sortIcon field="minToSellUSD" /> Мин.</th>
+						<th pSortableColumn="wantToSellUSD"><p-sortIcon field="wantToSellUSD" />Макс.</th>
+						<th pSortableColumn="currencyRate"><p-sortIcon field="currencyRate" />Курс
 						</th>
 						<th>
 							<p-dropdown class="table-dn" [options]="banks" (onChange)="filteOrderBank()" [(ngModel)]="filterValue" optionLabel="title" placeholder="Банк" />
@@ -71,7 +71,7 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr [routerLink]="['/account/deposit/form', product.id]" class="cursor-pointer">
+					<tr class="cursor-pointer">
 						<td>
 							<p class="m-0 py-1 px-3 font-medium border-round surface-50 border-1 w-auto inline-block border-200">
 								{{product.nickname}}</p>
@@ -86,10 +86,10 @@
 							</div>
 						</td>
 						<td style="width:220px;">
-							<button pButton severity="primary"
+							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton severity="primary"
 								class="w-full font-semibold border-0 justify-content-center column-gap-1" size="small">
 								<i class="pi pi-plus-circle"></i>
-								<span>Купить ПокерОК</span>
+								<span>Купить {{activeRoom.title}}</span>
 							</button>
 						</td>
 					</tr>
