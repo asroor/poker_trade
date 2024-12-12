@@ -82,8 +82,10 @@
 							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton
 								severity="primary" class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1"
 								size="small">
-								<i class="pi pi-plus-circle"></i>
-								<span>Купить {{activeRoom.title}}</span>
+								<i *ngIf="!isMine(product.id)" class="pi pi-plus-circle"></i>
+								
+								<span *ngIf="!isMine(product.id)">Купить {{activeRoom.title}}</span>
+								<span *ngIf="isMine(product.id)">Мой запрос</span>
 							</button>
 						</td>
 					</tr>

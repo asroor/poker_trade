@@ -7,4 +7,5 @@ export interface ISellRequests {
 	sortDirection: string
 	filterField?: string
 	filterValue?: string
+	filters:{bank?:string}
 }

@@ -3,8 +3,9 @@ import { BankService, OrderService } from '../../../../../../shared';
 import { environment } from '../../../../../../../environments/environment';
 import { IBank, IOrderMy, ISellRequestsMy } from '../../../../../../interface';
 import { interval, switchMap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
-export interface City {
+export interface IStatus {
 	name: string;
 	code: string;
 }
@@ -17,34 +18,40 @@ export interface City {
 export class TableComponent {
 	mediaUrl = environment.mediaUrl
 	orders!: IOrderMy[]
-	orderParam: ISellRequestsMy = { page: 0, size: 10 }
+	orderParam: ISellRequestsMy = { page: 0, size: 10, filters:{}  }
+
+	bankFilter!: IBank
+	statusFilter!: IStatus
+	dateFilter!: Date
 
 	tablePagination = { totalData:1,size:10 };
 	loadData: boolean = false;
 	loading: boolean = true;
 
-	dates: Date[] | undefined;
-	status: City[] | undefined;
+	status: IStatus[] | undefined;
 	selectBank: undefined
-	selectStatus: City | undefined;
+	selectStatus: IStatus | undefined;
 	bankData!:IBank[]
 
 	constructor(
 		private _orderService: OrderService,
-		private _bankService: BankService
+		private _bankService: BankService,
+		private datePipe: DatePipe
 	) { }
 
 	ngOnInit(): void {
-		this.getOrders({first:0, rows: this.tablePagination.size })
+		this.getOrders({ first:0, rows: this.tablePagination.size })
 		this.getBank()
 
 		this.status = [
-			{ name: 'New York', code: 'NY' },
-			{ name: 'Rome', code: 'RM' },
-			{ name: 'London', code: 'LDN' },
-			{ name: 'Istanbul', code: 'IST' },
-			{ name: 'Paris', code: 'PRS' }
+			{ name: 'Новое', code: 'NEW' },              // NEW
+			{ name: 'Модерация', code: 'MODERATION' },   // MODERATION
+			{ name: 'В процессе', code: 'IN_PROGRESS' }, // IN_PROGRESS
+			{ name: 'Завершено', code: 'COMPLETED' },    // COMPLETED
+			{ name: 'Отклонено', code: 'REJECTED' },     // REJECTED
+			{ name: 'Отменено', code: 'CANCELED' }       // CANCELED
 		];
+		
 
 		// interval(1000)
 		// 	.pipe(switchMap(() => this._orderService.sellRequestsMy(this.orderParam)))
@@ -70,5 +77,21 @@ export class TableComponent {
 		this._bankService.getBank(2).subscribe(bank => {
 			this.bankData = bank
 		})
+	}
+
+	filterData(){
+		if(this.dateFilter){
+			this.orderParam.filters.date = this.datePipe.transform(this.dateFilter, 'yyyy-MM-dd')?.toString()
+		}
+		if(this.statusFilter){
+			this.orderParam.filters.status = this.statusFilter.code
+		}
+		if(this.bankFilter){
+			this.orderParam.filters.bank = this.bankFilter.title
+		}
+
+		console.log(this.orderParam.filters)
+
+		this.getOrders({ first:0, rows: this.tablePagination.size })
 	}
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { WithdrawalComponent } from './withdrawal.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TagModule } from 'primeng/tag';
@@ -48,7 +48,7 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild(routes),
 		FormsModule,
-		
+
 		AccordionModule,
 		TagModule,
 		TableModule,
@@ -63,6 +63,7 @@ const routes: Routes = [
 		InputMaskModule,
 		DropdownModule,
 		CalendarModule,
-	]
+	],
+	providers: [DatePipe,]
 })
 export class WithdrawalModule { }

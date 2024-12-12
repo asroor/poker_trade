@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 	banks!: IBank[]
 	orders!: IOrder[]
 	orders_mine!: number[]
-	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'wantToSellUSD', sortDirection: "desc", filterField:'bank'}
+	orderParams: ISellRequests = { page: 0, size: 10, sortField: 'wantToSellUSD', sortDirection: "desc", filters:{}}
 	selectedCity!: any
 	filterValue!:IBank
 
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	filteOrderBank(){
-		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency, filterField: 'bank', filterValue: this.filterValue.title }
+		this.orderParams = { ...this.orderParams, pokerRoomId: this.activeRoom.id, currencyId: this.activeCurrency, filters: {bank: this.filterValue.title} }
 		this.getOrders({first:0, rows: this.tablePagination.size, sortField: 'wantToSellUSD', sortOrder:-1 })
 	}
 
