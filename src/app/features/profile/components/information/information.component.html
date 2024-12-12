@@ -9,8 +9,8 @@
 				</div>
 				<label for="firstname1" class="text-sm text-500 block mb-2">Ваш email:</label>
 				<p-inputGroup class="mb-3">
-					<input type="email" formControlName="email" pInputText [disabled]="profile.verified"
-						placeholder="user@luxon.com" [value]="profile.email" class="bg-white"/>
+					<input type="email" formControlName="email" pInputText  placeholder="user@luxon.com" [value]="profile.email"
+						class="bg-white" />
 					<button type="button" *ngIf="!profile.verified" [disabled]="!profile.verified" pButton severity="primary"
 						class="flex-shrink-0 text-sm py-1 px-2" (click)="sendCodeFn($event)" #senCodeBtn>Отправить код</button>
 				</p-inputGroup>
@@ -28,21 +28,25 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-12 lg:col-6">
+		<div class="col-12 lg:col-6" *ngIf="profile">
 			<h5 class="m-0 my-2 block text-yellow-600 text-sm">Моя статистика: </h5>
 			<div class="border-1 border-200 border-round p-2">
 				<div class="grid">
 					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
+						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b
+								class="text-700">{{profile.avgAcceptTime}}</b> </p>
 					</div>
 					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
+						<p class="m-0 text-500 font-light text-sm">Заявки на продажу: <b
+								class="text-700">{{profile.sellRequestsCount}}</b> </p>
 					</div>
 					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
+						<p class="m-0 text-500 font-light text-sm">Заявки на покупку: <b
+								class="text-700">{{profile.buyRequestsCount}}</b> </p>
 					</div>
 					<div class="col-6">
-						<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b class="text-700">0</b> </p>
+						<p class="m-0 text-500 font-light text-sm">Встречные заявки: <b
+								class="text-700">{{profile.oncomingRequests}}</b> </p>
 					</div>
 				</div>
 			</div>
