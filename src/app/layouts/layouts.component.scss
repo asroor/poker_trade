@@ -1,11 +1,22 @@
-@media (max-width:767px) {
-	.bottom-space {
-		height: 60px;
-	}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+	min-height: 100vh;
+  .content {
+    width: 100%;
+    flex: 1 0 auto;
+  }
 }
 
-@media (max-width:575px) {
-	.bottom-space {
-		height: 100px;
-	}
+@media (max-width: 767px) {
+  .bottom-space {
+    height: 60px;
+  }
+}
+
+@media (max-width: 575px) {
+  .bottom-space {
+    height: 100px;
+  }
 }
