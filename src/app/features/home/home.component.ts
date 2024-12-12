@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 		const page = event.first / event.rows; // Current page (0-based index)
 		const size = event.rows; // Number of rows per page
 
-		const sortField = event.sortField; // Current page (0-based index)
+		const sortField = event.sortField || 'wantToSellUSD'; // Current page (0-based index)
 		const sortDirection = event.sortOrder == 1 ? 'asc' : 'desc'; // Number of rows per page
 
 		this._orderService.sellRequests({...this.orderParams, page, size, sortField, sortDirection}).subscribe(data => {
