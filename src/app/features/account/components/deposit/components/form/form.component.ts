@@ -33,8 +33,9 @@ export class FormComponent implements OnInit {
 		this.depostiForm = this.fb.group({
 			sellRequestId: [this.sellRequestId, Validators.required],
 			wantToBuyUSD: ['', Validators.required],
-			wantToBuyCurrency: [''],
-			pokerRoomNickname: ['', Validators.required]
+			pokerRoomNickname: ['', Validators.required],
+			wantToBuyCurrency: ['', Validators.required],
+			accept: [false, Validators.requiredTrue],
 		})
 	}
 
@@ -46,6 +47,16 @@ export class FormComponent implements OnInit {
 		this._orderService.getSellRequestShared(this.sellRequestId).subscribe({
 			next: data => {
 				this.order = data
+
+				const wantToBuyUSDControl = this.depostiForm.get('wantToBuyUSD');
+				if (wantToBuyUSDControl) {
+					wantToBuyUSDControl.setValidators([
+					Validators.required,
+					Validators.min(this.order.minToSellUSD),
+					Validators.max(this.order.wantToSellUSD),
+					]);
+					wantToBuyUSDControl.updateValueAndValidity(); // Validatsiyani yangilash
+				}
 			},
 			error(err) {
 				console.error(err)
@@ -63,7 +74,7 @@ export class FormComponent implements OnInit {
 				this.router.navigate(['/account', 'deposit', data.buyRequestId])
 			})
 		}else{
-
+			this.depostiForm.markAllAsTouched();
 		}
 	}
 
