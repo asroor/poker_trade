@@ -14,7 +14,6 @@ import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 })
 export class FormComponent implements OnInit {
 	mediaUrl = environment.mediaUrl
-	bid_form: boolean = false;
 	maxUSD: number = 5000
 	// wallet = roomData
 	// selectWallet = this.wallet[0]
@@ -86,9 +85,6 @@ export class FormComponent implements OnInit {
 
 
 	}
-	bigClick() {
-		this.bid_form = true
-	}
 
 	setActiveRoom(data?:IRoom) {
 		if(data){
@@ -125,6 +121,7 @@ export class FormComponent implements OnInit {
 			]);
 			itemControl.updateValueAndValidity();
 		}
+		this.withrawalForm.patchValue({pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id })
 	}
 
 	submit() {
@@ -139,7 +136,6 @@ export class FormComponent implements OnInit {
 	
 			this._orderService.sellRequest(this.body).subscribe(data => {
 				this.router.navigate(['/account', 'withdrawal', data.sellRequestId])
-				this.bigClick()
 			})
 		}else{
 			this.withrawalForm.markAllAsTouched();
@@ -155,6 +151,19 @@ export class FormComponent implements OnInit {
 	changeBank(bank: IBank) {
 		this.selectedBank = bank
 		this.isSbp = of(bank?.isSbp ?? false);
+		if(bank?.isSbp ?? false){
+			const itemControl = this.withrawalForm.get('byNumberBank');
+			if (itemControl) {
+				itemControl.setValidators([Validators.required]);
+				itemControl.updateValueAndValidity();
+			}
+		}else{
+			const itemControl = this.withrawalForm.get('byNumberBank');
+			if (itemControl) {
+				itemControl.setValidators([]);
+				itemControl.updateValueAndValidity();
+			}
+		}
 	}
 
 	balanceOrAccount: boolean = false;
