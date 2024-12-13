@@ -59,22 +59,50 @@
 
 <!-- =============================================== -->
 <p-dialog *ngIf="profile | async as profile" header="Вывод баланса PokerTrade" [(visible)]="balanceModal" [modal]="true"
-	[responsive]="true" [style]="{'width': '350px', 'max-widht': '90%'}">
-	<p class="m-0 mb-2 text-700">Укажите свой никнейм в <span class="font-bold">ПокерОК</span></p>
+	[responsive]="true" [style]="{'width': '350px', 'max-width': '90%'}">
+	<p class="m-0 mb-2 text-700">
+		Укажите свой никнейм в <span class="font-bold">ПокерОК</span>
+	</p>
 	<form (ngSubmit)="sendToAdmin()" [formGroup]="withdrawalForm">
-		<input type="text" class="w-full mb-2" formControlName="pokerRoomNickname" pInputText placeholder="прозвище"
+		<input type="text" class="w-full mb-1" formControlName="pokerRoomNickname" pInputText placeholder="прозвище"
 			required>
-		<input type="number" class="w-full mb-2" formControlName="amount" pInputText min="1" [max]="profile.balance"
-			required placeholder="вывод">
-		<button type="submit" pButton severity="primary" class="w-full justify-content-center">Отправить заявку</button>
+		<p *ngIf="withdrawalForm.get('pokerRoomNickname')?.invalid && withdrawalForm.touched"
+			class="m-0 p-2 border-round bg-red-500 text-xs text-center text-white">
+			Обязательное поле
+		</p>
+
+		<input type="number" class="w-full mb-1 mt-2" formControlName="amount" pInputText placeholder="вывод" required
+			min="5" [max]="profile.balance || 5000">
+
+		<p *ngIf="withdrawalForm.get('amount')?.errors?.['min']"
+			class="m-0 mb-2 p-2 border-round bg-red-500 text-xs text-center text-white">
+			Минимум 5
+		</p>
+
+		<p *ngIf="withdrawalForm.get('amount')?.errors?.['max']"
+			class="m-0 mb-2 p-2 border-round bg-red-500 text-xs text-center text-white">
+			Максимум {{ profile.balance || 5000 }}
+		</p>
+
+		<p *ngIf="withdrawalForm.get('amount')?.invalid && withdrawalForm.touched"
+			class="m-0 mb-2 p-2 border-round bg-red-500 text-xs text-center text-white">
+			Обязательное поле
+		</p>
+
+		<button type="submit" size="small" pButton severity="primary" class="w-full mt-2 justify-content-center"
+			[disabled]="withdrawalForm.invalid">
+			Отправить заявку
+		</button>
 	</form>
 </p-dialog>
+
 <!-- ============================================== -->
 <p-dialog header="Подтверждение вывода средств" [(visible)]="acceptModal" [modal]="true" [responsive]="true"
 	[style]="{'width': '350px', 'max-widht': '90%'}">
 	<p class="m-0 mb-2 text-700">Вы уверены, что хотите вывести {{amount}} USD на свой никнейм ПокерОК {{roomNick}}?</p>
 	<div class="w-full flex gap-2">
-		<button type="button" size="small" pButton severity="danger" class="w-full justify-content-center">Отмена</button>
+		<button type="button" size="small" (click)="acceptModal = false" pButton severity="danger"
+			class="w-full justify-content-center">Отмена</button>
 		<button type="button" size="small" pButton severity="success" class="w-full justify-content-center"
 			(click)="sentSucess()">Да, я
 			уверен</button>

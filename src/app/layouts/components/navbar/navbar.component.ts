@@ -67,10 +67,14 @@ export class NavbarComponent implements OnInit {
   }
 
   sendToAdmin() {
-    this.amount = String(this.withdrawalForm.get("amount")?.value);
-    this.roomNick = String(this.withdrawalForm.get("pokerRoomNickname")?.value);
-    this.balanceModal = false;
-    this.acceptModal = true;
+    if (this.withdrawalForm.valid) {
+      this.amount = String(this.withdrawalForm.get("amount")?.value);
+      this.roomNick = String(
+        this.withdrawalForm.get("pokerRoomNickname")?.value
+      );
+      this.balanceModal = false;
+      this.acceptModal = true;
+    }
   }
 
   /**
