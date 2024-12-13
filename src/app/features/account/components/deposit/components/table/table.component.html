@@ -8,28 +8,24 @@
 		</div>
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-		<p-calendar [(ngModel)]="dateFilter" (ngModelChange)="filterData()" [ngStyle]="{width: '100%'}" placeholder="Дата"
-			[readonlyInput]="true" />
+		<p-calendar showClear="true" [(ngModel)]=" dateFilter" (ngModelChange)="filterData()" [ngStyle]="{width: '100%'}"
+			placeholder="Дата" [readonlyInput]="true" />
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-		<p-dropdown [(ngModel)]="statusFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }" [options]="status" [(ngModel)]="selectStatus" optionLabel="name"
-			placeholder="Статус">
+		<p-dropdown showClear="true" [(ngModel)]="statusFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
+			[options]="status" [(ngModel)]="selectStatus" optionLabel="name" placeholder="Статус">
 		</p-dropdown>
 	</div>
-	<div class="flex align-items-center col-10 lg:col-2 md:col-4 sm:col-10">
-		<p-dropdown [(ngModel)]="bankFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }" [options]="bankData" [(ngModel)]="selectBank" optionLabel="title"
-			placeholder="Банк">
+	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
+		<p-dropdown showClear="true" [(ngModel)]="bankFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
+			[options]="bankData" [(ngModel)]="selectBank" optionLabel="title" placeholder="Банк">
 		</p-dropdown>
-	</div>
-	<div class="flex align-items-center col-2 md:col-1">
-		<button type="button" class=" bg-yellow-50 install-btn w-full justify-content-center border-none" size="small"
-			pButton>
-			<i class="pi pi-download font-bold text-yellow-600 text-base"></i>
-		</button>
 	</div>
 </div>
 
-<p-table [value]="orders" [scrollable]="false" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="tablePagination.size" [totalRecords]="tablePagination.totalData" (onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
+<p-table [value]="orders" [scrollable]="false" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
+	[rows]="tablePagination.size" [totalRecords]="tablePagination.totalData"
+	(onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
 	<ng-template pTemplate="header">
 		<tr>
 			<th>Дата</th>
@@ -59,61 +55,8 @@
 			</td>
 			<td>{{ product.currencyRate }}</td>
 			<td>
-				<p-tag class="w-full" [icon]="
-					product.status === 'WAIT_FOR_SELLER_ACCEPT'
-						? 'pi pi-clock'
-						: product.status === 'WAIT_FOR_BUYER_PAY'
-						? 'pi pi-credit-card'
-						: product.status === 'BUYER_PAYED'
-						? 'pi pi-check-circle'
-						: product.status === 'WAIT_FOR_ADMIN_MOVE'
-						? 'pi pi-cogs'
-						: product.status === 'REJECTED'
-						? 'pi pi-times-circle'
-						: product.status === 'COMPLETED'
-						? 'pi pi-check-circle'
-						: product.status === 'CANCELED'
-						? 'pi pi-ban'
-						: product.status === 'EXPIRED'
-						? 'pi pi-calendar-times'
-						: ''
-				" [severity]="
-					product.status === 'WAIT_FOR_SELLER_ACCEPT'
-						? 'info'
-						: product.status === 'WAIT_FOR_BUYER_PAY'
-						? 'info'
-						: product.status === 'BUYER_PAYED'
-						? 'success'
-						: product.status === 'WAIT_FOR_ADMIN_MOVE'
-						? 'info'
-						: product.status === 'REJECTED'
-						? 'danger'
-						: product.status === 'COMPLETED'
-						? 'success'
-						: product.status === 'CANCELED'
-						? 'danger'
-						: product.status === 'EXPIRED'
-						? 'secondary'
-						: undefined
-				" [value]="
-					product.status === 'WAIT_FOR_SELLER_ACCEPT'
-						? 'Ожидает подтверждения'
-						: product.status === 'WAIT_FOR_BUYER_PAY'
-						? 'Ожидает оплаты'
-						: product.status === 'BUYER_PAYED'
-						? 'Оплачено, ожидание подтверждения'
-						: product.status === 'WAIT_FOR_ADMIN_MOVE'
-						? 'Ожидается перевод'
-						: product.status === 'REJECTED'
-						? 'Отклонена'
-						: product.status === 'COMPLETED'
-						? 'Завершена'
-						: product.status === 'CANCELED'
-						? 'Отменена'
-						: product.status === 'EXPIRED'
-						? 'Истек'
-						: ''
-				"></p-tag>
+				<p-tag class="w-full" [icon]="findStatus(product.status, 'icon')"
+					[severity]="findStatus(product.status, 'severity')" [value]="findStatus(product.status, 'name')"></p-tag>
 			</td>
 		</tr>
 	</ng-template>

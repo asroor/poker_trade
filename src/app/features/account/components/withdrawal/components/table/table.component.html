@@ -1,5 +1,5 @@
 <div class="grid mb-3">
-	<div class="col-12 lg:col-5">
+	<div class="col-12 lg:col-6">
 		<div class="p-1 border-1 bg-white border-yellow-100 w-full flex border-round toogle-buttons">
 			<button routerLink="/account/withdrawal" routerLinkActive="bg-yellow-50 text-yellow-600"
 				class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">Продажи</button>
@@ -8,24 +8,19 @@
 		</div>
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-		<p-calendar [(ngModel)]="dateFilter" (ngModelChange)="filterData()" [ngStyle]="{width: '100%'}" placeholder="Дата"
-			[readonlyInput]="true" />
+		<p-calendar [showClear]="true" [(ngModel)]="dateFilter" (ngModelChange)="filterData()" [ngStyle]="{width: '100%'}"
+			placeholder="Дата" />
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
-		<p-dropdown [(ngModel)]="statusFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
-			[options]="status" [(ngModel)]="selectStatus" optionLabel="name" placeholder="Статус">
+		<p-dropdown [showClear]="true" [(ngModel)]="statusFilter" (ngModelChange)="filterData()"
+			[ngStyle]="{ width: '100%' }" [options]="status" [(ngModel)]="selectStatus" optionLabel="name"
+			placeholder="Статус">
 		</p-dropdown>
 	</div>
-	<div class="flex align-items-center col-10 lg:col-2 md:col-4 sm:col-10">
-		<p-dropdown [(ngModel)]="bankFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
+	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
+		<p-dropdown [showClear]="true" [(ngModel)]="bankFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
 			[options]="bankData" [(ngModel)]="selectBank" optionLabel="title" placeholder="Банк">
 		</p-dropdown>
-	</div>
-	<div class="flex align-items-center col-2 md:col-1">
-		<button type="button" class=" bg-yellow-50 install-btn w-full justify-content-center border-none" size="small"
-			pButton>
-			<i class="pi pi-download font-bold text-yellow-600 text-base"></i>
-		</button>
 	</div>
 </div>
 
@@ -60,8 +55,8 @@
 			</td>
 			<td>{{ product.factUSDSold }}</td>
 			<td>
-				<p-tag class="w-full" [icon]="getIcon(product.status)" [severity]="getSeverity(product.status)"
-					[value]="getStatusLabel(product.status)"></p-tag>
+				<p-tag class="w-full" [icon]="findStatus(product.status, 'icon' )"
+					[severity]="findStatus(product.status, 'severity')" [value]="findStatus(product.status, 'name')"></p-tag>
 			</td>
 		</tr>
 	</ng-template>

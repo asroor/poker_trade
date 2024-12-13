@@ -1,13 +1,8 @@
 import { Component } from "@angular/core";
 import { BankService, OrderService } from "../../../../../../shared";
 import { environment } from "../../../../../../../environments/environment";
-import { IBank, IOrderMy, ISellRequestsMy } from "../../../../../../interface";
+import { IBank, IOrderMy, ISellRequestsMy, IStatus } from "../../../../../../interface";
 import { DatePipe } from "@angular/common";
-
-export interface IStatus {
-  name: string;
-  code: string;
-}
 
 @Component({
   selector: "app-table",
@@ -27,32 +22,58 @@ export class TableComponent {
   loadData: boolean = false;
   loading: boolean = true;
 
-  status: IStatus[] | undefined;
+  status: IStatus[];
   selectBank: undefined;
   selectStatus: IStatus | undefined;
   bankData!: IBank[];
-
   constructor(
     private _orderService: OrderService,
     private _bankService: BankService,
     private datePipe: DatePipe
-  ) {}
+  ) {
+    this.status = [
+      {
+        name: "Новое",
+        code: "NEW",
+        icon: "pi pi-clock",
+        severity: "info",
+      }, // NEW
+      {
+        name: "Модерация",
+        code: "MODERATION",
+        icon: "pi pi-search",
+        severity: "warning",
+      }, // MODERATION
+      {
+        name: "В процессе",
+        code: "IN_PROGRESS",
+        icon: "pi pi-spinner pi-spin",
+        severity: "info",
+      }, // IN_PROGRESS
+      {
+        name: "Завершено",
+        code: "COMPLETED",
+        icon: "pi pi-check-circle",
+        severity: "success",
+      }, // COMPLETED
+      {
+        name: "Отклонено",
+        code: "REJECTED",
+        icon: "pi pi-times-circle",
+        severity: "danger",
+      }, // REJECTED
+      {
+        name: "Отменено",
+        code: "CANCELED",
+        icon: "pi pi-ban",
+        severity: "danger",
+      }, // CANCELED
+    ];
+  }
 
   ngOnInit(): void {
     this.getOrders({ first: 0, rows: this.tablePagination.size });
     this.getBank();
-
-    /**
-     *
-     */
-    this.status = [
-      { name: "Новое", code: "NEW" }, // NEW
-      { name: "Модерация", code: "MODERATION" }, // MODERATION
-      { name: "В процессе", code: "IN_PROGRESS" }, // IN_PROGRESS
-      { name: "Завершено", code: "COMPLETED" }, // COMPLETED
-      { name: "Отклонено", code: "REJECTED" }, // REJECTED
-      { name: "Отменено", code: "CANCELED" }, // CANCELED
-    ];
   }
   /**
    *
@@ -90,73 +111,34 @@ export class TableComponent {
       this.orderParam.filters.date = this.datePipe
         .transform(this.dateFilter, "yyyy-MM-dd")
         ?.toString();
+    } else {
+      delete this.orderParam.filters.date;
     }
+
+    // Status filterini tekshirish
     if (this.statusFilter) {
       this.orderParam.filters.status = this.statusFilter.code;
+    } else {
+      delete this.orderParam.filters.status;
     }
+
     if (this.bankFilter) {
       this.orderParam.filters.bank = this.bankFilter.title;
+    } else {
+      delete this.orderParam.filters.bank;
     }
-    console.log(this.orderParam.filters);
+
     this.getOrders({ first: 0, rows: this.tablePagination.size });
   }
 
   /**
    *
-   * @param status
-   * @returns
-   */
-  getIcon(status: string): string {
-    const icons: Record<string, string> = {
-      NEW: "pi pi-clock",
-      MODERATION: "pi pi-search",
-      IN_PROGRESS: "pi pi-spinner pi-spin",
-      COMPLETED: "pi pi-check-circle",
-      REJECTED: "pi pi-times-circle",
-      CANCELED: "pi pi-ban",
-      EXPIRED: "pi pi-calendar-times",
-    };
-    return icons[status] || "";
-  }
-
-  /**
    *
-   * @param status
-   * @returns
-   */
-  getSeverity(
-    status: string
-  ): "success" | "secondary" | "info" | "warning" | "danger" | undefined {
-    const severities: Record<
-      string,
-      "success" | "secondary" | "info" | "warning" | "danger"
-    > = {
-      NEW: "info",
-      MODERATION: "warning",
-      IN_PROGRESS: "info",
-      COMPLETED: "success",
-      REJECTED: "danger",
-      CANCELED: "danger",
-      EXPIRED: "secondary",
-    };
-    return severities[status];
-  }
-
-  /**
    *
-   * @param status
-   * @returns
+   *
    */
-  getStatusLabel(status: string): string {
-    const labels: Record<string, string> = {
-      NEW: "Новое",
-      MODERATION: "Модерация",
-      IN_PROGRESS: "В процессе",
-      COMPLETED: "Завершено",
-      REJECTED: "Отклонено",
-      CANCELED: "Отменено",
-      EXPIRED: "Истек",
-    };
-    return labels[status] || "";
+  findStatus(sts: string, key: "name" | "code" | "icon" | "severity"): any {
+    const item = this.status?.find((f) => f.code === sts);
+    return item ? item[key] : "";
   }
 }
