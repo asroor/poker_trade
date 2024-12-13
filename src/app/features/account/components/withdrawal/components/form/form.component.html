@@ -7,14 +7,14 @@
 			<i class="pi pi-arrow-left text-sm"></i> Вернуться назад</a>
 	</div>
 	<form [formGroup]="withrawalForm">
-		<div class="grid" *ngIf="!bid_form">
+		<div class="grid">
 			<div class="col-12 lg:col-6">
 				<div class="my-4">
 					<label class="font-medium text-sm text-500 mb-2 block">Выберите рум / кошелек и валюту:*</label>
 					<div class="flex w-full align-items-center column-gap-2">
-						<p-dropdown formControlName="pokerRoomId" (change)="setActiveRoom()" [ngStyle]="{width: '100%'}" [options]="rooms"
+						<p-dropdown formControlName="pokerRoomId" (onChange)="setActiveRoom()" [ngStyle]="{width: '100%'}" [options]="rooms"
 							optionLabel="title" optionValue="id" placeholder="Select a wallet" />
-						<p-dropdown formControlName="currencyId" [options]="currencies" class="curs" (change)="setActiveCurrency()"
+						<p-dropdown formControlName="currencyId" [options]="currencies" class="curs" (onChange)="setActiveCurrency()"
 							optionLabel="title" optionValue="id" placeholder="Select a wallet"
 							[ngStyle]="{width: '100px'}" />
 					</div>
@@ -66,7 +66,7 @@
 				</div>
 				<label class="font-medium text-sm text-500 mb-2 block">Курс {{activeCurrency.title}} для продажи:*</label>
 				<p-inputGroup>
-					<input (input)="usdChange()" formControlName="currencyRate" pInputText type="number" [value]="activeCurrency.rateMin"
+					<input (input)="usdChange()" formControlName="currencyRate" pInputText type="number"
 						[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax" [placeholder]="'От ' + activeCurrency.rateMin + ' до ' + activeCurrency.rateMax + ''"
 						required />
 					<p-inputGroupAddon
