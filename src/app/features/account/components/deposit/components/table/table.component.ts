@@ -40,12 +40,6 @@ export class TableComponent {
   ) {
     this.status = [
       {
-        name: "Новое",
-        code: "NEW",
-        icon: "pi pi-clock",
-        severity: "info",
-      }, // NEW
-      {
         name: "Ожидает",
         code: "WAIT_FOR_SELLER_ACCEPT",
         icon: "pi pi-clock",
@@ -70,18 +64,6 @@ export class TableComponent {
         severity: "warning",
       }, // WAIT_FOR_ADMIN_MOVE
       {
-        name: "Модерация",
-        code: "MODERATION",
-        icon: "pi pi-search",
-        severity: "warning",
-      }, // MODERATION
-      {
-        name: "В процессе",
-        code: "IN_PROGRESS",
-        icon: "pi pi-spinner pi-spin",
-        severity: "info",
-      }, // IN_PROGRESS
-      {
         name: "Завершено",
         code: "COMPLETED",
         icon: "pi pi-check-circle",
@@ -99,12 +81,12 @@ export class TableComponent {
         icon: "pi pi-ban",
         severity: "danger",
       }, // CANCELED
-      {
-        name: "Истекло",
-        code: "EXPIRED",
-        icon: "pi pi-clock",
-        severity: "danger",
-      }, // EXPIRED
+      // {
+      //   name: "Истекло",
+      //   code: "EXPIRED",
+      //   icon: "pi pi-clock",
+      //   severity: "danger",
+      // }, // EXPIRED
     ];
   }
 
