@@ -18,6 +18,7 @@ import { AuthInterceptor } from './shared/interceprors/auth.interceptor';
 import { ErrorInterceptor } from './shared/interceprors/error.interceptor';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
 	declarations: [
@@ -37,6 +38,7 @@ import { MessageService } from 'primeng/api';
 		AvatarModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		InputTextModule,
 		ToastModule
 	],
 	providers: [

@@ -8,7 +8,7 @@
 				</a>
 				<p-button (click)="navigateByAuth()" routerLink="withdrawal/form" class="flex-shrink-0 hidden md:flex"
 					severity="success" icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
-				<div class="p-1 border-1 border-yellow-100 hidden sm:flex border-round w-full">
+				<div class="p-1 border-1 border-yellow-100 hidden sm:flex border-round w-full navbar-toggle__btns">
 					<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 						заявки</button>
@@ -18,17 +18,17 @@
 				</div>
 			</div>
 			<div class="flex align-items-center flex-shrink-0 column-gap-3 navbar-right">
-				<div *ngIf="isUserLoginned()" routerLink="/profile/balance"
-					class="flex align-items-center cursor-pointer column-gap-1">
+				<div *ngIf="isUserLoginned()" class="flex align-items-center cursor-pointer column-gap-1"
+					(click)="showBalance()">
 					<b *ngIf="profile | async as profile"
 						class="line-height-1 m-0 text-yellow-600 text-lg">{{profile.balance}}$</b>
 					<i class="pi pi-wallet text-xl text-yellow-600 font-bold"></i>
 				</div>
 				<div class="flex align-items-center column-gap-2 profile">
 					<button type="button" routerLink="/profile" *ngIf="isUserLoginned()" pButton size="small"
-					class="bg-yellow-50 border-none">
-					<i class="pi pi-user text-yellow-600 font-bold"></i>
-				</button>
+						class="bg-yellow-50 border-none">
+						<i class="pi pi-user text-yellow-600 font-bold"></i>
+					</button>
 					<button type="button" (click)="openModal()" *ngIf="!isUserLoginned()" pButton size="small"
 						class="bg-yellow-50 border-none" (click)="logout()">
 						<i class="pi pi-user text-yellow-600 font-bold"></i>
@@ -56,4 +56,11 @@
 			icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
 	</div>
 </div>
+<p-dialog *ngIf="profile | async as profile" header="Вывод баланса PokerTrade" [(visible)]="balanceModal" [modal]="true"
+	[responsive]="true" [style]="{'width': '350px', 'max-widht': '90%'}">
+	<p class="m-0 mb-2 text-700">Укажите свой никнейм в блоке и желаемую сумму вывода.</p>
+	<input type="text" class="w-full mb-2" pInputText [value]="profile.nickname" placeholder="ввод">
+	<input type="number" class="w-full mb-2" pInputText min="1" [max]="profile.balance" placeholder="вывод">
+	<button type="button" pButton severity="primary" class="w-full justify-content-center">Вывод средств</button>
+</p-dialog>
 }
