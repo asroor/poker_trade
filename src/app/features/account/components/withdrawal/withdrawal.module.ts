@@ -7,7 +7,7 @@ import { Table, TableModule } from 'primeng/table';
 import { FormComponent } from './components/form/form.component';
 import { TableComponent } from './components/table/table.component';
 import { DialogModule } from 'primeng/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TooltipModule } from 'primeng/tooltip';
@@ -48,6 +48,7 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild(routes),
 		FormsModule,
+		ReactiveFormsModule,
 
 		AccordionModule,
 		TagModule,
