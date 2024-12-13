@@ -1,7 +1,12 @@
 import { Component } from "@angular/core";
 import { BankService, OrderService } from "../../../../../../shared";
 import { environment } from "../../../../../../../environments/environment";
-import { IBank, IOrderMy, ISellRequestsMy, IStatus } from "../../../../../../interface";
+import {
+  IBank,
+  IOrderMy,
+  ISellRequestsMy,
+  IStatus,
+} from "../../../../../../interface";
 import { DatePipe } from "@angular/common";
 
 @Component({
@@ -39,6 +44,30 @@ export class TableComponent {
         severity: "info",
       }, // NEW
       {
+        name: "Ожидает",
+        code: "WAIT_FOR_SELLER_ACCEPT",
+        icon: "pi pi-clock",
+        severity: "info",
+      }, // WAIT_FOR_SELLER_ACCEPT
+      {
+        name: "Оплата",
+        code: "WAIT_FOR_BUYER_PAY",
+        icon: "pi pi-credit-card",
+        severity: "warning",
+      }, // WAIT_FOR_BUYER_PAY
+      {
+        name: "Оплачено",
+        code: "BUYER_PAYED",
+        icon: "pi pi-check-circle",
+        severity: "info",
+      }, // BUYER_PAYED
+      {
+        name: "Перевод",
+        code: "WAIT_FOR_ADMIN_MOVE",
+        icon: "pi pi-arrow-right",
+        severity: "warning",
+      }, // WAIT_FOR_ADMIN_MOVE
+      {
         name: "Модерация",
         code: "MODERATION",
         icon: "pi pi-search",
@@ -68,6 +97,12 @@ export class TableComponent {
         icon: "pi pi-ban",
         severity: "danger",
       }, // CANCELED
+      {
+        name: "Истекло",
+        code: "EXPIRED",
+        icon: "pi pi-clock",
+        severity: "danger",
+      }, // EXPIRED
     ];
   }
 
