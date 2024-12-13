@@ -13,5 +13,62 @@
 		<button routerLink="balance" routerLinkActive="bg-yellow-50 text-yellow-600"
 			class="border-none w-full py-2 px-4 text-500 font-medium border-round text-sm cursor-pointer">Балансы</button>
 	</div> -->
-	<router-outlet></router-outlet>
+	<div class="mt-3">
+		<div class="grid">
+			<div class="col-12 lg:col-6">
+				<form class="border-1 border-200 surface-50 p-4 border-round" *ngIf="profile" [formGroup]="profileForm">
+					<div class="field mb-3">
+						<label for="firstname1" class="text-sm text-500 block mb-2">Ваш никнейм в PokerTrade:*</label>
+						<input type="text" id="firstname1" class="bg-white" disabled pInputText placeholder="username" required
+							[value]="profile.nickname" />
+					</div>
+					<label for="firstname1" class="text-sm text-500 block mb-1">Ваш email:</label>
+					<p-inputGroup class="mb-1">
+						<input type="email" formControlName="email" pInputText placeholder="user@luxon.com" [value]="profile.email"
+							class="bg-white" />
+						<button type="button" *ngIf="!profile.verified" [disabled]="profile.verified" pButton severity="primary"
+							class="flex-shrink-0 text-sm py-1 px-2" (click)="sendCodeFn($event)" #senCodeBtn>Отправить код</button>
+					</p-inputGroup>
+					<p class="p-2 bg-red-500 m-0 mb-2 text-white text-sm text-center border-round"
+						*ngIf="profile.email && !profile.verified">Ваш аккаунт
+						не верифицирован</p>
+					<p-inputGroup class="mb-3" *ngIf="codeInput">
+						<input type="number" formControlName="code" pInputText placeholder="1234" maxlength="4" />
+						<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2"
+							(click)="emailVerifyFN()">
+							<i class="pi pi-send"></i>
+						</button>
+					</p-inputGroup>
+					<div class="flex align-items-start bg-white column-gap-1 p-2 border-round border-1 border-200">
+						<i class="pi text-500 text-sm pi-exclamation-circle"></i>
+						<p class="m-0 text-500 text-sm">Важно! Изменить данные после сохранения можно только через техподдержку
+							PokerTrade</p>
+					</div>
+				</form>
+			</div>
+			<div class="col-12 lg:col-6" *ngIf="profile">
+				<h5 class="m-0 my-2 block text-yellow-600 text-sm">Моя статистика: </h5>
+				<div class="border-1 border-200 border-round p-2">
+					<div class="grid">
+						<div class="col-6">
+							<p class="m-0 text-500 font-light text-sm">Ср. время отклика: <b
+									class="text-700">{{profile.avgAcceptTime}}</b> </p>
+						</div>
+						<div class="col-6">
+							<p class="m-0 text-500 font-light text-sm">Заявки на продажу: <b
+									class="text-700">{{profile.sellRequestsCount}}</b> </p>
+						</div>
+						<div class="col-6">
+							<p class="m-0 text-500 font-light text-sm">Заявки на покупку: <b
+									class="text-700">{{profile.buyRequestsCount}}</b> </p>
+						</div>
+						<div class="col-6">
+							<p class="m-0 text-500 font-light text-sm">Встречные заявки: <b
+									class="text-700">{{profile.oncomingRequests}}</b> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

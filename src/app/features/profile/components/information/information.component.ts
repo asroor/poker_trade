@@ -24,7 +24,7 @@ export class InformationComponent implements OnInit {
     this.token = this.routes.snapshot.paramMap.get("token");
     if (this.token) {
       localStorage.setItem("telegramToken", this.token);
-      this.router.navigate(["/profile/information"]);
+      this.router.navigate(["/profile"]);
     }
     this.getData();
   }

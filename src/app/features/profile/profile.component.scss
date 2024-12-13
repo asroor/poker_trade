@@ -1,3 +1,15 @@
-button {
-	background-color: transparent;
+.user {
+	.camera {
+		opacity: 0;
+	}
+
+	&:hover {
+		img {
+			filter: brightness(50%);
+		}
+
+		.camera {
+			opacity: 1;
+		}
+	}
 }

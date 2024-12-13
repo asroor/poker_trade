@@ -7,7 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { BalanceComponent } from './components/balance/balance.component';
 import { InformationComponent } from './components/information/information.component';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
@@ -21,12 +20,6 @@ const routes: Routes = [
 				path: 'token/:token', component: InformationComponent
 			},
 			{
-				path: 'information', component: InformationComponent
-			},
-			{
-				path: 'balance', component: BalanceComponent
-			},
-			{
 				path: '**', redirectTo: 'information', pathMatch: 'full'
 			}
 		]
@@ -36,7 +29,6 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		ProfileComponent,
-		BalanceComponent,
 		InformationComponent
 	],
 	imports: [
