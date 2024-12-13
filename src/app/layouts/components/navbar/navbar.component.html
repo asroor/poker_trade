@@ -56,11 +56,36 @@
 			icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
 	</div>
 </div>
+
+<!-- =============================================== -->
 <p-dialog *ngIf="profile | async as profile" header="Вывод баланса PokerTrade" [(visible)]="balanceModal" [modal]="true"
 	[responsive]="true" [style]="{'width': '350px', 'max-widht': '90%'}">
-	<p class="m-0 mb-2 text-700">Укажите свой никнейм в блоке и желаемую сумму вывода.</p>
-	<input type="text" class="w-full mb-2" pInputText [value]="profile.nickname" placeholder="ввод">
-	<input type="number" class="w-full mb-2" pInputText min="1" [max]="profile.balance" placeholder="вывод">
-	<button type="button" pButton severity="primary" class="w-full justify-content-center">Вывод средств</button>
+	<p class="m-0 mb-2 text-700">Укажите свой никнейм в <span class="font-bold">ПокерОК</span></p>
+	<form (ngSubmit)="sendToAdmin()" [formGroup]="withdrawalForm">
+		<input type="text" class="w-full mb-2" formControlName="pokerRoomNickname" pInputText placeholder="прозвище"
+			required>
+		<input type="number" class="w-full mb-2" formControlName="amount" pInputText min="1" [max]="profile.balance"
+			required placeholder="вывод">
+		<button type="submit" pButton severity="primary" class="w-full justify-content-center">Отправить заявку</button>
+	</form>
+</p-dialog>
+<!-- ============================================== -->
+<p-dialog header="Подтверждение вывода средств" [(visible)]="acceptModal" [modal]="true" [responsive]="true"
+	[style]="{'width': '350px', 'max-widht': '90%'}">
+	<p class="m-0 mb-2 text-700">Вы уверены, что хотите вывести {{amount}} USD на свой никнейм ПокерОК {{roomNick}}?</p>
+	<div class="w-full flex gap-2">
+		<button type="button" size="small" pButton severity="danger" class="w-full justify-content-center">Отмена</button>
+		<button type="button" size="small" pButton severity="success" class="w-full justify-content-center"
+			(click)="sentSucess()">Да, я
+			уверен</button>
+	</div>
+</p-dialog>
+<p-dialog header="Заявка на вывод отправлена!" [(visible)]="succsessModal" [modal]="true" [responsive]="true"
+	[style]="{'width': '350px', 'max-widht': '90%'}">
+	<p class="m-0 mb-2 text-700">Ваша заявка на вывод {{amount}} USD на никнейм {{roomNick}} (ПокерОК) успешно
+		отправлена!
+		Наши администраторы обработают её в течение 5-10 минут. <br> <br>
+		Ожидайте, пожалуйста, уведомления в Telegram!
+	</p>
 </p-dialog>
 }

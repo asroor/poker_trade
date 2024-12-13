@@ -5,41 +5,84 @@ import { IProfile } from "../../interface";
 import { catchError, Observable, throwError } from "rxjs";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: "root",
 })
 export class ProfileService {
-	_url = `${environment.apiUrl}`
-	constructor(private _http: HttpClient) { }
+  _url = `${environment.apiUrl}`;
+  constructor(private _http: HttpClient) {}
+  /**
+   *
+   * @param amount
+   * @param pokerRoomNickname
+   * @returns
+   */
+  withdrawingBalance(
+    amount: number,
+    pokerRoomNickname: string
+  ): Observable<{
+    amount: number;
+    pokerRoomNickname: string;
+  }> {
+    return this._http
+      .post<{
+        amount: number;
+        pokerRoomNickname: string;
+      }>(`${environment.apiUrl}/balance-withdrawal`, {
+        amount,
+        pokerRoomNickname,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-	/**
-	 * 
-	 * @returns 
-	 */
-	getProfile(): Observable<IProfile> {
-		return this._http.get<IProfile>(`${this._url}/user`).pipe(
-			catchError(this.handleError)
-		)
-	}
+  /**
+   *
+   * @returns
+   */
+  getProfile(): Observable<IProfile> {
+    return this._http
+      .get<IProfile>(`${this._url}/user`)
+      .pipe(catchError(this.handleError));
+  }
 
-	/**
-	 * 
-	 * @returns 
-	 */
-	isUserLoginned() {
-		return localStorage.getItem('telegramToken') != null
-	}
+  /**
+   *
+   * @returns
+   */
+  isUserLoginned() {
+    return localStorage.getItem("telegramToken") != null;
+  }
 
-	sendCodeEmail(email: string): Observable<{ email: string }> {
-		return this._http.post<{ email: string }>(`${environment.apiUrl}/user/email/sent`, { email })
-	}
+  /**
+   *
+   * @param email
+   * @returns
+   */
+  sendCodeEmail(email: string): Observable<{ email: string }> {
+    return this._http.post<{ email: string }>(
+      `${environment.apiUrl}/user/email/sent`,
+      { email }
+    );
+  }
 
-	emailVerify(code: string): Observable<{ code: string }> {
-		return this._http.post<{ code: string }>(`${environment.apiUrl}/user/email/verify`, { code }).pipe(
-			catchError(this.handleError)
-		)
-	}
+  /**
+   *
+   * @param code
+   * @returns
+   */
+  emailVerify(code: string): Observable<{ code: string }> {
+    return this._http
+      .post<{ code: string }>(`${environment.apiUrl}/user/email/verify`, {
+        code,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-	private handleError(err: HttpErrorResponse): Observable<never> {
-		return throwError(() => err);
-	}
+  /**
+   *
+   * @param err
+   * @returns
+   */
+  private handleError(err: HttpErrorResponse): Observable<never> {
+    return throwError(() => err);
+  }
 }
