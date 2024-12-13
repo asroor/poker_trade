@@ -67,7 +67,6 @@ export class FormComponent implements OnInit {
 	submit() {
 		if(this.depostiForm.valid){
 			const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
-			console.log(sellRequestId, wantToBuyUSD, pokerRoomNickname);
 	
 			this._orderService.buyRequest({ sellRequestId, wantToBuyUSD, pokerRoomNickname }).subscribe(data => {
 				this.buyRequestId = data.buyRequestId

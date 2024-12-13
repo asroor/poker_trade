@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../../../../shared/services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { IOrderBuy, IOrderOne } from '../../../../../../interface';
-import { interval, map, Observable, Subscription } from 'rxjs';
+import { interval, map, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
 
 @Component({
 	selector: 'app-application',
@@ -12,8 +12,10 @@ import { interval, map, Observable, Subscription } from 'rxjs';
 export class ApplicationComponent implements OnInit {
 	private intervalSubscription: Subscription | undefined;
 	visible: boolean = false;
+	visible2: boolean = false;
+	visible3: boolean = false;
 	order!: IOrderOne
-	ordeBuy!: Observable<IOrderBuy[]>
+	ordeBuy!: IOrderBuy[]
 	id!: number
 	buyId!: number
 	pokerRoomNickname!: string
@@ -27,7 +29,27 @@ export class ApplicationComponent implements OnInit {
 	ngOnInit(): void {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 		this.getOrder()
+		this.startPolling();
 	}
+
+	startPolling(): void {
+		this.intervalSubscription = interval(3000)
+		  .pipe(
+			switchMap(() => this._orderService.getSellRequest(this.id))
+		  )
+		  .subscribe({
+			next: (data) => {
+			  this.order = data;
+			  if (data.status === 'IN_PROGRESS') {
+				this.getOrdcerBy();
+			  }
+			},
+			error: (err) => {
+			  console.error('API chaqiruvda xatolik:', err);
+			},
+		  });
+	  }
+
 	ngOnDestroy(): void {
 		if (this.intervalSubscription) {
 			this.intervalSubscription.unsubscribe();
@@ -35,7 +57,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	getOrder() {
-		this._orderService.getSellRequest(this.id).subscribe((data) => {
+		return this._orderService.getSellRequest(this.id).subscribe((data) => {
 			if (data.status == 'IN_PROGRESS') {
 				this.getOrdcerBy()
 			}
@@ -45,7 +67,9 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	getOrdcerBy() {
-		this.ordeBuy = this._orderService.buyRequests(this.id)
+		this._orderService.buyRequests(this.id).subscribe((data) => {
+			this.ordeBuy = data
+		})
 	}
 
 	cancel() {
@@ -83,9 +107,12 @@ export class ApplicationComponent implements OnInit {
 		this.buyId = buyId
 	}
 
-	visible2 = false
 	showDialog2() {
 		this.visible2 = !this.visible2
+	}
+
+	showDialog3() {
+		this.visible3 = !this.visible3
 	}
 
 	submit2() {

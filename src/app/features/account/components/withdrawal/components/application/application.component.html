@@ -1,6 +1,6 @@
 @if (order) {
 <ng-container *ngIf="order?.status == 'CANCELED' || order?.status == 'REJECTED' || order?.status == 'EXPIRED'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу {{order.pokerRoomName}}
 		<p-tag *ngIf="order.status == 'REJECTED' || order.status == 'CANCELED' || order.status == 'EXPIRED' "
 			icon="pi pi-times-circle" severity="danger" value="Отменена" />
 		<p-tag *ngIf="order.status == 'COMPLETED'" icon="pi pi-check-circle" severity="success" value="Выполнена" />
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">S{{id}} {{order.createdAt}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span>
@@ -28,7 +28,7 @@
 				</span></p>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
 			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
@@ -36,6 +36,7 @@
 	</div>
 	<div class="my-8"></div>
 </ng-container>
+
 <ng-container *ngIf="order?.status == 'NEW'">
 	<div class="grid">
 		<div class="col-12">
@@ -44,7 +45,7 @@
 			<div class="grid mt-3">
 				<div class="col-12 md:col-4">
 					<!-- <div class="mb-3">
-								<label class="block mb-1 text-sm text-500">Email вашего аккаунта Luxon:* </label>
+								<label class="block mb-1 text-sm text-500">Email вашего аккаунта {{order.pokerRoomName}}:* </label>
 								<input type="email" name="" pInputText id="" placeholder="pokertrade">
 							</div> -->
 					<div class="mb-3">
@@ -61,7 +62,7 @@
 						<button (click)="cancel()" severity="danger" type="button"
 							class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
 							<i class="pi pi-times-circle"></i>
-							Отправил
+							Отмена
 						</button>
 					</div>
 				</div>
@@ -73,16 +74,12 @@
 								<b class="text-yellow-600 font-bold text-base">{{order.pokerRoomName}}</b>
 							</div>
 							<div class="mb-2">
-								<p class="m-0 mb-1 text-sm text-500">Аккаунт:</p>
-								<b class="text-yellow-600 font-bold text-base">{{ordeBuy}}</b>
-							</div>
-							<div class="mb-2">
 								<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
 								<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD}} USD</b>
 							</div>
 						</div>
 						<div class="col-12 sm:col-4">
-							<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}}</span></p>
+							<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">S{{id}} {{order.createdAt}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span>
 							</p>
 							<!-- <p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">-</span></p> -->
@@ -93,7 +90,7 @@
 								</span></p>
 						</div>
 						<div class="col-12 sm:col-4">
-							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">{{order.fullName}}</span></p>
@@ -107,7 +104,7 @@
 
 
 <ng-container *ngIf="order?.status == 'IN_PROGRESS'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" severity="warning"
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу {{order.pokerRoomName}} <p-tag icon="pi pi-bolt" severity="warning"
 			[value]="'в процессе'" /></h3>
 	<div class="grid my-3">
 		<div class="col-12 lg:col-4">
@@ -135,7 +132,7 @@
 			</div>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">S{{id}} {{order.createdAt}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span>
@@ -144,7 +141,7 @@
 				</span></p>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
 			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
@@ -154,12 +151,12 @@
 </ng-container>
 
 <ng-container *ngIf="order?.status == 'MODERATION'">
-	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу Luxon <p-tag icon="pi pi-bolt" value="Модерация" />
+	<h3 class="font-bold m-0 text-xl text-700">Заявка на продажу {{order.pokerRoomName}} <p-tag icon="pi pi-bolt" value="Модерация" />
 	</h3>
 	<div class="grid mt-3">
 		<div class="col-12 lg:col-4">
-			<h3 class="m-0 font-bold mb-1 text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-			<h3 class="m-0 mb-1 font-normal text-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+			<h3 class="m-0 font-bold mb-1 text-700">Мы приняли вашу заявку. Ожидайте, пока модератор подтвердит получение перевода от вас</h3>
+			<h3 class="m-0 mb-1 font-normal text-700">После подтверждения модератором, ваша заявка опубликуется на сайте.</h3>
 			<button type="button" pButton size="small"
 				class="bg-primary-100 border-none text-yellow-600 text-base column-gap-2 w-full justify-content-center mt-2">
 				<i class="pi pi-arrow-up-right"></i>
@@ -167,7 +164,7 @@
 			</button>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">{{id}} {{order.createdAt}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">S{{id}} {{order.createdAt}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Аккаунт: <span class="text-700">{{order.fullName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Комиссия сервиса: <span class="text-700">{{order.adminProfitUSD}} USD</span>
@@ -176,7 +173,7 @@
 				</span></p>
 		</div>
 		<div class="col-12 lg:col-4 sm:col-6">
-			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}}</span></p>
+			<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 			<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
 			<!-- <p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">152.00 USD</span></p> -->
@@ -185,8 +182,9 @@
 </ng-container>
 
 <div class="my-8"></div>
+
 <h3 *ngIf="order.status == 'IN_PROGRESS'" class="font-bold m-0 mt-3 text-xl text-700">Встречные заявки</h3>
-<ng-container *ngIf="ordeBuy | async as ordeBuy">
+<ng-container *ngIf="ordeBuy as ordeBuy">
 	<div class="grid">
 		<ng-container *ngFor="let item of ordeBuy">
 			<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
@@ -200,11 +198,11 @@
 								</div>
 								<div>
 									<b class="font-medium block text-xs text-500">№ заявки:</b>
-									<b class="font-medium text-sm text-700">{{item.id}}</b>
+									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
 								</div>
 								<div>
 									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}</b>
 								</div>
 							</div>
 						</ng-template>
@@ -213,8 +211,8 @@
 							<i class="pi text-sm pi-stopwatch"></i>
 							Примите новую заявку
 						</div>
-						<h4 class="m-0 mb-2 text-700 text-lg">Lorem ipsum dolor sit amet.</h4>
-						<h3 class="m-0 mb-2 font-medium text-700">Lorem ipsum dolor sit amet.</h3>
+						<h4 class="m-0 mb-2 text-700 text-lg">Примите заявку от покупателя</h4>
+						<h3 class="m-0 mb-2 font-medium text-700">У вас есть 3 минуты на подтверждение или встречная заявка отменится. В случае 3-х отмен подряд, мы уберем вашу заявку и вернем остаток на баланс в PokerTrade!</h3>
 						<div class="flex column-gap-2 mt-3">
 							<button (click)="buyCancel(item.id)" severity="danger" size="small" type="button"
 								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
@@ -237,12 +235,13 @@
 							<div class="flex align-items-center h-2rem column-gap-3">
 								<div>
 									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">{{item.id}}</b>
+									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
 								</div>
 								<div>
 									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}</b>
 								</div>
+								<i (click)="showDialog3()" class="pi pi-send block"></i>
 							</div>
 						</ng-template>
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-gray-100 text-gray-500">
@@ -252,7 +251,7 @@
 						<div class="grid mb">
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">№ отклика</p>
-								<b class="m-0 text-700">{{item.id}}</b>
+								<b class="m-0 text-700">B{{item.id}} {{item.createdAt}}</b>
 							</div>
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">ФИО</p>
@@ -260,7 +259,7 @@
 							</div>
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">Сумма:</p>
-								<b class="m-0 text-700">{{item.wantToBuyUSD}} {{item.currencyName}}
+								<b class="m-0 text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}
 									<!-- <span class="font-light text-500">(200 USD)</span> -->
 								</b>
 							</div>
@@ -284,12 +283,13 @@
 							<div class="flex align-items-center h-2rem column-gap-3">
 								<div>
 									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">{{item.id}}</b>
+									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
 								</div>
 								<div>
 									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD}} {{item.currencyName}}</b>
+									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}</b>
 								</div>
+								<i (click)="showDialog3()" class="pi pi-send block"></i>
 							</div>
 						</ng-template>
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-yellow-200 text-700">
@@ -299,7 +299,7 @@
 						<div class="grid mb">
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">№ отклика</p>
-								<b class="m-0 text-700">{{item.id}}</b>
+								<b class="m-0 text-700">B{{item.id}} {{item.createdAt}}</b>
 							</div>
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">ФИО</p>
@@ -307,7 +307,7 @@
 							</div>
 							<div class="col-12 sm:col-6">
 								<p class="m-0 mb-1 text-500">Сумма:</p>
-								<b class="m-0 text-700">{{item.wantToBuyUSD}} {{item.currencyName}}
+								<b class="m-0 text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}
 									<!-- <span class="font-light text-500">(200 USD)</span> -->
 								</b>
 							</div>
@@ -317,10 +317,10 @@
 							</div>
 						</div>
 						<div class="flex column-gap-2">
-							<button severity="danger" size="small" type="button"
+							<!-- <button severity="danger" size="small" type="button"
 								class="flex align-items-center column-gap-2 w-1 justify-content-center" size="small" pButton>
 								<i class="pi pi-exclamation-triangle"></i>
-							</button>
+							</button> -->
 							<button type="button" (click)="showDialog(item.id)" severity="success" pButton
 								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small">
 								<i class="pi pi-check-circle"></i>
@@ -377,6 +377,7 @@
 		</ng-container>
 	</div>
 </ng-container>
+
 <p-dialog header="Подтверждение операции" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
 	<h4>Вы подтверждаете, что получили верную сумму и реквизиты контрагента совпадают с указанными в заявке?</h4>
 
@@ -407,6 +408,69 @@
 			<i class="pi pi-check-circle"></i>
 			Да
 		</button>
+	</div>
+</p-dialog>
+
+<p-dialog header="Чат с контрагентом" [(visible)]="visible3" [modal]="true" [style]="{ width: '50%' }">
+	<div class="col-12">
+		<div class="chat shadow-1 border-round bg-white">
+			<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
+				<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
+				<b class="flex align-content-center column-gap-1">
+					<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
+					<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
+				</b>
+			</div>
+			<div class="p-3">
+				<div class="overflow-y-scroll w-full" [style]="{ height: '350px' }">
+					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+						<p class="m-0 text-yellow-600 text-sm">
+							Правила безопасности в чате: <br />
+							1. Чат предназначен для общения с продавцом или покупателем
+							<br />
+							2. Модератор никогда не попросит вас подтвердить заявку <br />
+							3. Подтверждайте заявку только после поступления всех средств на
+							ваш счёт
+						</p>
+					</div>
+					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+						<p class="m-0 text-yellow-600 text-sm">
+							Пользователь создал отклик S на заявку B
+						</p>
+					</div>
+					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+						<p class="m-0 text-yellow-600 text-sm">
+							Пользователь подтвердил заявку R535743-C1732789.
+						</p>
+					</div>
+					<div class="mb-2">
+						<p class="m-0 bg-yellow-200">
+							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit,
+							optio sit recusandae sequi inventore ea atque doloremque! Nihil
+							voluptates quo quam pariatur modi, ducimus atque earum officia,
+							minima magnam corrupti?
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="p-3 border-top-1 border-yellow-100">
+				<div class="flex column-gap-2">
+					<button pButton type="button" class="border-yellow-300" outlined="true">
+						<i class="pi pi-paperclip text-lg"></i>
+					</button>
+					<p-inputGroup>
+						<input type="text" pInputText size="small" class="border-yellow-300"
+							placeholder="Напишите сообщение..." />
+						<button type="button" pButton class="bg-primary border-left-none border-none">
+							<i class="pi pi-send block"></i>
+						</button>
+					</p-inputGroup>
+				</div>
+			</div>
+		</div>
 	</div>
 </p-dialog>
 }
