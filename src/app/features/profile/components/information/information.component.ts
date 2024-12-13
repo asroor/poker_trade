@@ -36,34 +36,23 @@ export class InformationComponent implements OnInit {
     });
   }
 
-  senCode: boolean = false;
   profileForm = this.fb.group({
-    email: [
-      {
-        value: this.profile?.email,
-        disabled: !this.profile?.verified,
-      },
-      [Validators.required, Validators.email],
-    ],
+    email: [this.profile?.email, [Validators.required, Validators.email]],
     code: ["", Validators.required],
   });
 
   value!: string;
   codeInput: boolean = false;
-  timer: number = 3;
+  timer: number = 60;
   timerSubscription: any;
 
   sendCodeFn(event: Event) {
     const { email } = this.profileForm.getRawValue();
     this._profileService.sendCodeEmail(email).subscribe({
-      next: (data) => {},
-    });
-  }
-  emailVerifyFN() {
-    const { code } = this.profileForm.getRawValue();
-    this._profileService.emailVerify(code.toString()).subscribe({
-      next: () => {
-        this.getData();
+      next: (data) => {
+        const button = event.target as HTMLButtonElement;
+        this.startTimer(button);
+        this.codeInput = true;
       },
     });
   }
@@ -75,13 +64,23 @@ export class InformationComponent implements OnInit {
         btn.disabled = true;
         btn.textContent = `00:${
           this.timer < 10 ? "0" + this.timer : this.timer
-        }`; // formatlash
+        }`;
       } else {
-        btn.disabled = false;
+        this.codeInput = false;
         clearInterval(this.timerSubscription);
         btn.textContent = "Отправить код";
-        this.timer = 60;
+        btn.disabled = false;
       }
     }, 1000);
+  }
+
+  emailVerifyFN() {
+    const { code } = this.profileForm.getRawValue();
+    this._profileService.emailVerify(code.toString()).subscribe({
+      next: () => {
+        this.getData();
+        this.codeInput = false;
+      },
+    });
   }
 }
