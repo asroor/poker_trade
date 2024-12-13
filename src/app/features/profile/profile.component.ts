@@ -20,12 +20,20 @@ export class ProfileComponent {
   profile!: IProfile;
 
   constructor(
-    private location: Location,
     private _profileService: ProfileService,
     private routes: ActivatedRoute,
     private router: Router,
     private fb: NonNullableFormBuilder
   ) {}
+	// NEUoV87tNNpziUbN0AMLTz8xxcFg8xZ48lQIzaCb5HWxLG8x9o0vaoGe9K8szkGnHOYl2ERYi2IMF10VOklw8HC7jYXNIJyUfU3b
+	// M7nwUHCRsZRdtlCP8bwIMRUYYw8xiHaJSjHyIG60d2yEWq6yRtqBEKw1HS6wIMEJBRZiAypYmKYNCFoObfBY88jTju3CkoiZ20a
+  profileForm = this.fb.group({
+    email: [
+      { value: this.profile?.email, disabled: this.profile?.verified },
+      [Validators.required, Validators.email],
+    ],
+    code: ["", Validators.required],
+  });
 
   ngOnInit(): void {
     this.token = this.routes.snapshot.paramMap.get("token");
@@ -42,11 +50,6 @@ export class ProfileComponent {
       this.profileForm.patchValue(data);
     });
   }
-
-  profileForm = this.fb.group({
-    email: [this.profile?.email, [Validators.required, Validators.email]],
-    code: ["", Validators.required],
-  });
 
   value!: string;
   codeInput: boolean = false;
