@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IOrderBuyOne } from '../../../../../../interface';
 import { OrderService } from '../../../../../../shared';
@@ -12,10 +12,11 @@ import { environment } from '../../../../../../../environments';
 	styleUrl: './bid.component.scss'
 })
 export class BidComponent implements OnInit {
-	mediaUrl = environment.mediaUrl;
+	@ViewChild('chat_body') chatBody!: ElementRef;
+	mediaUrl = environment.chatMediaUrl;
 	private intervalSubscription!: Subscription;
 	private intervalSubscriptionChat!: Subscription;
-	
+
 	transfer: boolean = false;
 	visible: boolean = false;
 	request: boolean = false
@@ -24,12 +25,11 @@ export class BidComponent implements OnInit {
 	order!: IOrderBuyOne
 	bayerFullName!: string
 	lastFourDig!: string
-	chats!:IChat[]
-	text!:string
+	chats!: IChat[]
+	text!: string
 
 	constructor(
 		private _orderService: OrderService,
-		private router: Router,
 		private route: ActivatedRoute,
 	) { }
 
@@ -128,12 +128,12 @@ export class BidComponent implements OnInit {
 			});
 	}
 
-	sendText(){
-		if(this.text.trim().length > 0){
+	sendText() {
+		if (this.text.trim().length > 0) {
 			this._orderService
-				.buyRequestChatText({ buyRequestId: this.id, message: this.text.trim()})
+				.buyRequestChatText({ buyRequestId: this.id, message: this.text.trim() })
 				.subscribe({
-					next: (response) => {console.log('Fayl muvaffaqiyatli yuklandi:', response); this.text = ''},
+					next: (response) => { console.log('Fayl muvaffaqiyatli yuklandi:', response); this.text = '' },
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
 		}

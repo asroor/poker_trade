@@ -18,6 +18,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { ImageModule } from 'primeng/image';
 
 const routes: Routes = [
 	{
@@ -55,6 +56,7 @@ const routes: Routes = [
 		PanelModule,
 		DialogModule,
 		DropdownModule,
+		ImageModule,
 		CalendarModule,
 	],
 	providers: [DatePipe,]

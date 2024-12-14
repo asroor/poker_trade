@@ -81,12 +81,12 @@ export class TableComponent {
         icon: "pi pi-ban",
         severity: "danger",
       }, // CANCELED
-      // {
-      //   name: "Истекло",
-      //   code: "EXPIRED",
-      //   icon: "pi pi-clock",
-      //   severity: "danger",
-      // }, // EXPIRED
+      {
+        name: "Истекло",
+        code: "EXPIRED",
+        icon: "pi pi-clock",
+        severity: "danger",
+      }, // EXPIRED
     ];
   }
 
