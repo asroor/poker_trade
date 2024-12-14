@@ -241,7 +241,7 @@
 									<b class="font-medium block text-xs text-500">Сумма:</b>
 									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}</b>
 								</div>
-								<i (click)="showDialog3()" class="pi pi-send block"></i>
+								<i (click)="showDialog3(item.id)" class="pi pi-send block"></i>
 							</div>
 						</ng-template>
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-gray-100 text-gray-500">
@@ -289,7 +289,7 @@
 									<b class="font-medium block text-xs text-500">Сумма:</b>
 									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}} {{item.currencyName}}</b>
 								</div>
-								<i (click)="showDialog3()" class="pi pi-send block"></i>
+								<i (click)="showDialog3(item.id)" class="pi pi-send block"></i>
 							</div>
 						</ng-template>
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-yellow-200 text-700">
@@ -413,12 +413,12 @@
 
 <p-dialog header="Чат с контрагентом" [(visible)]="visible3" [modal]="true" [style]="{ width: '50%' }">
 	<div class="col-12">
-		<div class="chat shadow-1 border-round bg-white">
+		<div class="chat shadow-1 border-round bg-white" [ngClass]="true ? '' : 'disabled'">
 			<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
 				<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 				<b class="flex align-content-center column-gap-1">
 					<span class="block line-height-1 border-circle bg-green-500 w-1rem h-1rem"></span>
-					<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">1D8938</span>
+					<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">B{{id}} {{order.createdAt}}</span>
 				</b>
 			</div>
 			<div class="p-3">
@@ -430,41 +430,68 @@
 							1. Чат предназначен для общения с продавцом или покупателем
 							<br />
 							2. Модератор никогда не попросит вас подтвердить заявку <br />
-							3. Подтверждайте заявку только после поступления всех средств на
-							ваш счёт
+							3. Подтверждайте заявку только после поступления всех средств
+							на ваш счёт
 						</p>
 					</div>
 					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
 						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
 						<p class="m-0 text-yellow-600 text-sm">
-							Пользователь создал отклик S на заявку B
+							Пользователь создал отклик S{{id}} на заявку B{{chatId}}
 						</p>
 					</div>
 					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
 						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
 						<p class="m-0 text-yellow-600 text-sm">
-							Пользователь подтвердил заявку R535743-C1732789.
+							Пользователь подтвердил заявку B{{chatId}} - S{{id}}.
 						</p>
 					</div>
-					<div class="mb-2">
-						<p class="m-0 bg-yellow-200">
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit,
-							optio sit recusandae sequi inventore ea atque doloremque! Nihil
-							voluptates quo quam pariatur modi, ducimus atque earum officia,
-							minima magnam corrupti?
-						</p>
-					</div>
+					<ng-container *ngFor="let item of chats">
+						<div *ngIf="item.senderRole == 'Buyer'" class="mb-2 admin mr-auto" style="width: 50%">
+							<p *ngIf="item.msgType == 'text'" class="m-0 text-yellow-700 bg-yellow-100 p-2 text-sm border-round">
+								{{item.msgValue}}
+							</p>
+							<img *ngIf="item.msgType == 'file'" [src]="mediaUrl + item.msgValue" alt="">
+							<span class="block text-left mt-1 text-500 text-xs">{{item.sentAt}}
+							</span>
+						</div>
+						<div *ngIf="item.senderRole == 'Seller'" class="mb-2 user ml-auto" style="width: 50%">
+							<p *ngIf="item.msgType == 'text'" class="m-0 text-yellow-700 bg-yellow-200 p-2 text-sm border-round">
+								{{item.msgValue}}
+							</p>
+							<img *ngIf="item.msgType == 'file'" [src]="mediaUrl + item.msgValue" alt="">
+							<span class="block text-right mt-1 text-500 text-xs">{{item.sentAt}}
+							</span>
+						</div>
+					</ng-container>
+					
 				</div>
 			</div>
 			<div class="p-3 border-top-1 border-yellow-100">
 				<div class="flex column-gap-2">
-					<button pButton type="button" class="border-yellow-300" outlined="true">
-						<i class="pi pi-paperclip text-lg"></i>
-					</button>
 					<p-inputGroup>
-						<input type="text" pInputText size="small" class="border-yellow-300"
+						<div class="file-upload-wrapper">
+							<input 
+								type="file" 
+								#fileInput 
+								style="display: none;" 
+								(change)="onFileSelected($event)" 
+							/>
+							<button 
+								pButton 
+								type="button" 
+								class="border-yellow-300" 
+								outlined="true" 
+								(click)="fileInput.click()"
+							>
+								<i class="pi pi-paperclip text-lg"></i>
+							</button>
+						</div>
+						
+						
+						<input [(ngModel)]="text" type="text" pInputText size="small" class="border-yellow-300"
 							placeholder="Напишите сообщение..." />
-						<button type="button" pButton class="bg-primary border-left-none border-none">
+						<button (click)="sendText()" type="button" pButton severity="primary" class="border-left-none border-none">
 							<i class="pi pi-send block"></i>
 						</button>
 					</p-inputGroup>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IOrderBuyOne } from '../../../../../../interface';
 import { OrderService } from '../../../../../../shared';
 import { interval, Subscription, switchMap } from 'rxjs';
+import { IChat } from '../../../../../../interface/chat';
+import { environment } from '../../../../../../../environments';
 
 @Component({
 	selector: 'app-bid',
@@ -10,7 +12,10 @@ import { interval, Subscription, switchMap } from 'rxjs';
 	styleUrl: './bid.component.scss'
 })
 export class BidComponent implements OnInit {
+	mediaUrl = environment.mediaUrl;
 	private intervalSubscription!: Subscription;
+	private intervalSubscriptionChat!: Subscription;
+	
 	transfer: boolean = false;
 	visible: boolean = false;
 	request: boolean = false
@@ -19,6 +24,8 @@ export class BidComponent implements OnInit {
 	order!: IOrderBuyOne
 	bayerFullName!: string
 	lastFourDig!: string
+	chats!:IChat[]
+	text!:string
 
 	constructor(
 		private _orderService: OrderService,
@@ -33,6 +40,7 @@ export class BidComponent implements OnInit {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 
 		this.startPolling();
+		this.startPollingChat()
 
 		this._orderService.buyRequestsOne(this.id).subscribe(data => {
 			this.order = data
@@ -44,6 +52,9 @@ export class BidComponent implements OnInit {
 		if (this.intervalSubscription) {
 			this.intervalSubscription.unsubscribe();
 		}
+		if (this.intervalSubscriptionChat) {
+			this.intervalSubscriptionChat.unsubscribe();
+		}
 	}
 
 	startPolling(): void {
@@ -54,6 +65,21 @@ export class BidComponent implements OnInit {
 			.subscribe({
 				next: (data) => {
 					this.order = data;
+				},
+				error: (err) => {
+					console.error('Xatolik buyRequestsOne chaqiruvda:', err);
+				},
+			});
+	}
+
+	startPollingChat(): void {
+		this.intervalSubscriptionChat = interval(3000)
+			.pipe(
+				switchMap(() => this._orderService.getBuyRequestChat(this.id)) // Har 3 sekundda API chaqiruvi
+			)
+			.subscribe({
+				next: (data: IChat[]) => {
+					this.chats = data;
 				},
 				error: (err) => {
 					console.error('Xatolik buyRequestsOne chaqiruvda:', err);
@@ -83,4 +109,33 @@ export class BidComponent implements OnInit {
 		})
 	}
 
+	onFileSelected(event: Event): void {
+		const input = event.target as HTMLInputElement;
+		if (input.files && input.files.length > 0) {
+			const file = input.files[0]; // Birinchi faylni olish
+
+			// Faylni serverga yuborish
+			this.uploadFile(file);
+		}
+	}
+
+	uploadFile(file: File): void {
+		this._orderService
+			.buyRequestChatFile({ buyRequestId: this.id, file })
+			.subscribe({
+				next: (response) => console.log('Fayl muvaffaqiyatli yuklandi:', response),
+				error: (error) => console.error('Fayl yuklashda xatolik:', error),
+			});
+	}
+
+	sendText(){
+		if(this.text.trim().length > 0){
+			this._orderService
+				.buyRequestChatText({ buyRequestId: this.id, message: this.text.trim()})
+				.subscribe({
+					next: (response) => {console.log('Fayl muvaffaqiyatli yuklandi:', response); this.text = ''},
+					error: (error) => console.error('Fayl yuklashda xatolik:', error),
+				});
+		}
+	}
 }

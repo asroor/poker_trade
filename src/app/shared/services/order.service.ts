@@ -4,6 +4,7 @@ import { environment } from "../../../environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
 import { ISellRequestBody, IBaseOrder, IOrderBuy, IOrderBuyOne, IOrderMy, IOrderOne, ISellRequests, ISellRequestsMy, IOrder } from "../../interface";
 import { MessageService } from "primeng/api";
+import { IChat } from "../../interface/chat";
 
 
 @Injectable({
@@ -213,5 +214,30 @@ export class OrderService {
 		// }
 		return throwError(() => err);
 	}
+
+	buyRequestChatText(data: { buyRequestId: number, message: string }): Observable<any> {
+		return this._http.post<any>(`${this._url}/buy-request/chat/text`, data).pipe(
+			catchError(this.handleError)
+		)
+	}
+
+	buyRequestChatFile(data: { buyRequestId: number, file: any }): Observable<any> {
+		const formData = new FormData();
+		formData.append('buy_request_id', data.buyRequestId.toString()); // ID ni stringga o'girish
+		formData.append('file', data.file); // Faylni qo'shish
+
+		return this._http.post<any>(`${this._url}/buy-request/chat/file`, formData).pipe(
+			catchError(this.handleError)
+		);
+	}
+
+	getBuyRequestChat(buyRequestId: number): Observable<any> {
+		return this._http.get<IChat[]>(`${this._url}/buy-request/chat/${buyRequestId}`).pipe(
+			catchError(this.handleError)
+		);
+	}
+
+
+
 
 }
