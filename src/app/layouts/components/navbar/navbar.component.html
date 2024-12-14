@@ -64,15 +64,15 @@
 		Укажите свой никнейм в <span class="font-bold">ПокерОК</span>
 	</p>
 	<form (ngSubmit)="sendToAdmin()" [formGroup]="withdrawalForm">
-		<input type="text" class="w-full mb-1" formControlName="pokerRoomNickname" pInputText placeholder="прозвище"
+		<input type="text" class="w-full mb-1" formControlName="pokerRoomNickname" pInputText placeholder="никнейм"
 			required>
 		<p *ngIf="withdrawalForm.get('pokerRoomNickname')?.invalid && withdrawalForm.touched"
 			class="m-0 p-2 border-round bg-red-500 text-xs text-center text-white">
 			Обязательное поле
 		</p>
 
-		<input type="number" class="w-full mb-1 mt-2" formControlName="amount" pInputText placeholder="вывод" required
-			min="5" [max]="profile.balance || 5000">
+		<input type="number" class="w-full mb-1 mt-2" formControlName="amount" pInputText placeholder="от 5 до 5000"
+			required min="5" [max]="profile.balance || 5000">
 
 		<p *ngIf="withdrawalForm.get('amount')?.errors?.['min']"
 			class="m-0 mb-2 p-2 border-round bg-red-500 text-xs text-center text-white">
@@ -115,5 +115,7 @@
 		Наши администраторы обработают её в течение 5-10 минут. <br> <br>
 		Ожидайте, пожалуйста, уведомления в Telegram!
 	</p>
+	<button type="button" size="small" (click)="succsessModal = false" pButton severity="success"
+		class="w-full justify-content-center">Ok</button>
 </p-dialog>
 }

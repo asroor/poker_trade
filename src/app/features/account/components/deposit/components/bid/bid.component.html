@@ -202,8 +202,7 @@
 					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
 						<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 						<b class="flex align-content-center column-gap-1">
-							<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">B{{id}}
-								{{order.sellerNickname}}</span>
+							<span class="block font-semibold text-sm uppercase text-yellow-600 line-height-1">B{{id}}</span>
 						</b>
 					</div>
 					<div class="p-3">
@@ -259,12 +258,12 @@
 							<p-inputGroup>
 								<div class="file-upload-wrapper">
 									<input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" />
-									<button pButton type="button" class="border-yellow-300" outlined="true" (click)="fileInput.click()">
+									<button pButton type="button"
+										class="border-right-none border-noround border-round-left border-yellow-300" outlined="true"
+										(click)="fileInput.click()">
 										<i class="pi pi-paperclip text-lg"></i>
 									</button>
 								</div>
-
-
 								<input [(ngModel)]="text" type="text" pInputText size="small" class="border-yellow-300"
 									placeholder="Напишите сообщение..." />
 								<button (click)="sendText()" type="button" pButton severity="primary"

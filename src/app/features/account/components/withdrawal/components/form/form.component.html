@@ -9,13 +9,13 @@
 	<form [formGroup]="withrawalForm">
 		<div class="grid">
 			<div class="col-12 lg:col-6">
-				<div class="my-4">
+				<div class="my-3">
 					<label class="font-medium text-sm text-500 mb-2 block">Выберите рум / кошелек и валюту:*</label>
 					<div class="flex w-full align-items-center column-gap-2">
-						<p-dropdown formControlName="pokerRoomId" (onChange)="setActiveRoom()" [ngStyle]="{width: '100%'}" [options]="rooms"
-							optionLabel="title" optionValue="id" placeholder="Select a wallet" />
-						<p-dropdown formControlName="currencyId" [options]="currencies" class="curs" (onChange)="setActiveCurrency()"
-							optionLabel="title" optionValue="id" placeholder="Select a wallet"
+						<p-dropdown formControlName="pokerRoomId" (onChange)="setActiveRoom()" [ngStyle]="{width: '100%'}"
+							[options]="rooms" optionLabel="title" optionValue="id" placeholder="Select a wallet" />
+						<p-dropdown formControlName="currencyId" [options]="currencies" class="curs"
+							(onChange)="setActiveCurrency()" optionLabel="title" optionValue="id" placeholder="Select a wallet"
 							[ngStyle]="{width: '100px'}" />
 					</div>
 				</div>
@@ -23,16 +23,17 @@
 					<i class="pi pi-sync text-yellow-600"></i>
 					<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 4% + 1$</p>
 				</div>
-				<div class="my-4">
+				<div class="my-3">
 					<label class="font-medium text-sm text-500 mb-2 block">Сколько USD хотите продать:*</label>
 					<p-inputGroup>
-						<input formControlName="wantToSellUSD" (input)="usdChange()"  type="number" #maxInp pInputText
-							mode="decimal" placeholder="От 5 USD до 5000 USD" required
+						<input formControlName="wantToSellUSD" (input)="usdChange()" type="number" #maxInp pInputText mode="decimal"
+							placeholder="От 5 USD до 5000 USD" required
 							[ngClass]="withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched ? 'border-red-500 text-red-500': ''" />
-						<button (click)="usdMax(5000, 5, maxFixBtn)" type="button" severity="primary" pButton class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn
-							>Максимум</button>
+						<button (click)="usdMax(5000, 5, maxFixBtn)" type="button" severity="primary" pButton
+							class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn>Максимум</button>
 					</p-inputGroup>
-					@if (withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched) {
+					@if (withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched)
+					{
 					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 					}
 					@if (withrawalForm.get('wantToSellUSD')?.errors?.['min'] && withrawalForm.get('wantToSellUSD')?.touched) {
@@ -42,10 +43,10 @@
 					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум 5000</p>
 					}
 				</div>
-				<div class="mb-4">
+				<div class="mb-3">
 					<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в USD для покупки:*</label>
 					<p-inputGroup>
-						<input formControlName="minToSellUSD"  pInputText type="number" placeholder="От 5 USD"
+						<input formControlName="minToSellUSD" pInputText type="number" placeholder="От 5 USD"
 							[max]="activeCurrency.rateMax" required class="border-1"
 							[ngClass]="false?'border-red-500 text-red-500': ''" />
 						<p-inputGroupAddon
@@ -61,14 +62,15 @@
 					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум 5</p>
 					}
 					@if (withrawalForm.get('minToSellUSD')?.errors?.['max'] && withrawalForm.get('minToSellUSD')?.touched) {
-					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{withrawalForm.get('wantToSellUSD')?.value ?? 5000}}</p>
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум
+						{{withrawalForm.get('wantToSellUSD')?.value ?? 5000}}</p>
 					}
 				</div>
 				<label class="font-medium text-sm text-500 mb-2 block">Курс {{activeCurrency.title}} для продажи:*</label>
 				<p-inputGroup>
 					<input (input)="usdChange()" formControlName="currencyRate" pInputText type="number"
-						[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax" [placeholder]="'От ' + activeCurrency.rateMin + ' до ' + activeCurrency.rateMax + ''"
-						required />
+						[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax"
+						[placeholder]="'От ' + activeCurrency.rateMin + ' до ' + activeCurrency.rateMax + ''" required />
 					<p-inputGroupAddon
 						[pTooltip]="'Курс продажи за' + activeCurrency.rateMin + activeCurrency.title + '. Чем ниже курс, тем быстрее выкупят заявку'"
 						tooltipPosition="bottom">
@@ -79,16 +81,18 @@
 				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 				}
 				@if (withrawalForm.get('currencyRate')?.errors?.['min'] && withrawalForm.get('currencyRate')?.touched) {
-				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум {{activeCurrency.rateMin}}</p>
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Минимум
+					{{activeCurrency.rateMin}}</p>
 				}
 				@if (withrawalForm.get('currencyRate')?.errors?.['max'] && withrawalForm.get('currencyRate')?.touched) {
-				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум {{activeCurrency.rateMax}}</p>
+				<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Максимум
+					{{activeCurrency.rateMax}}</p>
 				}
 			</div>
 			<div class="col-12 lg:col-6">
 				<div class="p-3 md:p-4 border-round border-1 border-200 surface-50">
 					<label class="font-medium text-sm text-500 mb-2 block">Реквизиты для перевода:* </label>
-					<div class="mb-4 flex sm:flex-row flex-column align-items-center column-gap-2">
+					<div class="flex sm:flex-row flex-column align-items-center column-gap-2">
 						<p-dropdown formControlName="bankId" [options]="banks" optionLabel="title" optionValue="id"
 							class="w-full sm:w-10rem flex-shrink-0 mb-2 sm:mb-0 sbpDropdown">
 							<ng-template pTemplate="selectedItem" let-selectedOption>
@@ -106,21 +110,21 @@
 								</div>
 							</ng-template>
 						</p-dropdown>
-						<p-inputMask  formControlName="detailsValue" [ngStyle]="{width: '100%'}"
+						<p-inputMask formControlName="detailsValue" [ngStyle]="{width: '100%'}"
 							[mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" variant="filled"
-							[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'"/>
+							[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" />
 					</div>
 					@if (withrawalForm.get('detailsValue')?.errors?.['required'] && withrawalForm.get('detailsValue')?.touched) {
-						<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 					}
 					<div *ngIf="isSbp | async">
-						<label class="font-medium text-sm text-500 mb-2 block">Банк для отправки перевода по СБП:* </label>
+						<label class="font-medium text-sm text-500 mt-3 block">Банк для отправки перевода по СБП:* </label>
 						<p-dropdown formControlName="byNumberBank" [options]="bankSbp" class="w-full md:w-15rem" />
 					</div>
-					<div class="my-4">
+					<div class="mt-3">
 						<label class="font-medium text-sm text-500 mb-2 block">ФИО получателя:* </label>
 						<p-inputGroup>
-							<input formControlName="fullName"  pInputText placeholder="Иванов Иван Иванович"/>
+							<input formControlName="fullName" pInputText placeholder="Иванов Иван Иванович" />
 							<p-inputGroupAddon
 								pTooltip="Это позволит идентифицировать получателя и убедиться, что деньги поступят именно вам"
 								tooltipPosition="bottom">
@@ -128,10 +132,10 @@
 							</p-inputGroupAddon>
 						</p-inputGroup>
 						@if (withrawalForm.get('fullName')?.errors?.['required'] && withrawalForm.get('fullName')?.touched) {
-							<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+						<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 						}
 					</div>
-					<div class="my-4 p-2 border-1 border-200 bg-white border-round flex align-items-center column-gap-2">
+					<div class="my-3 p-2 border-1 border-200 bg-white border-round flex align-items-center column-gap-2">
 						<i class="pi pi-credit-card text-base text-700"></i>
 						<b class="font-semibold text-sm text-700">Вы получите: {{amount}} {{activeCurrency.title}}</b>
 					</div>
@@ -148,7 +152,7 @@
 						</label>
 					</div>
 					@if (withrawalForm.get('fullName')?.errors?.['required'] && withrawalForm.get('fullName')?.touched) {
-						<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 					}
 				</div>
 			</div>

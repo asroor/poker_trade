@@ -38,7 +38,7 @@
 	</ng-template>
 	<ng-template pTemplate="body" let-product>
 		<tr
-			[routerLink]="(product.status !== 'EXPIRED' && product.status !== 'COMPLETED') ? product.id : '/account/deposit'">
+			[routerLink]="(product.status !== 'EXPIRED' && product.status !== 'COMPLETED' && product.status !== 'CANCELED') ? product.id : '/account/deposit'">
 			<td>{{ product.createdAt }}</td>
 			<td>{{ product.id }}</td>
 			<td>
