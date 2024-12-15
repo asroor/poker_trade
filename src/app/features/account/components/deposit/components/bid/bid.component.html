@@ -206,31 +206,18 @@
 						</b>
 					</div>
 					<div class="p-3">
-						<div class="overflow-y-scroll w-full chatbody" id="chat_body" [style]="{ height: '350px' }">
-							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-								<p class="m-0 text-yellow-600 text-sm">
-									Правила безопасности в чате: <br />
-									1. Чат предназначен для общения с продавцом или покупателем
-									<br />
-									2. Модератор никогда не попросит вас подтвердить заявку <br />
-									3. Подтверждайте заявку только после поступления всех средств
-									на ваш счёт
-								</p>
-							</div>
-							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-								<p class="m-0 text-yellow-600 text-sm">
-									Пользователь создал отклик S{{order.sellRequestId}} на заявку B{{id}}
-								</p>
-							</div>
-							<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-								<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-								<p class="m-0 text-yellow-600 text-sm">
-									Пользователь подтвердил заявку B{{id}} - S{{order.sellRequestId}}.
-								</p>
-							</div>
+						<div #chatContainer class="overflow-y-scroll w-full chatbody" id="chat_body" [style]="{ height: '350px' }">
 							<ng-container *ngFor="let item of chats">
+								<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'" class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+									<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+									<p class="m-0 text-yellow-600 text-sm">
+										<span *ngIf="item.msgType == 'text'">
+											{{item.msgValue}}
+										</span>
+										<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
+											[preview]="true" />
+									</p>
+								</div>
 								<div *ngIf="item.senderRole == 'Seller'" class="mb-2 admin mr-auto" style="width: 50%">
 									<p *ngIf="item.msgType == 'text'" class="m-0 text-yellow-700 bg-yellow-100 p-2 text-sm border-round">
 										{{item.msgValue}}

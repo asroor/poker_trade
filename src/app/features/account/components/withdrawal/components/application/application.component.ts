@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../../../../shared/services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { IOrderBuy, IOrderOne } from '../../../../../../interface';
-import { interval, map, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
+import { interval, map, Observable, of, Subscription, switchMap, tap, timer } from 'rxjs';
 import { IChat } from '../../../../../../interface/chat';
 import { environment } from '../../../../../../../environments';
 
@@ -12,8 +12,10 @@ import { environment } from '../../../../../../../environments';
 	styleUrl: './application.component.scss'
 })
 export class ApplicationComponent implements OnInit {
-	mediaUrl = environment.mediaUrl;
+	mediaUrl = environment.chatMediaUrl;
+
 	private intervalSubscription: Subscription | undefined;
+	private intervalSubscriptionChat: Subscription | undefined;
 	visible: boolean = false;
 	visible2: boolean = false;
 	visible3: boolean = false;
@@ -36,6 +38,16 @@ export class ApplicationComponent implements OnInit {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 		this.getOrder()
 		this.startPolling();
+		this.startPollingChat()
+	}
+
+	ngOnDestroy(): void {
+		if (this.intervalSubscription) {
+			this.intervalSubscription.unsubscribe();
+		}
+		if (this.intervalSubscriptionChat) {
+			this.intervalSubscriptionChat.unsubscribe();
+		}
 	}
 
 	startPolling(): void {
@@ -54,12 +66,27 @@ export class ApplicationComponent implements OnInit {
 			  console.error('API chaqiruvda xatolik:', err);
 			},
 		  });
-	  }
+	}
 
-	ngOnDestroy(): void {
-		if (this.intervalSubscription) {
-			this.intervalSubscription.unsubscribe();
-		}
+	startPollingChat(): void {
+		this.intervalSubscriptionChat = interval(3000)
+			.pipe(
+				switchMap(() => {
+					if(this.chatId){
+						return this._orderService.getBuyRequestChat(this.chatId)
+					}else{
+						return of()
+					}
+				}) 
+			)
+			.subscribe({
+				next: (data: IChat[]) => {
+					this.chats = data;
+				},
+				error: (err) => {
+					console.error('Xatolik buyRequestsOne chaqiruvda:', err);
+				},
+			});
 	}
 
 	getOrder() {

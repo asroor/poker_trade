@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IOrderBuyOne } from '../../../../../../interface';
 import { OrderService } from '../../../../../../shared';
-import { interval, Subscription, switchMap } from 'rxjs';
+import { interval, of, Subscription, switchMap } from 'rxjs';
 import { IChat } from '../../../../../../interface/chat';
 import { environment } from '../../../../../../../environments';
 
@@ -12,7 +12,7 @@ import { environment } from '../../../../../../../environments';
 	styleUrl: './bid.component.scss'
 })
 export class BidComponent implements OnInit {
-	@ViewChild('chat_body') chatBody!: ElementRef;
+	@ViewChild('chatContainer') chatContainer!: ElementRef;
 	mediaUrl = environment.chatMediaUrl;
 	private intervalSubscription!: Subscription;
 	private intervalSubscriptionChat!: Subscription;
@@ -40,7 +40,7 @@ export class BidComponent implements OnInit {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 
 		this.startPolling();
-		this.startPollingChat()
+		this.startPollingChat();
 
 		this._orderService.buyRequestsOne(this.id).subscribe(data => {
 			this.order = data
@@ -75,17 +75,33 @@ export class BidComponent implements OnInit {
 	startPollingChat(): void {
 		this.intervalSubscriptionChat = interval(3000)
 			.pipe(
-				switchMap(() => this._orderService.getBuyRequestChat(this.id)) // Har 3 sekundda API chaqiruvi
+				switchMap(() => {
+					if(this.order.status !== 'WAIT_FOR_SELLER_ACCEPT'){
+						return this._orderService.getBuyRequestChat(this.id)
+					}else{
+						return of()
+					}
+				})
 			)
 			.subscribe({
 				next: (data: IChat[]) => {
 					this.chats = data;
+					this.scrollToBottom()
 				},
 				error: (err) => {
 					console.error('Xatolik buyRequestsOne chaqiruvda:', err);
 				},
 			});
 	}
+
+	scrollToBottom(): void {
+		try {
+		  const chatBody = this.chatContainer.nativeElement;
+		  chatBody.scrollTop = chatBody.scrollHeight; // Scrollni oxiriga o'tkazish
+		} catch (err) {
+		  console.error('Scroll qilishda xatolik:', err);
+		}
+	  }
 
 	cancel() {
 		this._orderService.buyRequestCancel({
@@ -123,7 +139,9 @@ export class BidComponent implements OnInit {
 		this._orderService
 			.buyRequestChatFile({ buyRequestId: this.id, file })
 			.subscribe({
-				next: (response) => console.log('Fayl muvaffaqiyatli yuklandi:', response),
+				next: (response) => {
+					this.getChat()
+				},
 				error: (error) => console.error('Fayl yuklashda xatolik:', error),
 			});
 	}
@@ -133,9 +151,18 @@ export class BidComponent implements OnInit {
 			this._orderService
 				.buyRequestChatText({ buyRequestId: this.id, message: this.text.trim() })
 				.subscribe({
-					next: (response) => { console.log('Fayl muvaffaqiyatli yuklandi:', response); this.text = '' },
+					next: (response) => { 
+						this.text = ''
+						this.getChat()
+					 },
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
 		}
+	}
+
+	getChat(){
+		this._orderService.getBuyRequestChat(this.id).subscribe((data => {
+			this.chats = data
+		}))
 	}
 }

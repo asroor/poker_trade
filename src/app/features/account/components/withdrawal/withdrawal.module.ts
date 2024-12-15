@@ -19,6 +19,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { ApplicationComponent } from './components/application/application.component';
 import { AccordionModule } from 'primeng/accordion';
 import { CalendarModule } from 'primeng/calendar';
+import { ImageModule } from 'primeng/image';
 
 const routes: Routes = [
 	{
@@ -64,6 +65,7 @@ const routes: Routes = [
 		InputMaskModule,
 		DropdownModule,
 		CalendarModule,
+		ImageModule,
 	],
 	providers: [DatePipe,]
 })

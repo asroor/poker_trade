@@ -191,7 +191,7 @@
 	<div class="grid">
 		<ng-container *ngFor="let item of ordeBuy">
 			<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
-				<p-accordion class="w-full" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+				<p-accordion [activeIndex]="0" class="w-full" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center column-gap-3">
@@ -234,7 +234,7 @@
 				</p-accordion>
 			</div>
 			<div *ngIf="item.status=='WAIT_FOR_BUYER_PAY'" class="col-12 lg:col-6">
-				<p-accordion class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center h-2rem column-gap-3">
@@ -285,7 +285,7 @@
 				</p-accordion>
 			</div>
 			<div *ngIf="item.status=='BUYER_PAYED'" class="col-12 lg:col-6">
-				<p-accordion class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center h-2rem column-gap-3">
@@ -434,35 +434,23 @@
 			</div>
 			<div class="p-3">
 				<div class="overflow-y-scroll chatbody w-full" [style]="{ height: '350px' }">
-					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-						<p class="m-0 text-yellow-600 text-sm">
-							Правила безопасности в чате: <br />
-							1. Чат предназначен для общения с продавцом или покупателем
-							<br />
-							2. Модератор никогда не попросит вас подтвердить заявку <br />
-							3. Подтверждайте заявку только после поступления всех средств
-							на ваш счёт
-						</p>
-					</div>
-					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-						<p class="m-0 text-yellow-600 text-sm">
-							Пользователь создал отклик S{{id}} на заявку B{{chatId}}
-						</p>
-					</div>
-					<div class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-						<i class="pi pi-exclamation-triangle text-yellow-600"></i>
-						<p class="m-0 text-yellow-600 text-sm">
-							Пользователь подтвердил заявку B{{chatId}} - S{{id}}.
-						</p>
-					</div>
 					<ng-container *ngFor="let item of chats">
+						<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'" class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+							<p class="m-0 text-yellow-600 text-sm">
+								<span *ngIf="item.msgType == 'text'">
+									{{item.msgValue}}
+								</span>
+								<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
+									[preview]="true" />
+							</p>
+						</div>
 						<div *ngIf="item.senderRole == 'Buyer'" class="mb-2 admin mr-auto" style="width: 50%">
 							<p *ngIf="item.msgType == 'text'" class="m-0 text-yellow-700 bg-yellow-100 p-2 text-sm border-round">
 								{{item.msgValue}}
 							</p>
-							<img *ngIf="item.msgType == 'file'" [src]="mediaUrl + item.msgValue" alt="">
+							<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
+									[preview]="true" />
 							<span class="block text-left mt-1 text-500 text-xs">{{item.sentAt}}
 							</span>
 						</div>
@@ -470,7 +458,8 @@
 							<p *ngIf="item.msgType == 'text'" class="m-0 text-yellow-700 bg-yellow-200 p-2 text-sm border-round">
 								{{item.msgValue}}
 							</p>
-							<img *ngIf="item.msgType == 'file'" [src]="mediaUrl + item.msgValue" alt="">
+							<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
+									[preview]="true" />
 							<span class="block text-right mt-1 text-500 text-xs">{{item.sentAt}}
 							</span>
 						</div>
