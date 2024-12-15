@@ -102,6 +102,10 @@
 }
 
 ::ng-deep {
+	.user_nickname {
+		width: fit-content;
+	}
+
 	.table-dn .p-dropdown .p-dropdown-label {
 		min-width: 100px;
 		max-width: 100px;
@@ -151,7 +155,7 @@
 
 	@media (max-width: 768px) {
 		.user_nickname {
-			width: 100px;
+			max-width: 100px;
 			display: -webkit-box;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
@@ -224,7 +228,7 @@
 
 	@media (max-width:420px) {
 		.user_nickname {
-			width: 70px;
+			max-width: 70px;
 		}
 
 		.p-datatable .p-datatable-thead>tr>th {

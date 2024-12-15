@@ -47,8 +47,9 @@
 		</div>
 
 		<div class="card">
-			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="tablePagination.size"
-				[totalRecords]="tablePagination.totalData" (onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
+			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
+				[rows]="tablePagination.size" [totalRecords]="tablePagination.totalData"
+				(onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
@@ -64,7 +65,7 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr>
+					<tr [routerLink]="isMine(product.id)? ['/account/deposit/form', product.id]: '/home'">
 						<td>
 							<p class="m-0 py-1 px-2 font-medium border-round surface-50 border-1 user_nickname border-200">
 								{{product.nickname}}</p>
@@ -80,12 +81,12 @@
 						</td>
 						<td style="width:220px;">
 							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton
-								severity="primary" class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1"
-								size="small">
+								severity="primary"
+								class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1" size="small">
 								<i *ngIf="!isMine(product.id)" class="pi pi-plus-circle"></i>
-								
+
 								<span *ngIf="!isMine(product.id)">Купить {{activeRoom.title}}</span>
-								<span *ngIf="isMine(product.id)">Мой запрос</span>
+								<span *ngIf="isMine(product.id)">Моё объявление</span>
 							</button>
 						</td>
 					</tr>
