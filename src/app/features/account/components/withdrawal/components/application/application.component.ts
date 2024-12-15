@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from '../../../../../../shared/services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { IOrderBuy, IOrderOne } from '../../../../../../interface';
 import { interval, map, Observable, of, Subscription, switchMap, tap, timer } from 'rxjs';
 import { IChat } from '../../../../../../interface/chat';
 import { environment } from '../../../../../../../environments';
+import { DatePipe } from '@angular/common';
 
 @Component({
 	selector: 'app-application',
@@ -12,6 +13,7 @@ import { environment } from '../../../../../../../environments';
 	styleUrl: './application.component.scss'
 })
 export class ApplicationComponent implements OnInit {
+	@ViewChild('chatContainer') chatContainer!: ElementRef;
 	mediaUrl = environment.chatMediaUrl;
 
 	private intervalSubscription: Subscription | undefined;
@@ -29,6 +31,10 @@ export class ApplicationComponent implements OnInit {
 	text!: string
 	chatId!: number
 
+	timer: number = 0;
+	timerDuration: number = 180 * 1000;
+	timerInterval: any;
+
 	constructor(
 		private _orderService: OrderService,
 		private route: ActivatedRoute,
@@ -39,6 +45,19 @@ export class ApplicationComponent implements OnInit {
 		this.getOrder()
 		this.startPolling();
 		this.startPollingChat()
+		this.startTimer();
+	}
+
+	startTimer(): void {
+		this.timer = this.timerDuration;
+	
+		this.timerInterval = setInterval(() => {
+		  if (this.timer > 0) {
+			this.timer -= 1000;
+		  } else {
+			clearInterval(this.timerInterval);
+		  }
+		}, 1000);
 	}
 
 	ngOnDestroy(): void {
@@ -172,7 +191,7 @@ export class ApplicationComponent implements OnInit {
 		this._orderService
 			.buyRequestChatFile({ buyRequestId: this.chatId, file })
 			.subscribe({
-				next: (response) => console.log('Fayl muvaffaqiyatli yuklandi:', response),
+				next: (response) => {this.getChat()},
 				error: (error) => console.error('Fayl yuklashda xatolik:', error),
 			});
 	}
@@ -182,7 +201,7 @@ export class ApplicationComponent implements OnInit {
 			this._orderService
 				.buyRequestChatText({ buyRequestId: this.chatId, message: this.text.trim()})
 				.subscribe({
-					next: (response) => {console.log('Fayl muvaffaqiyatli yuklandi:', response); this.text = ''},
+					next: (response) => {this.getChat(); this.text = ''},
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
 		}
@@ -197,6 +216,21 @@ export class ApplicationComponent implements OnInit {
 					},
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
+	}
+
+	getChat() {
+		this._orderService.getBuyRequestChat(this.chatId).subscribe((data => {
+			this.chats = data
+		}))
+	}
+
+	scrollToBottom(): void {
+		try {
+			const chatBody = this.chatContainer.nativeElement;
+			chatBody.scrollTop = chatBody.scrollHeight; // Scrollni oxiriga o'tkazish
+		} catch (err) {
+			console.error('Scroll qilishda xatolik:', err);
+		}
 	}
 
 }

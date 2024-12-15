@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Location } from "@angular/common";
+import { DatePipe, Location } from "@angular/common";
 import { IProfile } from "../../interface";
 import { ProfileService } from "../../shared";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -19,14 +19,6 @@ export class ProfileComponent {
   token!: string | null;
   profile!: IProfile;
 
-  constructor(
-    private _profileService: ProfileService,
-    private routes: ActivatedRoute,
-    private router: Router,
-    private fb: NonNullableFormBuilder
-  ) {}
-	// NEUoV87tNNpziUbN0AMLTz8xxcFg8xZ48lQIzaCb5HWxLG8x9o0vaoGe9K8szkGnHOYl2ERYi2IMF10VOklw8HC7jYXNIJyUfU3b
-	// M7nwUHCRsZRdtlCP8bwIMRUYYw8xiHaJSjHyIG60d2yEWq6yRtqBEKw1HS6wIMEJBRZiAypYmKYNCFoObfBY88jTju3CkoiZ20a
   profileForm = this.fb.group({
     email: [
       { value: this.profile?.email, disabled: this.profile?.verified },
@@ -34,6 +26,23 @@ export class ProfileComponent {
     ],
     code: ["", Validators.required],
   });
+
+
+  value!: string;
+  codeInput: boolean = false;
+
+  timer: number = 0;
+	timerDuration: number = 60 * 1000;
+	timerInterval: any;
+  formattedTime: string = '00:00'
+
+  constructor(
+    private _profileService: ProfileService,
+    private routes: ActivatedRoute,
+    private router: Router,
+    private fb: NonNullableFormBuilder,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.token = this.routes.snapshot.paramMap.get("token");
@@ -44,17 +53,22 @@ export class ProfileComponent {
     this.getData();
   }
 
+  ngOnDestroy(): void {
+    if(this.timerInterval){
+      clearInterval(this.timerInterval)
+    }
+  }
+
   getData() {
     this._profileService.getProfile().subscribe((data) => {
       this.profile = data;
       this.profileForm.patchValue(data);
+
+      if(data.verified){
+        this.profileForm.get('email')?.disable()
+      }
     });
   }
-
-  value!: string;
-  codeInput: boolean = false;
-  timer: number = 60;
-  timerSubscription: any;
 
   sendCodeFn(event: Event) {
     const { email } = this.profileForm.getRawValue();
@@ -68,17 +82,24 @@ export class ProfileComponent {
   }
 
   startTimer(btn: HTMLButtonElement) {
-    this.timerSubscription = setInterval(() => {
+    this.timer = 0;
+	  this.timerDuration = 60 * 1000;
+    this.timer = this.timerDuration;
+
+    this.timerInterval = setInterval(() => {
       if (this.timer > 0) {
-        this.timer--;
+        this.timer -= 1000;
+        this.formattedTime = this.datePipe.transform(this.timer, 'mm:ss') || '00:00'
+
+        this.profileForm.get('email')?.disable()
         btn.disabled = true;
-        btn.textContent = `00:${
-          this.timer < 10 ? "0" + this.timer : this.timer
-        }`;
+        btn.textContent = this.formattedTime;
       } else {
+        clearInterval(this.timerInterval);
+
         this.codeInput = false;
-        clearInterval(this.timerSubscription);
         btn.textContent = "Отправить код";
+        this.profileForm.get('email')?.enable()
         btn.disabled = false;
       }
     }, 1000);

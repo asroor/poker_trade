@@ -13,7 +13,7 @@
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">
 		<p-dropdown showClear="true" [(ngModel)]="statusFilter" (ngModelChange)="filterData()" [ngStyle]="{ width: '100%' }"
-			[options]="status" [(ngModel)]="selectStatus" optionLabel="name" placeholder="Статус">
+			[options]="getStatusFilter()" [(ngModel)]="selectStatus" optionLabel="name" placeholder="Статус">
 		</p-dropdown>
 	</div>
 	<div class="flex align-items-center col-6 lg:col-2 md:col-4">

@@ -42,42 +42,49 @@ export class TableComponent {
         code: "NEW",
         icon: "pi pi-clock",
         severity: "info",
+        filter:true,
       }, // NEW
       {
         name: "Модерация",
         code: "MODERATION",
         icon: "pi pi-search",
         severity: "warning",
+        filter:true,
       }, // MODERATION
       {
         name: "В процессе",
         code: "IN_PROGRESS",
         icon: "pi pi-spinner pi-spin",
         severity: "info",
+        filter:true,
       }, // IN_PROGRESS
       {
         name: "Завершено",
         code: "COMPLETED",
         icon: "pi pi-check-circle",
         severity: "success",
+        filter:true,
       }, // COMPLETED
       {
         name: "Отклонено",
         code: "REJECTED",
         icon: "pi pi-times-circle",
         severity: "danger",
+        filter:true,
       }, // REJECTED
       {
         name: "Отменено",
         code: "CANCELED",
         icon: "pi pi-ban",
         severity: "danger",
+        filter:true,
       }, // CANCELED
       {
         name: "Истекло",
         code: "EXPIRED",
         icon: "pi pi-clock",
         severity: "danger",
+        filter:false,
       }, // EXPIRED
     ];
   }
@@ -86,6 +93,11 @@ export class TableComponent {
     this.getOrders({ first: 0, rows: this.tablePagination.size });
     this.getBank();
   }
+
+  getStatusFilter(){
+    return this.status.filter(status => status.filter)
+  }
+
   /**
    *
    * @param event

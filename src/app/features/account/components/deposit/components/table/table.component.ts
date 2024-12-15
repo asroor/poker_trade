@@ -44,48 +44,56 @@ export class TableComponent {
         code: "WAIT_FOR_SELLER_ACCEPT",
         icon: "pi pi-clock",
         severity: "info",
+        filter: true
       }, // WAIT_FOR_SELLER_ACCEPT
       {
         name: "Оплата",
         code: "WAIT_FOR_BUYER_PAY",
         icon: "pi pi-credit-card",
         severity: "warning",
+        filter: true
       }, // WAIT_FOR_BUYER_PAY
       {
         name: "Оплачено",
         code: "BUYER_PAYED",
         icon: "pi pi-check-circle",
         severity: "info",
+        filter: true
       }, // BUYER_PAYED
       {
         name: "Перевод",
         code: "WAIT_FOR_ADMIN_MOVE",
         icon: "pi pi-arrow-right",
         severity: "warning",
+        filter: true
       }, // WAIT_FOR_ADMIN_MOVE
       {
         name: "Завершено",
         code: "COMPLETED",
         icon: "pi pi-check-circle",
         severity: "success",
+        filter: true
       }, // COMPLETED
       {
         name: "Отклонено",
         code: "REJECTED",
         icon: "pi pi-times-circle",
         severity: "danger",
+        filter: true
       }, // REJECTED
       {
         name: "Отменено",
         code: "CANCELED",
         icon: "pi pi-ban",
         severity: "danger",
+        filter: true
       }, // CANCELED
       {
         name: "Истекло",
         code: "EXPIRED",
         icon: "pi pi-clock",
         severity: "danger",
+        filter: false
       }, // EXPIRED
     ];
   }
@@ -93,6 +101,10 @@ export class TableComponent {
   ngOnInit(): void {
     this.getOrders({ first: 0, rows: this.tablePagination.size });
     this.getBank();
+  }
+
+  getStatusFilter(){
+    return this.status.filter(status => status.filter)
   }
 
   getOrders(event: any) {

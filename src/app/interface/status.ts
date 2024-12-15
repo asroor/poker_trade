@@ -3,4 +3,5 @@ export interface IStatus {
   code: string;
   icon: string;
   severity: string;
+  filter?: boolean
 }

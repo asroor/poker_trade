@@ -28,6 +28,11 @@ export class BidComponent implements OnInit {
 	chats!: IChat[]
 	text!: string
 
+
+	timer: number = 0;
+	timerDuration: number = 180 * 1000;
+	timerInterval: any;
+
 	constructor(
 		private _orderService: OrderService,
 		private route: ActivatedRoute,
@@ -45,16 +50,32 @@ export class BidComponent implements OnInit {
 		this._orderService.buyRequestsOne(this.id).subscribe(data => {
 			this.order = data
 		})
+
+		this.startTimer();
 	}
 
+	startTimer(): void {
+		this.timer = this.timerDuration;
+	
+		this.timerInterval = setInterval(() => {
+		  if (this.timer > 0) {
+			this.timer -= 1000;
+		  } else {
+			clearInterval(this.timerInterval);
+		  }
+		}, 1000);
+	  }
+
 	ngOnDestroy(): void {
-		// Resurslarni tozalash
 		if (this.intervalSubscription) {
 			this.intervalSubscription.unsubscribe();
 		}
 		if (this.intervalSubscriptionChat) {
 			this.intervalSubscriptionChat.unsubscribe();
 		}
+		if (this.timerInterval) {
+			clearInterval(this.timerInterval);
+		  }
 	}
 
 	startPolling(): void {
@@ -76,9 +97,9 @@ export class BidComponent implements OnInit {
 		this.intervalSubscriptionChat = interval(3000)
 			.pipe(
 				switchMap(() => {
-					if(this.order.status !== 'WAIT_FOR_SELLER_ACCEPT'){
+					if (this.order.status !== 'WAIT_FOR_SELLER_ACCEPT') {
 						return this._orderService.getBuyRequestChat(this.id)
-					}else{
+					} else {
 						return of()
 					}
 				})
@@ -96,12 +117,12 @@ export class BidComponent implements OnInit {
 
 	scrollToBottom(): void {
 		try {
-		  const chatBody = this.chatContainer.nativeElement;
-		  chatBody.scrollTop = chatBody.scrollHeight; // Scrollni oxiriga o'tkazish
+			const chatBody = this.chatContainer.nativeElement;
+			chatBody.scrollTop = chatBody.scrollHeight; // Scrollni oxiriga o'tkazish
 		} catch (err) {
-		  console.error('Scroll qilishda xatolik:', err);
+			console.error('Scroll qilishda xatolik:', err);
 		}
-	  }
+	}
 
 	cancel() {
 		this._orderService.buyRequestCancel({
@@ -151,16 +172,16 @@ export class BidComponent implements OnInit {
 			this._orderService
 				.buyRequestChatText({ buyRequestId: this.id, message: this.text.trim() })
 				.subscribe({
-					next: (response) => { 
+					next: (response) => {
 						this.text = ''
 						this.getChat()
-					 },
+					},
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
 		}
 	}
 
-	getChat(){
+	getChat() {
 		this._orderService.getBuyRequestChat(this.id).subscribe((data => {
 			this.chats = data
 		}))
