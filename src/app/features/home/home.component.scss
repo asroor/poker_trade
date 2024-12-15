@@ -150,6 +150,15 @@
 	}
 
 	@media (max-width: 768px) {
+		.user_nickname {
+			width: 100px;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 1;
+		}
+
 		.table-dn .p-dropdown .p-dropdown-trigger {
 			width: 1rem;
 		}
@@ -183,13 +192,6 @@
 			right: 16px;
 		}
 
-		.p-datatable .p-datatable-tbody>tr>td {
-			padding-bottom: 40px;
-		}
-
-		.p-datatable .p-datatable-tbody>tr {
-			position: relative;
-		}
 	}
 
 	@media (max-width: 490px) {
@@ -199,7 +201,6 @@
 
 		.bank-logo {
 			width: 20px;
-			margin: 0 auto;
 		}
 
 		.table-dn .p-dropdown .p-dropdown-trigger {
@@ -212,20 +213,36 @@
 			font-size: 14px;
 		}
 
+		.p-datatable .p-sortable-column .p-sortable-column-icon {
+			width: 12px;
+		}
+
 		.p-datatable .p-datatable-thead>tr>th {
 			font-size: 14px;
 		}
 	}
 
 	@media (max-width:420px) {
+		.user_nickname {
+			width: 70px;
+		}
+
 		.p-datatable .p-datatable-thead>tr>th {
 			padding: 10px 5px;
 		}
 
-		.p-datatable .p-datatable-tbody>tr>td {
+		.p-datatable .p-datatable-tbody>tr>td,
+		.p-datatable .p-datatable-thead>tr>th,
+		.table-dn .p-dropdown .p-dropdown-label {
 			font-size: 12px;
-			padding: 5px 5px 25px 5px;
+			padding: 5px;
 			font-weight: 600;
+		}
+
+		.table-dn .p-dropdown .p-dropdown-label {
+			padding: 0;
+			min-width: 0;
+			max-width: fit-content;
 		}
 
 		.p-chip img {
