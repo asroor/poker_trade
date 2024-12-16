@@ -40,18 +40,27 @@
 <ng-container *ngIf="order?.status == 'NEW'">
 	<div class="grid">
 		<div class="col-12">
-			<h3 class="font-bold m-0 text-xl text-700">Для продолжения сделайте перевод на аккаунт {{order.pokerRoomName}}:
+			<h3 class="font-bold m-0 text-xl text-700">Для продолжения сделайте перевод на аккаунт PokerTrade
 			</h3>
 			<div class="grid mt-3">
 				<div class="col-12 md:col-4">
-					<!-- <div class="mb-3">
-								<label class="block mb-1 text-sm text-500">Email вашего аккаунта {{order.pokerRoomName}}:* </label>
-								<input type="email" name="" pInputText id="" placeholder="pokertrade">
-							</div> -->
+					<div class="mb-3 p-2 surface-50 border-round">
+						<div class="mb-2">
+							<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
+							<b class="text-yellow-600 font-bold text-base">{{order.pokerRoomName}}</b>
+						</div>
+						<div class="mb-2">
+							<p class="m-0 mb-1 text-sm text-500">Аккаунт:</p>
+							<b class="text-yellow-600 font-bold text-base">{{order.bill}}</b>
+						</div>
+						<div>
+							<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
+							<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD}} USD</b>
+						</div>
+					</div>
 					<div class="mb-3">
-						<label class="block mb-1 text-sm text-500">Имя и фамилия в аккаунте {{order.pokerRoomName}}:* </label>
-						<input type="text" [(ngModel)]="pokerRoomNickname" name="" pInputText id=""
-							placeholder="Введенный текст поля">
+						<label class="block mb-1 text-sm text-500">Никнейм вашего аккаунта {{order.pokerRoomName}}:* </label>
+						<input type="text" [(ngModel)]="pokerRoomNickname" name="" pInputText id="" placeholder="pokertrade">
 					</div>
 					<div>
 						<button type="button" severity="success" (click)="showDialog2()"
@@ -68,17 +77,7 @@
 				</div>
 				<div class="col-12 md:col-8">
 					<div class="grid">
-						<div class="col-12 md:col-4">
-							<div class="mb-2">
-								<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
-								<b class="text-yellow-600 font-bold text-base">{{order.pokerRoomName}}</b>
-							</div>
-							<div class="mb-2">
-								<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
-								<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD}} USD</b>
-							</div>
-						</div>
-						<div class="col-12 sm:col-4">
+						<div class="col-12 sm:col-6">
 							<p class="m-0 mb-2 text-sm text-500">№ заявки: <span class="text-700">S{{id}} {{order.createdAt}}</span>
 							</p>
 							<p class="m-0 mb-2 text-sm text-500">Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span>
@@ -90,7 +89,7 @@
 									{{order.currencyName}}
 								</span></p>
 						</div>
-						<div class="col-12 sm:col-4">
+						<div class="col-12 sm:col-6">
 							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
@@ -234,7 +233,8 @@
 				</p-accordion>
 			</div>
 			<div *ngIf="item.status=='WAIT_FOR_BUYER_PAY'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down"
+					collapseIcon="pi pi-angle-up">
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center h-2rem column-gap-3">
@@ -285,7 +285,8 @@
 				</p-accordion>
 			</div>
 			<div *ngIf="item.status=='BUYER_PAYED'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down"
+					collapseIcon="pi pi-angle-up">
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center h-2rem column-gap-3">
@@ -435,7 +436,8 @@
 			<div class="p-3">
 				<div #chatContainer class="overflow-y-scroll chatbody w-full" [style]="{ height: '350px' }">
 					<ng-container *ngFor="let item of chats">
-						<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'" class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+						<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'"
+							class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
 							<i class="pi pi-exclamation-triangle text-yellow-600"></i>
 							<p class="m-0 text-yellow-600 text-sm">
 								<span *ngIf="item.msgType == 'text'">
@@ -450,7 +452,7 @@
 								{{item.msgValue}}
 							</p>
 							<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
-									[preview]="true" />
+								[preview]="true" />
 							<span class="block text-left mt-1 text-500 text-xs">{{item.sentAt}}
 							</span>
 						</div>
@@ -459,7 +461,7 @@
 								{{item.msgValue}}
 							</p>
 							<p-image [src]="mediaUrl + item.msgValue" *ngIf="item.msgType == 'file'" alt="Image" width="100%"
-									[preview]="true" />
+								[preview]="true" />
 							<span class="block text-right mt-1 text-500 text-xs">{{item.sentAt}}
 							</span>
 						</div>

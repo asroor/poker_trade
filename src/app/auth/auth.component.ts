@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AuthModalService } from './auth.modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-auth',
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AuthComponent implements OnInit {
 	showModal = false;
 
-	constructor(private modalService: AuthModalService, private route: ActivatedRoute, private router: Router) { }
+	constructor(private modalService: AuthModalService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.modalService.isModalOpen$.subscribe(isOpen => {

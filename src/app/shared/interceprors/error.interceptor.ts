@@ -26,18 +26,13 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 || error.status === 403) {
-          this.openModal();
-          this.handle401Error();
-        }
-        this.handleError(error);
+        // if (error.status === 401 || error.status === 403) {
+        //   // this.openModal();
+        // }
+        // this.handleError(error);
         return throwError(error);
       })
     );
-  }
-
-  private handle401Error() {
-    this.router.navigate(["/login"]);
   }
 
   openModal() {
