@@ -121,10 +121,10 @@ export class FormComponent implements OnInit {
 			]);
 			itemControl.updateValueAndValidity();
 		}
-		this.withrawalForm.patchValue({pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id })
 		this._bankService.getBank(this.activeCurrency?.id || 1).subscribe(data => {
 			this.banks = data
 			this.changeBank(data[0])
+			this.withrawalForm.patchValue({pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id })
 		})
 	}
 
