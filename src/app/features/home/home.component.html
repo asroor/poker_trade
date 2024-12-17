@@ -1,13 +1,13 @@
 <div class="py-6">
 	<div class="container">
 		<!-- Room Section -->
-		<div class="logo-container">
+		<!-- <div class="logo-container">
 			<ng-container *ngFor="let item of rooms">
 				<div class="logo-box" [class.active]="activeRoom.id === item.id" (click)="setActiveRoom(item)">
 					<img [src]="mediaUrl + item.imageUrl" [alt]="item.title" class="logo" />
 				</div>
 			</ng-container>
-		</div>
+		</div> -->
 		<!-- Deposit and Withdraw Section -->
 		<ng-container *ngIf="false">
 			<div class="transaction-section">
@@ -39,12 +39,12 @@
 			</div>
 		</ng-container>
 		<!-- Currency Selector -->
-		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
+		<!-- <div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
 			<ng-container *ngFor="let item of currencies">
 				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2"
 					[class.bg-yellow-50]="activeCurrency === item.id" (click)="setActiveCurrency(item.id)">{{item.title}}</button>
 			</ng-container>
-		</div>
+		</div> -->
 
 		<div class="card">
 			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
