@@ -77,7 +77,9 @@ export class ProfileComponent {
 			next: (data) => {
 				const button = event.target as HTMLButtonElement;
 				this.startTimer(button);
-				this.codeInput = true;
+				setInterval(() => {
+					this.codeInput = true;
+				}, 2000);
 			},
 		});
 	}
