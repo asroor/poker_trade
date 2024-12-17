@@ -32,7 +32,7 @@ export class ApplicationComponent implements OnInit {
 	chatId!: number
 
 	timer: number = 0;
-	timerDuration: number = 180 * 1000;
+	timerDuration: number = 300 * 1000;
 	timerInterval: any;
 
 	constructor(

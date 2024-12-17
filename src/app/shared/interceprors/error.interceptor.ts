@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         // if (error.status === 401 || error.status === 403) {
         //   // this.openModal();
         // }
-        // this.handleError(error);
+        this.handleError(error);
         return throwError(error);
       })
     );

@@ -124,7 +124,7 @@
 						<i class="pi pi-file-edit"></i>
 						изменение доли
 					</button> -->
-				<button (click)="cancel()" type="button" pButton severity="danger"
+				<button (click)="cancel()" *ngIf="ordeBuy" [disabled]="ordeBuy.length > 0" type="button" pButton severity="danger"
 					class=" w-full column-gap-2 align-items-center justify-content-center">
 					<i class="pi pi-times-circle"></i>
 					отменить заявку
@@ -215,7 +215,7 @@
 							Примите новую заявку
 						</div>
 						<h4 class="m-0 mb-2 text-700 text-lg">Примите заявку от покупателя</h4>
-						<h3 class="m-0 mb-2 font-medium text-700">У вас есть 3 минуты на подтверждение или встречная заявка
+						<h3 class="m-0 mb-2 font-medium text-700">У вас есть 5 минуты на подтверждение или встречная заявка
 							отменится. В случае 3-х отмен подряд, мы уберем вашу заявку и вернем остаток на баланс в PokerTrade!</h3>
 						<div class="flex column-gap-2 mt-3">
 							<button (click)="buyCancel(item.id)" severity="danger" size="small" type="button"

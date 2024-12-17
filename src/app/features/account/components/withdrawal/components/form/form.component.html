@@ -111,7 +111,7 @@
 							</ng-template>
 						</p-dropdown>
 						<p-inputMask formControlName="detailsValue" [ngStyle]="{width: '100%'}"
-							[mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" variant="filled"
+							[mask]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" variant="outlined" required
 							[placeholder]="!(isSbp | async) ? '9999 9999 9999 9999' : '+7 999 999 99 99'" />
 					</div>
 					@if (withrawalForm.get('detailsValue')?.errors?.['required'] && withrawalForm.get('detailsValue')?.touched) {
