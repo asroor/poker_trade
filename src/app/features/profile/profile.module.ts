@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { DialogModule } from "primeng/dialog";
 import { InputOtpModule } from "primeng/inputotp";
+import { InputMaskModule } from "primeng/inputmask";
 
 const routes: Routes = [
 	{
@@ -41,6 +42,7 @@ const routes: Routes = [
 		InputGroupAddonModule,
 		ReactiveFormsModule,
 		DialogModule,
+		InputMaskModule,
 	],
 	providers: [DatePipe]
 })

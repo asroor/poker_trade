@@ -33,7 +33,11 @@
 						*ngIf="profile.email && !profile.verified">Ваш аккаунт
 						не верифицирован</p>
 					<p-inputGroup class="mb-3" *ngIf="codeInput">
-						<input type="number" formControlName="code" pInputText placeholder="1234" maxlength="4" />
+						<!-- <input type="number" formControlName="code" pInputText placeholder="1234" maxlength="4" /> -->
+						<p-inputMask formControlName="code" [ngStyle]="{width: '100%'}"
+							[mask]="'999999'" variant="outlined" required
+							[placeholder]="'123456'" />
+
 						<button type="button" pButton severity="primary" #senBtn class="flex-shrink-0 text-sm py-1 px-2"
 							(click)="emailVerifyFN()">
 							<i class="pi pi-send"></i>

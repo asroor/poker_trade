@@ -4,6 +4,7 @@ import { IProfile } from "../../interface";
 import { ProfileService } from "../../shared";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { MessageService } from "primeng/api";
 @Component({
 	selector: "app-profile",
 	templateUrl: "./profile.component.html",
@@ -24,7 +25,7 @@ export class ProfileComponent {
 			{ value: this.profile?.email, disabled: this.profile?.verified },
 			[Validators.required, Validators.email],
 		],
-		code: ["", Validators.required],
+		code: ["", [Validators.required, Validators.maxLength(6), Validators.minLength(6)]],
 	});
 
 
@@ -41,7 +42,8 @@ export class ProfileComponent {
 		private routes: ActivatedRoute,
 		private router: Router,
 		private fb: NonNullableFormBuilder,
-		private datePipe: DatePipe
+		private datePipe: DatePipe,
+		private msg: MessageService
 	) {
 		this.token = this.routes.snapshot.paramMap.get("token");
 	}
@@ -78,21 +80,23 @@ export class ProfileComponent {
 
 	sendCodeFn(event: Event) {
 		const { email } = this.profileForm.getRawValue();
-		if(this.timer <= 0 && !this.profile.verified ){
-			this._profileService.sendCodeEmail(email).subscribe({
-				next: (data) => {
-					const button = event.target as HTMLButtonElement;
-					this.startTimer(button, 60);
-					setInterval(() => {
-						this.codeInput = true;
-					}, 2000);
-				},
-			});
+		if(this.profileForm.get('email')?.valid){
+			if(this.timer <= 0 && !this.profile.verified ){
+				this._profileService.sendCodeEmail(email).subscribe({
+					next: (data) => {
+						const button = event.target as HTMLButtonElement;
+						this.startTimer(button, 60);
+						setInterval(() => {
+							this.codeInput = true;
+						}, 2000);
+					},
+				});
+			}
 		}
 	}
 
 	btnDisabled = this.profile?.verified ?? false
-	btnTextContent = 'btn.textContent'
+	btnTextContent = 'Отправить код'
 	
 	startTimer(btn: HTMLButtonElement, time:number) {
 		this.timer = 0;
@@ -107,6 +111,7 @@ export class ProfileComponent {
 				this.profileForm.get('email')?.disable()
 				this.btnDisabled = true;
 				this.btnTextContent = this.formattedTime;
+				this.codeInput = true;
 			} else {
 				clearInterval(this.timerInterval);
 
@@ -119,12 +124,21 @@ export class ProfileComponent {
 	}
 
 	emailVerifyFN() {
-		const { code } = this.profileForm.getRawValue();
-		this._profileService.emailVerify(code.toString()).subscribe({
-			next: () => {
-				this.getData();
-				this.codeInput = false;
-			},
-		});
+		if(this.profileForm.get('code')?.valid){
+			const { code } = this.profileForm.getRawValue();
+			this._profileService.emailVerify(code.toString()).subscribe({
+				next: () => {
+					this.getData();
+					this.codeInput = false;
+				},
+				error: (err) => {
+					this.msg.add({
+						severity: "error",
+						summary: `Статус ошибки: ${err.status}`,
+						detail: JSON.stringify(err.error.message['errors']),
+					});
+				}
+			});
+		}
 	}
 }
