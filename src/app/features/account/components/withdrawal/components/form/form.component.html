@@ -29,8 +29,8 @@
 						<input formControlName="wantToSellUSD" (input)="usdChange()" type="number" #maxInp pInputText mode="decimal"
 							placeholder="От 5 USD до 5000 USD" required
 							[ngClass]="withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched ? 'border-red-500 text-red-500': ''" />
-						<button (click)="usdMax(5000, 5, maxFixBtn)" type="button" severity="primary" pButton
-							class="flex-shrink-0 text-sm py-1 px-2" #maxFixBtn>Максимум</button>
+						<button (click)="usdMax(5000, 5)" type="button" severity="primary" pButton
+							class="flex-shrink-0 text-sm py-1 px-2">{{clearMaxBtn}}</button>
 					</p-inputGroup>
 					@if (withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched)
 					{

@@ -65,7 +65,7 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr [routerLink]="!isMine(product.id)? ['/account/deposit/form', product.id]: '/home'">
+					<tr [routerLink]="!isMine(product.id)? ['/account/buy-request/form', product.id]: '/home'">
 						<td>
 							<p class="m-0 py-1 px-2 font-medium border-round surface-50 border-1 user_nickname border-200">
 								{{product.nickname}}</p>
@@ -80,7 +80,7 @@
 							</div>
 						</td>
 						<td style="width:220px;">
-							<button [disabled]="isMine(product.id)" [routerLink]="['/account/deposit/form', product.id]" pButton
+							<button [disabled]="isMine(product.id)" [routerLink]="['/account/buy-request/form', product.id]" pButton
 								severity="primary"
 								class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1" size="small">
 								<i *ngIf="!isMine(product.id)" class="pi pi-plus-circle"></i>

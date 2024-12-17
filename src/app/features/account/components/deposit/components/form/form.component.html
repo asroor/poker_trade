@@ -20,7 +20,8 @@
 					</label>
 					@if (infoOrder) {
 					<div class="surface-100 border-round mt-2 p-2 grid">
-						<p class="col-6 m-0 text-sm text-500">№ заявки: <b class="text-900 font-semibold">S{{sellRequestId}} {{order.createdAt}}</b>
+						<p class="col-6 m-0 text-sm text-500">№ заявки: <b class="text-900 font-semibold">S{{sellRequestId}}
+								{{order.createdAt}}</b>
 						</p>
 						<p class="col-6 m-0 text-sm text-500">Продавец: <b
 								class="text-900 font-semibold">{{order.sellerNickname}}</b>
@@ -35,36 +36,34 @@
 					}
 					<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в {{order.currencyName}}:* </label>
 					<p-inputGroup class="mb-3">
-						<input type="number" (input)="changeCurrency('changeCurrency')" #inputCurrency pInputText mode="decimal" formControlName="wantToBuyCurrency"
+						<input type="number" (input)="changeCurrency('changeCurrency')" #inputCurrency pInputText mode="decimal"
+							formControlName="wantToBuyCurrency"
 							[placeholder]="'От '+ (order.minToSellUSD * order.currencyRate) + ' до '+ (order.wantToSellUSD * order.currencyRate) + ' ' + order.currencyName"
-							required [min]="order.minToSellUSD * order.currencyRate" [max]="(order.wantToSellUSD * order.currencyRate)"/>
-						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btnCurrency
-							(click)="valueToogleCurrency(inputCurrency, btnCurrency, order.wantToSellUSD * order.currencyRate)">Максимум</button>
+							required [min]="order.minToSellUSD * order.currencyRate"
+							[max]="(order.wantToSellUSD * order.currencyRate)" />
+						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2"
+							(click)="valueToogleCurrency(inputCurrency, order.wantToSellUSD * order.currencyRate)">{{clearBtn}}</button>
 					</p-inputGroup>
 					<label class="text-sm text-500 block mt-3 mb-2">Сумма покупки в USD:* </label>
 					<p-inputGroup class="mb-3">
-						<input type="number" (input)="changeCurrency('changeUSD')" #inputUSD pInputText mode="decimal" formControlName="wantToBuyUSD"
-							[placeholder]="'От '+ order.minToSellUSD + ' до '+ order.wantToSellUSD + ' ' + 'USD'" required [min]="order.minToSellUSD" [max]="order.wantToSellUSD"/>
-						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2" #btnUSD
-							(click)="valueToogleUSD(inputUSD, btnUSD, order.wantToSellUSD)">Максимум</button>
+						<input type="number" (input)="changeCurrency('changeUSD')" #inputUSD pInputText mode="decimal"
+							formControlName="wantToBuyUSD"
+							[placeholder]="'От '+ order.minToSellUSD + ' до '+ order.wantToSellUSD + ' ' + 'USD'" required
+							[min]="order.minToSellUSD" [max]="order.wantToSellUSD" />
+						<button type="button" pButton severity="primary" class="flex-shrink-0 text-sm py-1 px-2"
+							(click)="valueToogleUSD(inputUSD, order.wantToSellUSD)">{{clearBtn}}</button>
 					</p-inputGroup>
 
-					 <p
-    class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
-    *ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['required'] && depostiForm.get('wantToBuyUSD')?.touched"
-  >
-    Это поле обязательно для заполнения
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
+						*ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['required'] && depostiForm.get('wantToBuyUSD')?.touched">
+						Это поле обязательно для заполнения
 					</p>
-					<p
-						class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
-						*ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['min'] && depostiForm.get('wantToBuyUSD')?.touched"
-					>
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
+						*ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['min'] && depostiForm.get('wantToBuyUSD')?.touched">
 						Минимальное значение: {{ order.minToSellUSD }}
 					</p>
-					<p
-						class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
-						*ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['max'] && depostiForm.get('wantToBuyUSD')?.touched"
-					>
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
+						*ngIf="depostiForm.get('wantToBuyUSD')?.errors?.['max'] && depostiForm.get('wantToBuyUSD')?.touched">
 						Максимальное значение: {{ order.wantToSellUSD }}
 					</p>
 					<!-- <label class="text-sm text-500 block mb-2">Сумма покупки в RUB:* </label>
@@ -86,9 +85,10 @@
 						<label for="firstname1" class="text-sm text-700 block mb-2">Ваш никнейм в {{order.pokerRoom}}</label>
 						<input type="text" id="firstname1" pInputText mode="decimal" [placeholder]="order.pokerRoom + ' никнейм'"
 							formControlName="pokerRoomNickname" required />
-							<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500" *ngIf="depostiForm.get('pokerRoomNickname')?.errors?.['required'] && depostiForm.get('pokerRoomNickname')?.touched">
-								Это поле обязательно для заполнения
-							</p>
+						<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
+							*ngIf="depostiForm.get('pokerRoomNickname')?.errors?.['required'] && depostiForm.get('pokerRoomNickname')?.touched">
+							Это поле обязательно для заполнения
+						</p>
 					</div>
 					<div class="flex mb-3 align-items-center p-2 column-gap-1 border-1 border-200 bg-white border-round">
 						<i class="pi pi-exclamation-circle text-700"></i>
@@ -108,7 +108,8 @@
 								конфиденциальности</a> и <a class="text-700 font-medium" href="#">политикой AML / KYC</a>
 						</label>
 					</div>
-					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500" *ngIf="depostiForm.get('accept')?.errors?.['required'] && depostiForm.get('accept')?.touched">
+					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500"
+						*ngIf="depostiForm.get('accept')?.errors?.['required'] && depostiForm.get('accept')?.touched">
 						Это поле обязательно для заполнения
 					</p>
 

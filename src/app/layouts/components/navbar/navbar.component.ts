@@ -71,7 +71,7 @@ export class NavbarComponent implements OnInit {
 
   navigateByAuth() {
     this.isUserLoginned()
-      ? this.router.navigate(["account/withdrawal/form"])
+      ? this.router.navigate(["account/sell-request/form"])
       : this.openModal();
   }
 

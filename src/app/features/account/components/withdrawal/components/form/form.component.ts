@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
 
 	calcCurs: number = 0
 	sellRequestId!: number
-	withrawalForm!:FormGroup
+	withrawalForm!: FormGroup
 	amount!: string
 
 	constructor(
@@ -50,8 +50,8 @@ export class FormComponent implements OnInit {
 		this.withrawalForm = this.fb.group({
 			pokerRoomId: ['', Validators.required],
 			currencyId: ['', Validators.required],
-			wantToSellUSD: ['', [Validators.required, Validators.min(5),  Validators.max(5000)]],
-			minToSellUSD: ['', [Validators.required, Validators.min(5),  Validators.max(5000)]],
+			wantToSellUSD: ['', [Validators.required, Validators.min(5), Validators.max(5000)]],
+			minToSellUSD: ['', [Validators.required, Validators.min(5), Validators.max(5000)]],
 			currencyRate: ['', Validators.required],
 			bankId: ['', Validators.required],
 			detailsValue: ['', Validators.required],
@@ -77,7 +77,7 @@ export class FormComponent implements OnInit {
 				this._bankService.getBankSbp().subscribe(data => {
 					this.bankSbp = data.map(item => ({ label: item, value: item }))
 
-					this.withrawalForm.patchValue({pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id, byNumberBank: data[0] })
+					this.withrawalForm.patchValue({ pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id, byNumberBank: data[0] })
 				})
 			})
 		})
@@ -86,18 +86,18 @@ export class FormComponent implements OnInit {
 
 	}
 
-	setActiveRoom(data?:IRoom) {
-		if(data){
+	setActiveRoom(data?: IRoom) {
+		if (data) {
 			this.activeRoom = data
 			this._currencyService.getCurrency(this.activeRoom?.id || 1).subscribe(data => {
 				this.currencies = data
 				this.setActiveCurrency(data[0])
 			})
-		}else{
+		} else {
 			const { pokerRoomId } = this.withrawalForm.getRawValue()
 			this.withrawalForm.get('pokerRoomId')
 			this.activeRoom = this.rooms.find(r => r.id == +pokerRoomId);
-	
+
 			this._currencyService.getCurrency(this.activeRoom?.id || 1).subscribe(data => {
 				this.currencies = data
 				this.setActiveCurrency(data[0])
@@ -105,31 +105,31 @@ export class FormComponent implements OnInit {
 		}
 	}
 
-	setActiveCurrency(data?:ICurrency) {
-		if(data){
+	setActiveCurrency(data?: ICurrency) {
+		if (data) {
 			this.activeCurrency = data
-		}else{
+		} else {
 			const { currencyId } = this.withrawalForm.getRawValue()
 			this.activeCurrency = this.currencies.find(c => c.id == currencyId);
 		}
 		const itemControl = this.withrawalForm.get('currencyRate');
 		if (itemControl) {
 			itemControl.setValidators([
-			Validators.required,
-			Validators.min(this.activeCurrency?.rateMin ?? 100),
-			Validators.max(this.activeCurrency?.rateMax ?? 200),
+				Validators.required,
+				Validators.min(this.activeCurrency?.rateMin ?? 100),
+				Validators.max(this.activeCurrency?.rateMax ?? 200),
 			]);
 			itemControl.updateValueAndValidity();
 		}
 		this._bankService.getBank(this.activeCurrency?.id || 1).subscribe(data => {
 			this.banks = data
 			this.changeBank(data[0])
-			this.withrawalForm.patchValue({pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id })
+			this.withrawalForm.patchValue({ pokerRoomId: this.activeRoom?.id, currencyId: this.activeCurrency?.id, bankId: this.selectedBank?.id })
 		})
 	}
 
 	submit() {
-		if(this.withrawalForm.valid){
+		if (this.withrawalForm.valid) {
 			const { pokerRoomId, currencyId, bankId, wantToSellUSD, minToSellUSD, currencyRate, detailsValue, byNumberBank, fullName } = this.withrawalForm.getRawValue()
 
 			this.body = { pokerRoomId, currencyId, bankId, wantToSellUSD, minToSellUSD, currencyRate, detailsValue, fullName }
@@ -137,31 +137,31 @@ export class FormComponent implements OnInit {
 			if (this.isSbp) {
 				this.body.byNumberBank = byNumberBank
 			}
-	
+
 			this._orderService.sellRequest(this.body).subscribe(data => {
-				this.router.navigate(['/account', 'withdrawal', data.sellRequestId])
+				this.router.navigate(['/account', 'sell-request', data.sellRequestId])
 			})
-		}else{
+		} else {
 			this.withrawalForm.markAllAsTouched();
 		}
 	}
 
 	cancel() {
 		this._orderService.sellRequestCancel({ sellRequestId: this.sellRequestId }).subscribe(data => {
-			this.router.navigate(['/account', 'withdrawal', this.sellRequestId])
+			this.router.navigate(['/account', 'sell-request', this.sellRequestId])
 		})
 	}
 
 	changeBank(bank: IBank) {
 		this.selectedBank = bank
 		this.isSbp = of(bank?.isSbp ?? false);
-		if(bank?.isSbp ?? false){
+		if (bank?.isSbp ?? false) {
 			const itemControl = this.withrawalForm.get('byNumberBank');
 			if (itemControl) {
 				itemControl.setValidators([Validators.required]);
 				itemControl.updateValueAndValidity();
 			}
-		}else{
+		} else {
 			const itemControl = this.withrawalForm.get('byNumberBank');
 			if (itemControl) {
 				itemControl.setValidators([]);
@@ -174,30 +174,30 @@ export class FormComponent implements OnInit {
 	balanceToogle(): void {
 		this.balanceOrAccount = !this.balanceOrAccount
 	}
-
-	usdMax(max:number, min: number, btn: HTMLButtonElement){
-		if (btn.textContent == 'Очистить') {
-			btn.textContent = 'Максимум'
+	clearMaxBtn: string = 'Максимум'
+	usdMax(max: number, min: number) {
+		if (this.clearMaxBtn == 'Очистить') {
+			this.clearMaxBtn = 'Максимум'
 			this.withrawalForm.get('wantToSellUSD')?.reset();
 		} else {
 			this.withrawalForm.patchValue({
 				wantToSellUSD: max
 			});
-			btn.textContent = 'Очистить'
+			this.clearMaxBtn = 'Очистить'
 		}
 		this.usdChange()
 	}
 
-	usdChange(){
+	usdChange() {
 		const usd = this.withrawalForm.get('wantToSellUSD')?.value;
 		const rate = this.withrawalForm.get('currencyRate')?.value;
 
 		const itemControl = this.withrawalForm.get('minToSellUSD');
 		if (itemControl) {
 			itemControl.setValidators([
-			Validators.required,
-			Validators.min(5),
-			Validators.max(usd ?? 5000),
+				Validators.required,
+				Validators.min(5),
+				Validators.max(usd ?? 5000),
 			]);
 			itemControl.updateValueAndValidity();
 		}

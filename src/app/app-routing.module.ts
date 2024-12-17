@@ -15,7 +15,7 @@ const routes: Routes = [
 				loadChildren: () => import('./features').then((m) => m.HomeModule),
 			},
 			{
-				path: 'withdrawal',
+				path: 'sell-request',
 				loadChildren: () => import('./features').then((m) => m.AccountModule),
 				canActivate: [AuthGuard],
 			},

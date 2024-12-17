@@ -19,6 +19,7 @@ import { ErrorInterceptor } from './shared/interceprors/error.interceptor';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -42,9 +43,10 @@ import { InputTextModule } from 'primeng/inputtext';
 		ToastModule
 	],
 	providers: [
+		DatePipe,
 		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		MessageService 
+		MessageService
 	],
 	bootstrap: [AppComponent]
 })

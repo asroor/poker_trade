@@ -11,37 +11,37 @@ import { DialogModule } from "primeng/dialog";
 import { InputOtpModule } from "primeng/inputotp";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: ProfileComponent,
-    children: [
-      {
-        path: "token/:token",
-        component: ProfileComponent,
-      },
-      {
-        path: "**",
-        redirectTo: "profile",
-        pathMatch: "full",
-      },
-    ],
-  },
+	{
+		path: "",
+		component: ProfileComponent,
+		children: [
+			{
+				path: "token/:token",
+				component: ProfileComponent,
+			},
+			{
+				path: "**",
+				redirectTo: "profile",
+				pathMatch: "full",
+			},
+		],
+	},
 ];
 
 @NgModule({
-  declarations: [ProfileComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    InputTextModule,
-    ButtonModule,
-    InputGroupModule,
-    FormsModule,
-    InputOtpModule,
-    InputGroupAddonModule,
-    ReactiveFormsModule,
-    DialogModule,
-  ],
-  providers: [DatePipe]
+	declarations: [ProfileComponent],
+	imports: [
+		CommonModule,
+		RouterModule.forChild(routes),
+		InputTextModule,
+		ButtonModule,
+		InputGroupModule,
+		FormsModule,
+		InputOtpModule,
+		InputGroupAddonModule,
+		ReactiveFormsModule,
+		DialogModule,
+	],
+	providers: [DatePipe]
 })
-export class ProfileModule {}
+export class ProfileModule { }

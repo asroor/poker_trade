@@ -17,13 +17,13 @@ const routes: Routes = [
 		component: AccountComponent,
 		children: [
 			{
-				path: 'withdrawal', loadChildren: () => import('../account').then(m => m.WithdrawalModule)
+				path: 'sell-request', loadChildren: () => import('../account').then(m => m.WithdrawalModule)
 			},
 			{
-				path: 'deposit', loadChildren: () => import('../account').then(m => m.DepositModule)
+				path: 'buy-request', loadChildren: () => import('../account').then(m => m.DepositModule)
 			},
 			{
-				path: '**', redirectTo: 'withdrawal', pathMatch: 'full'
+				path: '**', redirectTo: 'sell-request', pathMatch: 'full'
 			}
 		]
 	}

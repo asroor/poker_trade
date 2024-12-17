@@ -51,9 +51,9 @@ export class FormComponent implements OnInit {
 				const wantToBuyUSDControl = this.depostiForm.get('wantToBuyUSD');
 				if (wantToBuyUSDControl) {
 					wantToBuyUSDControl.setValidators([
-					Validators.required,
-					Validators.min(this.order.minToSellUSD),
-					Validators.max(this.order.wantToSellUSD),
+						Validators.required,
+						Validators.min(this.order.minToSellUSD),
+						Validators.max(this.order.wantToSellUSD),
 					]);
 					wantToBuyUSDControl.updateValueAndValidity(); // Validatsiyani yangilash
 				}
@@ -65,14 +65,14 @@ export class FormComponent implements OnInit {
 	}
 
 	submit() {
-		if(this.depostiForm.valid){
+		if (this.depostiForm.valid) {
 			const { sellRequestId, wantToBuyUSD, pokerRoomNickname } = this.depostiForm.getRawValue()
-	
+
 			this._orderService.buyRequest({ sellRequestId, wantToBuyUSD, pokerRoomNickname }).subscribe(data => {
 				this.buyRequestId = data.buyRequestId
-				this.router.navigate(['/account', 'deposit', data.buyRequestId])
+				this.router.navigate(['/account', 'buy-request', data.buyRequestId])
 			})
-		}else{
+		} else {
 			this.depostiForm.markAllAsTouched();
 		}
 	}
@@ -81,7 +81,7 @@ export class FormComponent implements OnInit {
 		this._orderService.buyRequestCancel({
 			buyRequestId: this.buyRequestId,
 		}).subscribe(data => {
-			this.router.navigate(['/account', 'deposit'])
+			this.router.navigate(['/account', 'buy-request'])
 		})
 	}
 
@@ -94,49 +94,48 @@ export class FormComponent implements OnInit {
 		this.infoOrder = !this.infoOrder;
 	}
 
-
+	clearBtn: string = 'Максимум'
 	isInputDisabled: boolean = false;
-	valueToogleCurrency(input: HTMLInputElement, btn: HTMLButtonElement, max:number): void {
-		if (btn.textContent == 'Очистить') {
-			btn.textContent = 'Максимум'
+	valueToogleCurrency(input: HTMLInputElement, max: number): void {
+		if (this.clearBtn == 'Очистить') {
+			this.clearBtn = 'Максимум'
 			this.depostiForm.reset();
 		} else {
+			this.clearBtn = 'Очистить'
 			this.depostiForm.patchValue({
 				wantToBuyCurrency: max
 			});
-			btn.textContent = 'Очистить'
 			this.changeCurrency('changeCurrency')
 		}
 	}
 
-	valueToogleUSD(input: HTMLInputElement, btn: HTMLButtonElement, max:number): void {
-		if (btn.textContent == 'Очистить') {
-			btn.textContent = 'Максимум'
+	valueToogleUSD(input: HTMLInputElement, max: number): void {
+		if (this.clearBtn == 'Очистить') {
+			this.clearBtn = 'Максимум'
 			this.depostiForm.reset();
 		} else {
+			this.clearBtn = 'Очистить'
 			this.depostiForm.patchValue({
 				wantToBuyUSD: max
 			});
-			btn.textContent = 'Очистить'
 			this.changeCurrency('changeUSD')
 		}
 	}
 
-	changeCurrency(type: 'changeCurrency' | 'changeUSD'){
+	changeCurrency(type: 'changeCurrency' | 'changeUSD') {
 		const { wantToBuyUSD, wantToBuyCurrency } = this.depostiForm.getRawValue()
 
-		if(type == 'changeCurrency') {
+		if (type == 'changeCurrency') {
 			this.depostiForm.patchValue({
 				wantToBuyUSD: wantToBuyCurrency / this.order.currencyRate,
 				wantToBuyCurrency,
 			});
 		}
-		if(type == 'changeUSD') {
+		if (type == 'changeUSD') {
 			this.depostiForm.patchValue({
 				wantToBuyUSD,
 				wantToBuyCurrency: wantToBuyUSD * this.order.currencyRate,
 			});
 		}
-		
 	}
 }
