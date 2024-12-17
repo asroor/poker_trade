@@ -1,6 +1,6 @@
 <div class="bg-white py-5 shadow-1">
 	<div class="container">
-		<div class="grid justify-content-center">
+		<!-- <div class="grid justify-content-center">
 			<div class="col-12 lg:col-4 md:col-6 text-center">
 				<ul class="list-none flex flex-column row-gap-2 p-0 m-0">
 					<li><a class="text-yellow-600 hover:underline no-underline" href="#">Подпишись на наш Telegram</a></li>
@@ -16,7 +16,10 @@
 					<li><a class="text-yellow-600 hover:underline no-underline" href="#">Политика AML / KYC</a></li>
 				</ul>
 			</div>
-		</div>
-		<p class="m-0 mt-3 text-center text-xs text-400">2024-{{dateNow | date:'YYYY'}}. All rights reserved.</p>
+		</div> -->
+		<p class="m-0 text-center text-xs text-400">
+			© PokerTrade, {{ (dateNow | date:'YYYY') !== '2024' ? '2024-' : '' }}{{ dateNow | date:'YYYY' }}. All rights
+			reserved.
+		</p>
 	</div>
 </div>
