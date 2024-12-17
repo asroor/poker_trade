@@ -32,7 +32,7 @@ export class ProfileComponent {
 	codeInput: boolean = false;
 
 	timer: number = 0;
-	timerDuration: number = 60 * 1000;
+	timerDuration: number = 0;
 	timerInterval: any;
 	formattedTime: string = '00:00'
 
@@ -65,6 +65,11 @@ export class ProfileComponent {
 			this.profile = data;
 			this.profileForm.patchValue(data);
 
+			if(this.profile.retryAfterSec > 0){
+				const button = document.querySelector('#senCodeBtn') as HTMLButtonElement;
+				this.startTimer(button, this.profile.retryAfterSec)
+			}
+
 			if (data.verified) {
 				this.profileForm.get('email')?.disable()
 			}
@@ -73,20 +78,25 @@ export class ProfileComponent {
 
 	sendCodeFn(event: Event) {
 		const { email } = this.profileForm.getRawValue();
-		this._profileService.sendCodeEmail(email).subscribe({
-			next: (data) => {
-				const button = event.target as HTMLButtonElement;
-				this.startTimer(button);
-				setInterval(() => {
-					this.codeInput = true;
-				}, 2000);
-			},
-		});
+		if(this.timer <= 0 && !this.profile.verified ){
+			this._profileService.sendCodeEmail(email).subscribe({
+				next: (data) => {
+					const button = event.target as HTMLButtonElement;
+					this.startTimer(button, 60);
+					setInterval(() => {
+						this.codeInput = true;
+					}, 2000);
+				},
+			});
+		}
 	}
 
-	startTimer(btn: HTMLButtonElement) {
+	btnDisabled = this.profile?.verified ?? false
+	btnTextContent = 'btn.textContent'
+	
+	startTimer(btn: HTMLButtonElement, time:number) {
 		this.timer = 0;
-		this.timerDuration = 60 * 1000;
+		this.timerDuration = (time ?? 60) * 1000;
 		this.timer = this.timerDuration;
 
 		this.timerInterval = setInterval(() => {
@@ -95,15 +105,15 @@ export class ProfileComponent {
 				this.formattedTime = this.datePipe.transform(this.timer, 'mm:ss') || '00:00'
 
 				this.profileForm.get('email')?.disable()
-				btn.disabled = true;
-				btn.textContent = this.formattedTime;
+				this.btnDisabled = true;
+				this.btnTextContent = this.formattedTime;
 			} else {
 				clearInterval(this.timerInterval);
 
 				this.codeInput = false;
-				btn.textContent = "Отправить код";
+				this.btnTextContent = "Отправить код";
 				this.profileForm.get('email')?.enable()
-				btn.disabled = false;
+				this.btnDisabled = false;
 			}
 		}, 1000);
 	}

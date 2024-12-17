@@ -9,7 +9,7 @@
 	<form [formGroup]="withrawalForm">
 		<div class="grid">
 			<div class="col-12 lg:col-6">
-				<div class="my-3">
+				<!-- <div class="my-3">
 					<label class="font-medium text-sm text-500 mb-2 block">Выберите рум / кошелек и валюту:*</label>
 					<div class="flex w-full align-items-center column-gap-2">
 						<p-dropdown formControlName="pokerRoomId" (onChange)="setActiveRoom()" [ngStyle]="{width: '100%'}"
@@ -18,13 +18,13 @@
 							(onChange)="setActiveCurrency()" optionLabel="title" optionValue="id" placeholder="Select a wallet"
 							[ngStyle]="{width: '100px'}" />
 					</div>
-				</div>
+				</div> -->
 				<div class="p-3 border-round flex align-items-center column-gap-1 bg-yellow-50">
 					<i class="pi pi-sync text-yellow-600"></i>
 					<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 4% + 1$</p>
 				</div>
 				<div class="my-3">
-					<label class="font-medium text-sm text-500 mb-2 block">Сколько USD хотите продать:*</label>
+					<label class="font-medium text-sm text-500 mb-2 block">USD:*</label>
 					<p-inputGroup>
 						<input formControlName="wantToSellUSD" (input)="usdChange()" type="number" #maxInp pInputText mode="decimal"
 							placeholder="От 5 USD до 5000 USD" required
@@ -44,7 +44,7 @@
 					}
 				</div>
 				<div class="mb-3">
-					<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в USD для покупки:*</label>
+					<label class="font-medium text-sm text-500 mb-2 block">USD:*</label>
 					<p-inputGroup>
 						<input formControlName="minToSellUSD" pInputText type="number" placeholder="От 5 USD"
 							[max]="activeCurrency.rateMax" required class="border-1"
@@ -66,7 +66,7 @@
 						{{withrawalForm.get('wantToSellUSD')?.value ?? 5000}}</p>
 					}
 				</div>
-				<label class="font-medium text-sm text-500 mb-2 block">Курс {{activeCurrency.title}} для продажи:*</label>
+				<label class="font-medium text-sm text-500 mb-2 block">{{activeCurrency.title}}:*</label>
 				<p-inputGroup>
 					<input (input)="usdChange()" formControlName="currencyRate" pInputText type="number"
 						[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax"

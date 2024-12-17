@@ -26,8 +26,8 @@
 					<p-inputGroup class="mb-1">
 						<input type="email" formControlName="email" pInputText placeholder="user@luxon.com" [value]="profile.email"
 							class="bg-white" />
-						<button type="button" *ngIf="!profile.verified" [disabled]="profile.verified" pButton severity="primary"
-							class="flex-shrink-0 text-sm py-1 px-2" (click)="sendCodeFn($event)" #senCodeBtn>Отправить код</button>
+						<button type="button" *ngIf="!profile?.verified" [disabled]="btnDisabled" pButton severity="primary"
+							class="flex-shrink-0 text-sm py-1 px-2" (click)="sendCodeFn($event)" #senCodeBtn>{{ btnTextContent }}</button>
 					</p-inputGroup>
 					<p class="p-2 bg-red-500 m-0 mb-2 text-white text-sm text-center border-round"
 						*ngIf="profile.email && !profile.verified">Ваш аккаунт

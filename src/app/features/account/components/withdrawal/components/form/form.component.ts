@@ -48,8 +48,8 @@ export class FormComponent implements OnInit {
 		private fb: NonNullableFormBuilder
 	) {
 		this.withrawalForm = this.fb.group({
-			pokerRoomId: ['', Validators.required],
-			currencyId: ['', Validators.required],
+			pokerRoomId: [1, Validators.required],
+			currencyId: [2, Validators.required],
 			wantToSellUSD: ['', [Validators.required, Validators.min(5), Validators.max(5000)]],
 			minToSellUSD: ['', [Validators.required, Validators.min(5), Validators.max(5000)]],
 			currencyRate: ['', Validators.required],
