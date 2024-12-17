@@ -143,7 +143,7 @@
 						class="w-full justify-content-center column-gap-1" type="submit">Подать
 						заявку на покупку</button>
 					<div class="flex align-items-start column-gap-2 mt-3">
-						<p-checkbox formControlName="accept" [binary]="true" inputId="binary" />
+						<p-checkbox formControlName="accept" [binary]="true" inputId="binary" required />
 						<label for="binary" class="text-xs text-700 font-light">
 							Подавая заявку, вы принимаете условия <a class="text-700 font-medium" href="#">лицензионного договора</a>,
 							а также
@@ -151,7 +151,7 @@
 								конфиденциальности</a> и <a class="text-700 font-medium" href="#">политикой AML / KYC</a>
 						</label>
 					</div>
-					@if (withrawalForm.get('fullName')?.errors?.['required'] && withrawalForm.get('fullName')?.touched) {
+					@if (withrawalForm.get('accept')?.errors?.['required'] && withrawalForm.get('accept')?.touched) {
 					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 					}
 				</div>
