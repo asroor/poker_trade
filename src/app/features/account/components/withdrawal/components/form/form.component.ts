@@ -37,7 +37,7 @@ export class FormComponent implements OnInit {
 	calcCurs: number = 0
 	sellRequestId!: number
 	withrawalForm!: FormGroup
-	amount!: string
+	amount: string = '0'
 
 	constructor(
 		private _roomService: RoomService,
