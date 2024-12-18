@@ -24,7 +24,7 @@
 					<p class="m-0 text-yellow-600">Комиссия сервиса за продажу: 4% + 1$</p>
 				</div>
 				<div class="my-3">
-					<label class="font-medium text-sm text-500 mb-2 block">USD:*</label>
+					<label class="font-medium text-sm text-500 mb-2 block">Сколько USD хотите продать:*</label>
 					<p-inputGroup>
 						<input formControlName="wantToSellUSD" (input)="usdChange()" type="number" #maxInp pInputText mode="decimal"
 							placeholder="От 5 USD до 5000 USD" required
@@ -32,8 +32,7 @@
 						<button (click)="usdMax(5000, 5)" type="button" severity="primary" pButton
 							class="flex-shrink-0 text-sm py-1 px-2">{{clearMaxBtn}}</button>
 					</p-inputGroup>
-					@if (withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched)
-					{
+					@if (withrawalForm.get('wantToSellUSD')?.errors?.['required'] && withrawalForm.get('wantToSellUSD')?.touched){
 					<p class="m-0 text-white mt-1 text-sm border-round block p-2 text-center bg-red-500">Обязательное поле</p>
 					}
 					@if (withrawalForm.get('wantToSellUSD')?.errors?.['min'] && withrawalForm.get('wantToSellUSD')?.touched) {
@@ -44,7 +43,7 @@
 					}
 				</div>
 				<div class="mb-3">
-					<label class="font-medium text-sm text-500 mb-2 block">USD:*</label>
+					<label class="font-medium text-sm text-500 mb-2 block">Минимальная доля в USD для покупки:* </label>
 					<p-inputGroup>
 						<input formControlName="minToSellUSD" pInputText type="number" placeholder="От 5 USD"
 							[max]="activeCurrency.rateMax" required class="border-1"
@@ -66,7 +65,7 @@
 						{{withrawalForm.get('wantToSellUSD')?.value ?? 5000}}</p>
 					}
 				</div>
-				<label class="font-medium text-sm text-500 mb-2 block">{{activeCurrency.title}}:*</label>
+				<label class="font-medium text-sm text-500 mb-2 block">Курс {{activeCurrency.title}} для продажи:*</label>
 				<p-inputGroup>
 					<input (input)="usdChange()" formControlName="currencyRate" pInputText type="number"
 						[min]="activeCurrency.rateMin" [max]="activeCurrency.rateMax"

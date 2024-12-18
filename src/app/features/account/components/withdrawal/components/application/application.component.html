@@ -56,7 +56,7 @@
 						</div>
 						<div>
 							<p class="m-0 mb-1 text-sm text-500">Сумма:</p>
-							<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD}} USD</b>
+							<b class="text-yellow-600 font-bold text-base">{{order.wantToSellUSD + order.adminProfitUSD}} USD</b>
 						</div>
 					</div>
 					<div class="mb-3">
@@ -91,7 +91,8 @@
 								</span></p>
 						</div>
 						<div class="col-12 sm:col-6">
-							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD}} USD</span></p>
+							<p class="m-0 mb-2 text-sm text-500">Сумма: <span class="text-700">{{order.wantToSellUSD +
+									order.adminProfitUSD}} USD</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Банк: <span class="text-700">{{order.bankName}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">Счет: <span class="text-700">{{order.detailsValue}}</span></p>
 							<p class="m-0 mb-2 text-sm text-500">ФИО: <span class="text-700">{{order.fullName}}</span></p>
@@ -186,25 +187,23 @@
 	<div class="grid">
 		<ng-container *ngFor="let item of ordeBuy">
 			<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center column-gap-3">
-								<div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
-									<i class="pi text-sm pi-stopwatch"></i>
-									{{ (item.autoCancelAfterSec * 1000 || 0) | date: 'mm:ss' }}
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">№ заявки:</b>
-									<b class="font-medium text-sm text-700">B{{item.id}}</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
-										{{item.currencyName}}</b>
-								</div>
-							</div>
-						</ng-template>
+				<div class="w-full border-1 border-300 border-round">
+					<div class="flex align-items-center column-gap-3 p-3 border-bottom-1 border-300">
+						<div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
+							<i class="pi text-sm pi-stopwatch"></i>
+							{{ (item.autoCancelAfterSec * 1000 || 0) | date: 'mm:ss' }}
+						</div>
+						<div>
+							<b class="font-medium block text-xs text-500">№ заявки:</b>
+							<b class="font-medium text-sm text-700">B{{item.id}}</b>
+						</div>
+						<div>
+							<b class="font-medium block text-xs text-500">Сумма:</b>
+							<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
+								{{item.currencyName}}</b>
+						</div>
+					</div>
+					<div class="p-3">
 						<div
 							class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm text-yellow-600 font-medium bg-primary-100">
 							<i class="pi text-sm pi-stopwatch"></i>
@@ -225,26 +224,26 @@
 								принять
 							</button>
 						</div>
-					</p-accordionTab>
-				</p-accordion>
+					</div>
+				</div>
 			</div>
 			<div *ngIf="item.status=='WAIT_FOR_BUYER_PAY'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down"
-					collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
-										{{item.currencyName}}</b>
-								</div>
-							</div>
-						</ng-template>
+				<div class="w-full border-1 border-300 border-round">
+					<div class="flex align-items-center column-gap-3 p-3 border-300 border-bottom-1">
+						<div>
+							<b class="font-medium block text-xs text-500">№ отклика:</b>
+							<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
+						</div>
+						<div>
+							<b class="font-medium block text-xs text-500">Сумма:</b>
+							<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
+								{{item.currencyName}}</b>
+						</div>
+						<div (click)="showDialog3(item.id)" class="block ml-auto cursor-pointer z-2">
+							<i class="pi text-lg text-yellow-700 bg-yellow-100 block p-2 border-round pi-comments"></i>
+						</div>
+					</div>
+					<div class="p-3">
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-gray-100 text-gray-500">
 							<i class="pi text-sm pi-send"></i>
 							Ожидайте оплаты от покупателя
@@ -269,37 +268,34 @@
 								<b class="m-0 text-700">{{item.buyerLastFourDig}}</b>
 							</div>
 						</div>
-						<!-- <button severity="danger" size="small" type="button"
+						<button severity="danger" size="small" type="button" (click)="isDispote(item.id)"
 							class="flex align-items-center column-gap-2 w-full justify-content-center" size="small" pButton>
-							<i class="pi pi-shield"></i>
+							<i class="pi pi-exclamation-triangle"></i>
 							Жаловаться на покупателя
-						</button> -->
-					</p-accordionTab>
-					<div (click)="showDialog3(item.id)" class="block absolute cursor-pointer z-2 show_chat_btn">
-						<i class="pi text-lg text-yellow-700 bg-yellow-100 block p-2 border-round pi-comments"></i>
+						</button>
 					</div>
-				</p-accordion>
+				</div>
 			</div>
 			<div *ngIf="item.status=='BUYER_PAYED'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down"
-					collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
-										{{item.currencyName}}</b>
-								</div>
-							</div>
-						</ng-template>
+				<div class="w-full relative border-1 border-round border-300">
+					<div class="flex align-items-center border-bottom-1 border-300 p-3 column-gap-3">
+						<div>
+							<b class="font-medium block text-xs text-500">№ отклика:</b>
+							<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
+						</div>
+						<div>
+							<b class="font-medium block text-xs text-500">Сумма:</b>
+							<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
+								{{item.currencyName}}</b>
+						</div>
+						<div (click)="showDialog3(item.id)" class="block  cursor-pointer ml-auto">
+							<i class="pi text-lg text-yellow-700 bg-yellow-100 block p-2 border-round pi-comments"></i>
+						</div>
+					</div>
+					<div class="p-3">
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-primary text-700">
 							<i class="pi text-sm pi-bolt"></i>
-							Заявка на оплате у модератора
+							Подтвердите перевод
 						</div>
 						<div class="grid mb">
 							<div class="col-12 sm:col-6">
@@ -323,38 +319,32 @@
 						</div>
 						<div class="flex column-gap-2">
 							<!-- <button severity="danger" size="small" type="button"
-								class="flex align-items-center column-gap-2 w-1 justify-content-center" size="small" pButton>
-								<i class="pi pi-shield"></i>
-							</button> -->
+									class="flex align-items-center column-gap-2 w-1 justify-content-center" size="small" pButton>
+									<i class="pi pi-shield"></i>
+								</button> -->
 							<button type="button" (click)="showDialog(item.id)" severity="success" pButton
 								class="flex align-items-center column-gap-2 w-full justify-content-center" size="small">
 								<i class="pi pi-check-circle"></i>
 								Подтвердить получение
 							</button>
 						</div>
-					</p-accordionTab>
-					<div (click)="showDialog3(item.id)" class="block absolute cursor-pointer z-2 show_chat_btn">
-						<i class="pi text-lg text-yellow-700 bg-yellow-100 block p-2 border-round pi-comments"></i>
 					</div>
-				</p-accordion>
+				</div>
 			</div>
 			<div *ngIf="item.status ==='WAIT_FOR_ADMIN_MOVE'" class="col-12 lg:col-6">
-				<p-accordion [activeIndex]="0" class="w-full relative" expandIcon="pi pi-angle-down"
-					collapseIcon="pi pi-angle-up">
-					<p-accordionTab iconPos="end">
-						<ng-template pTemplate="header">
-							<div class="flex align-items-center h-2rem column-gap-3">
-								<div>
-									<b class="font-medium block text-xs text-500">№ отклика:</b>
-									<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
-								</div>
-								<div>
-									<b class="font-medium block text-xs text-500">Сумма:</b>
-									<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
-										{{item.currencyName}}</b>
-								</div>
-							</div>
-						</ng-template>
+				<div class="w-full relative border-1 border-round border-300">
+					<div class="flex align-items-center p-3 border-bottom-1 border-300 column-gap-3">
+						<div>
+							<b class="font-medium block text-xs text-500">№ отклика:</b>
+							<b class="font-medium text-sm text-700">B{{item.id}} {{item.createdAt}}</b>
+						</div>
+						<div>
+							<b class="font-medium block text-xs text-500">Сумма:</b>
+							<b class="font-medium text-sm text-700">{{item.wantToBuyUSD * item.currencyRate}}
+								{{item.currencyName}}</b>
+						</div>
+					</div>
+					<div class="p-3">
 						<div class="p-2 border-round mb-3 inline-flex column-gap-1 text-sm font-medium bg-yellow-200 text-700">
 							<i class="pi text-sm pi-stopwatch"></i>
 							Ожидание действий администратора
@@ -379,18 +369,19 @@
 								<b class="m-0 text-700">{{item.buyerLastFourDig}}</b>
 							</div>
 						</div>
-					</p-accordionTab>
-					<!-- <div (click)="showDialog3(item.id)" class="block absolute cursor-pointer z-2 show_chat_btn">
+					</div>
+				</div>
+				<!-- <div (click)="showDialog3(item.id)" class="block absolute cursor-pointer z-2 show_chat_btn">
 						<i class="pi text-lg text-yellow-700 bg-yellow-100 block p-2 border-round pi-comments"></i>
 					</div> -->
-				</p-accordion>
 			</div>
 		</ng-container>
 	</div>
 </ng-container>
 
 <p-dialog header="Подтверждение операции" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-	<h4>Вы подтверждаете, что получили верную сумму и реквизиты контрагента совпадают с указанными в заявке?</h4>
+	<h4 class="m-0 mb-3">Вы подтверждаете, что получили верную сумму и реквизиты контрагента совпадают с указанными в
+		заявке?</h4>
 
 	<div class="flex column-gap-2">
 		<button type="button" pButton severity="danger" (click)="visible = false"
@@ -422,7 +413,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog header="Чат с контрагентом" [(visible)]="visible3" [modal]="true" [style]="{ width: '50%' }">
+<p-dialog [(visible)]="visible3" [modal]="true" [style]="{ width: '50%' }">
 	<div class="col-12">
 		<div class="chat shadow-1 border-round bg-white" [ngClass]="true ? '' : 'disabled'">
 			<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">

@@ -1,17 +1,27 @@
 ::ng-deep {
-  .fixet-btn {
-    .p-button {
-      width: 100%;
-      justify-content: center;
-    }
+	.fixet-btn {
+		.p-button {
+			width: 100%;
+			justify-content: center;
+		}
 
-    .p-button-label {
-      flex: none;
-    }
-  }
+		.p-button-label {
+			flex: none;
+		}
+	}
 }
+
 .navbar-toggle__btns {
-  button {
-    background-color: transparent;
-  }
+	button {
+		background-color: transparent;
+	}
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	column-gap: 5px;
+	img {
+		width: 50px;
+	}
 }

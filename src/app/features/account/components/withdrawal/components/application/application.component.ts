@@ -130,6 +130,10 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
+	/**
+	 * 
+	 * @param id 
+	 */
 	buyAccept(id: number) {
 		this._orderService.buyRequestAccept({ buyRequestId: id }).subscribe(data => {
 			this._orderService.getSellRequest(this.id).subscribe(data => {
@@ -138,6 +142,10 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
+	/**
+	 * 
+	 * @param id 
+	 */
 	buyCancel(id: number) {
 		this._orderService.buyRequestCancel({ buyRequestId: id }).subscribe(data => {
 			this._orderService.getSellRequest(this.id).subscribe(data => {
@@ -146,12 +154,19 @@ export class ApplicationComponent implements OnInit {
 		})
 	}
 
+	/**
+	 * 
+	 */
 	buyReceiveApprove() {
 		this._orderService.buyRequestReceiveApprove({ buyRequestId: this.buyId }).subscribe(data => {
 			this._orderService.getSellRequest(this.id).subscribe(data => {
 				this.getOrdcerBy()
 			})
 		})
+	}
+
+	isDispote(id: number) {
+		this._orderService.dispute(id)
 	}
 
 	showDialog(buyId: number) {

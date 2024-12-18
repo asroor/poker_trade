@@ -3,8 +3,9 @@
 	<div class="container">
 		<div class="flex align-items-center justify-content-between column-gap-4 header-wrappper">
 			<div class="flex align-items-center column-gap-4 w-full header-left">
-				<a routerLink="/" class="w-4rem flex-shrink-0 logo">
-					<img src="images/logo.png" alt="Logo" class="w-full" />
+				<a routerLink="/" class="flex-shrink-0 no-underline logo">
+					<span class="no-underline text-700 text-yellow-700 font-bold">PokerTrade</span>
+					<img src="images/logo.png" alt="Logo" />
 				</a>
 				<p-button (click)="navigateByAuth()" routerLink="sell-request/form" class="flex-shrink-0 hidden md:flex"
 					severity="success" icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />

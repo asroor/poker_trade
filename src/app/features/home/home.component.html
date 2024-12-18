@@ -1,13 +1,13 @@
 <div class="py-6">
 	<div class="container">
 		<!-- Room Section -->
-		<!-- <div class="logo-container">
+		<div class="logo-container">
 			<ng-container *ngFor="let item of rooms">
 				<div class="logo-box" [class.active]="activeRoom.id === item.id" (click)="setActiveRoom(item)">
 					<img [src]="mediaUrl + item.imageUrl" [alt]="item.title" class="logo" />
 				</div>
 			</ng-container>
-		</div> -->
+		</div>
 		<!-- Deposit and Withdraw Section -->
 		<ng-container *ngIf="false">
 			<div class="transaction-section">
@@ -39,12 +39,12 @@
 			</div>
 		</ng-container>
 		<!-- Currency Selector -->
-		<!-- <div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
+		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
 			<ng-container *ngFor="let item of currencies">
 				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2"
 					[class.bg-yellow-50]="activeCurrency === item.id" (click)="setActiveCurrency(item.id)">{{item.title}}</button>
 			</ng-container>
-		</div> -->
+		</div>
 
 		<div class="card">
 			<p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
@@ -53,9 +53,9 @@
 				<ng-template pTemplate="header">
 					<tr class="table__head">
 						<th pFrozenColumn></th>
-						<th pSortableColumn="minToSellUSD"><p-sortIcon field="minToSellUSD" /> Мин.</th>
-						<th pSortableColumn="wantToSellUSD"><p-sortIcon field="wantToSellUSD" />Макс.</th>
-						<th pSortableColumn="currencyRate"><p-sortIcon field="currencyRate" />Курс
+						<th pSortableColumn="minToSellUSD"><p-sortIcon field="minToSellUSD" /> Мин $</th>
+						<th pSortableColumn="wantToSellUSD"><p-sortIcon field="wantToSellUSD" />Макс $</th>
+						<th pSortableColumn="currencyRate"><p-sortIcon field="currencyRate" />Курс ₽
 						</th>
 						<th>
 							<p-dropdown class="table-dn" [options]="banks" (onChange)="filteOrderBank()" [(ngModel)]="filterValue"
@@ -65,7 +65,8 @@
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
-					<tr [routerLink]="!isMine(product.id)? ['/account/buy-request/form', product.id]: '/home'">
+					<tr
+						[routerLink]="!isMine(product.id)? ['/account/buy-request/form', product.id]: ['/account/sell-request', product.id]">
 						<td>
 							<p class="m-0 py-1 px-2 font-medium border-round surface-50 border-1 user_nickname border-200">
 								{{product.nickname}}</p>
@@ -80,11 +81,12 @@
 							</div>
 						</td>
 						<td style="width:220px;">
-							<button [disabled]="isMine(product.id)" [routerLink]="['/account/buy-request/form', product.id]" pButton
-								severity="primary"
+							<button
+								[routerLink]="!isMine(product.id)? ['/account/buy-request/form', product.id]: ['/account/sell-request', product.id]"
+								pButton severity="primary"
 								class="w-full font-semibold border-0 cursor-pointer justify-content-center column-gap-1" size="small">
+								<i *ngIf="isMine(product.id)" class="pi pi-arrow-circle-right"></i>
 								<i *ngIf="!isMine(product.id)" class="pi pi-plus-circle"></i>
-
 								<span *ngIf="!isMine(product.id)">Купить {{activeRoom.title}}</span>
 								<span *ngIf="isMine(product.id)">Моё объявление</span>
 							</button>

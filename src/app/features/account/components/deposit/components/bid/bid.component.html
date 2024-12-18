@@ -1,11 +1,9 @@
 @if(order) {
-<!-- Qabul qilishni kutishdagi IU boshlandi-->
 <div *ngIf="order.status == 'WAIT_FOR_SELLER_ACCEPT'">
 	<h3 class="font-bold m-0 text-xl my-4 text-700">
 		Заявка на покупку {{order.pokerRoomName}}
 		<p-tag icon="pi pi-stopwatch" value="Ждем продавца" />
 	</h3>
-
 	<div class="grid">
 		<div class="col-12 lg:col-6">
 			<h3 class="m-0 text-xl text-700 mb-2">
@@ -28,7 +26,7 @@
 			</button>
 		</div>
 		<div class="col-12 lg:col-6">
-			<div class="grid bg-primary-100 p-2 border-round">
+			<div class="grid border-round">
 				<div class="col-12 sm:col-6">
 					<p class="m-0 mb-2 text-sm text-500">
 						Nº заявки: <span class="text-700">{{id}}</span>
@@ -39,14 +37,14 @@
 					<p class="m-0 mb-2 text-sm text-500">
 						Продавец: <span class="text-700">{{order.sellerFullName}}</span>
 					</p>
-					<p class="m-0 mb-2 text-sm text-500">
+					<p class="m-0 text-sm text-500">
 						Банк: <span class="text-700">{{order.bankName}}</span>
 					</p>
 				</div>
 				<div class="col-12 sm:col-6">
 					<!-- <p class="m-0 mb-2 text-sm text-500">
-						Nº отклика: <span class="text-700">{{order.sellRequestId}}</span>
-					</p> -->
+							Nº отклика: <span class="text-700">{{order.sellRequestId}}</span>
+						</p> -->
 					<p class="m-0 mb-2 text-sm text-500">
 						Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span>
 					</p>
@@ -61,10 +59,8 @@
 		</div>
 	</div>
 </div>
-<!-- Qabul qilishni kutishdagi IU tugadi -->
 <div *ngIf="true">
 	<ng-container>
-		<!-- Statuslarga mos titlelar boshlandi -->
 		<ng-container *ngIf="order.status == 'CANCELED'">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
 				Заявка на покупку {{order.pokerRoomName}}
@@ -262,8 +258,7 @@
 					<p class="m-0 font-light text-lg">
 						Вы получили {{order.wantToBuyUSD}} USD на ваш аккаунт {{order.pokerRoomName}}.
 					</p>
-
-					<div class="grid bg-primary-100 mt-3 border-round">
+					<div class="grid mt-3">
 						<div class="col-12 sm:col-6">
 							<p class="m-0 mb-2 text-sm text-500">
 								Nº заявки: <span class="text-700">{{id}}</span>

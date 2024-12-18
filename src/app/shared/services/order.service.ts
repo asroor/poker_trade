@@ -80,6 +80,12 @@ export class OrderService {
 		)
 	}
 
+	// https://poker-trade.com/api/buy-request/open-dispute
+
+	dispute(id: number): Observable<{ buyRequestId: number }> {
+		return this._http.post<{ buyRequestId: number }>(`${this._url}/buy-request/open-dispute`, { buyRequestId: id }).pipe(catchError(this.handleError))
+	}
+
 	/**
 	 * 
 	 * @param param 
