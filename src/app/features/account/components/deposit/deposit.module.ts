@@ -19,6 +19,7 @@ import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
+import { InputMaskModule } from 'primeng/inputmask';
 
 const routes: Routes = [
 	{
@@ -48,6 +49,7 @@ const routes: Routes = [
 		InputGroupModule,
 		InputGroupAddonModule,
 		TableModule,
+		InputMaskModule,
 		TagModule,
 		ReactiveFormsModule,
 		ButtonModule,

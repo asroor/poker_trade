@@ -24,7 +24,7 @@ export class BidComponent implements OnInit {
 	id!: number
 	order!: IOrderBuyOne
 	bayerFullName!: string
-	lastFourDig!: string
+	lastFourDig!: number
 	chats!: IChat[]
 	text!: string
 
@@ -43,28 +43,26 @@ export class BidComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
-
 		this.startPolling();
 		this.startPollingChat();
 
 		this._orderService.buyRequestsOne(this.id).subscribe(data => {
 			this.order = data
+			this.startTimer(this.order.autoCancelAfterSec);
 		})
-
-		this.startTimer();
 	}
 
-	startTimer(): void {
-		this.timer = this.timerDuration;
-	
+	startTimer(time: number): void {
+		this.timer = time * 1000;
+
 		this.timerInterval = setInterval(() => {
-		  if (this.timer > 0) {
-			this.timer -= 1000;
-		  } else {
-			clearInterval(this.timerInterval);
-		  }
+			if (this.timer > 0) {
+				this.timer -= 1000;
+			} else {
+				clearInterval(this.timerInterval);
+			}
 		}, 1000);
-	  }
+	}
 
 	ngOnDestroy(): void {
 		if (this.intervalSubscription) {
@@ -75,7 +73,7 @@ export class BidComponent implements OnInit {
 		}
 		if (this.timerInterval) {
 			clearInterval(this.timerInterval);
-		  }
+		}
 	}
 
 	startPolling(): void {
@@ -130,6 +128,7 @@ export class BidComponent implements OnInit {
 		}).subscribe(data => {
 			this._orderService.buyRequestsOne(this.id).subscribe(data => {
 				this.order = data
+				this.visible = false
 			})
 		})
 	}
@@ -138,7 +137,7 @@ export class BidComponent implements OnInit {
 		this._orderService.buyRequestPayed({
 			buyRequestId: this.id,
 			bayerFullName: this.bayerFullName,
-			lastFourDig: this.lastFourDig,
+			lastFourDig: String(this.lastFourDig),
 		}).subscribe(data => {
 			this._orderService.buyRequestsOne(this.id).subscribe(data => {
 				this.order = data

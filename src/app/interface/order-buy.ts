@@ -1,4 +1,5 @@
 export interface IOrderBuy {
+	autoCancelAfterSec: number,
 	bankImageUrl: string
 	createdAt: string
 	currencyName: string

@@ -13,3 +13,12 @@
 		}
 	}
 }
+
+::ng-deep {
+	.code_input {
+		.p-inputtext {
+			border-bottom-right-radius: 0;
+			border-top-right-radius: 0;
+		}
+	}
+}

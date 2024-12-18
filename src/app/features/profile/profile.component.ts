@@ -67,7 +67,7 @@ export class ProfileComponent {
 			this.profile = data;
 			this.profileForm.patchValue(data);
 
-			if(this.profile.retryAfterSec > 0){
+			if (this.profile.retryAfterSec > 0) {
 				const button = document.querySelector('#senCodeBtn') as HTMLButtonElement;
 				this.startTimer(button, this.profile.retryAfterSec)
 			}
@@ -80,8 +80,8 @@ export class ProfileComponent {
 
 	sendCodeFn(event: Event) {
 		const { email } = this.profileForm.getRawValue();
-		if(this.profileForm.get('email')?.valid){
-			if(this.timer <= 0 && !this.profile.verified ){
+		if (this.profileForm.get('email')?.valid) {
+			if (this.timer <= 0 && !this.profile.verified) {
 				this._profileService.sendCodeEmail(email).subscribe({
 					next: (data) => {
 						const button = event.target as HTMLButtonElement;
@@ -90,6 +90,14 @@ export class ProfileComponent {
 							this.codeInput = true;
 						}, 2000);
 					},
+					error: (err) => {
+						// Xato holati 409 bo'lsa, alert chiqariladi
+						if (err.status === 409) {
+							alert('Bu emailga allaqachon kod yuborilgan. Iltimos, biroz kuting.');
+						} else {
+							alert('Xatolik yuz berdi. Qayta urinib ko‘ring.');
+						}
+					}
 				});
 			}
 		}
@@ -97,8 +105,8 @@ export class ProfileComponent {
 
 	btnDisabled = this.profile?.verified ?? false
 	btnTextContent = 'Отправить код'
-	
-	startTimer(btn: HTMLButtonElement, time:number) {
+
+	startTimer(btn: HTMLButtonElement, time: number) {
 		this.timer = 0;
 		this.timerDuration = (time ?? 60) * 1000;
 		this.timer = this.timerDuration;
@@ -124,7 +132,7 @@ export class ProfileComponent {
 	}
 
 	emailVerifyFN() {
-		if(this.profileForm.get('code')?.valid){
+		if (this.profileForm.get('code')?.valid) {
 			const { code } = this.profileForm.getRawValue();
 			this._profileService.emailVerify(code.toString()).subscribe({
 				next: () => {

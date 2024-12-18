@@ -11,6 +11,7 @@ export interface IOrderOne {
 	pokerRoomName: string
 	pokerRoomNickname: any
 	received: number
+	autoCancelAfterSec: number
 	soldUSD: number
 	status: string
 	wantToSellUSD: number

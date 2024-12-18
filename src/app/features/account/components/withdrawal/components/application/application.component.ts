@@ -45,18 +45,16 @@ export class ApplicationComponent implements OnInit {
 		this.getOrder()
 		this.startPolling();
 		this.startPollingChat()
-		this.startTimer();
 	}
 
-	startTimer(): void {
-		this.timer = this.timerDuration;
-	
+	startTimer(time: number): void {
+		this.timer = time * 1000;
 		this.timerInterval = setInterval(() => {
-		  if (this.timer > 0) {
-			this.timer -= 1000;
-		  } else {
-			clearInterval(this.timerInterval);
-		  }
+			if (this.timer > 0) {
+				this.timer -= 1000;
+			} else {
+				clearInterval(this.timerInterval);
+			}
 		}, 1000);
 	}
 
@@ -71,32 +69,32 @@ export class ApplicationComponent implements OnInit {
 
 	startPolling(): void {
 		this.intervalSubscription = interval(3000)
-		  .pipe(
-			switchMap(() => this._orderService.getSellRequest(this.id))
-		  )
-		  .subscribe({
-			next: (data) => {
-			  this.order = data;
-			  if (data.status === 'IN_PROGRESS') {
-				this.getOrdcerBy();
-			  }
-			},
-			error: (err) => {
-			  console.error('API chaqiruvda xatolik:', err);
-			},
-		  });
+			.pipe(
+				switchMap(() => this._orderService.getSellRequest(this.id))
+			)
+			.subscribe({
+				next: (data) => {
+					this.order = data;
+					if (data.status === 'IN_PROGRESS') {
+						this.getOrdcerBy();
+					}
+				},
+				error: (err) => {
+					console.error('API chaqiruvda xatolik:', err);
+				},
+			});
 	}
 
 	startPollingChat(): void {
 		this.intervalSubscriptionChat = interval(3000)
 			.pipe(
 				switchMap(() => {
-					if(this.chatId){
+					if (this.chatId) {
 						return this._orderService.getBuyRequestChat(this.chatId)
-					}else{
+					} else {
 						return of()
 					}
-				}) 
+				})
 			)
 			.subscribe({
 				next: (data: IChat[]) => {
@@ -107,17 +105,15 @@ export class ApplicationComponent implements OnInit {
 				},
 			});
 	}
-
 	getOrder() {
 		return this._orderService.getSellRequest(this.id).subscribe((data) => {
-			if (data.status == 'IN_PROGRESS') {
+			if (data.status == 'IN_PROGRESS' || data.status === 'COMPLETED') {
 				this.getOrdcerBy()
 			}
 			this.order = data
 			return data
 		})
 	}
-
 	getOrdcerBy() {
 		this._orderService.buyRequests(this.id).subscribe((data) => {
 			this.ordeBuy = data
@@ -191,31 +187,31 @@ export class ApplicationComponent implements OnInit {
 		this._orderService
 			.buyRequestChatFile({ buyRequestId: this.chatId, file })
 			.subscribe({
-				next: (response) => {this.getChat()},
+				next: (response) => { this.getChat() },
 				error: (error) => console.error('Fayl yuklashda xatolik:', error),
 			});
 	}
 
-	sendText(){
-		if(this.text.trim().length > 0){
+	sendText() {
+		if (this.text.trim().length > 0) {
 			this._orderService
-				.buyRequestChatText({ buyRequestId: this.chatId, message: this.text.trim()})
+				.buyRequestChatText({ buyRequestId: this.chatId, message: this.text.trim() })
 				.subscribe({
-					next: (response) => {this.getChat(); this.text = ''},
+					next: (response) => { this.getChat(); this.text = '' },
 					error: (error) => console.error('Fayl yuklashda xatolik:', error),
 				});
 		}
 	}
 
-	getBuyRequestChat(){
+	getBuyRequestChat() {
 		this._orderService
-				.getBuyRequestChat(this.chatId)
-				.subscribe({
-					next: (response) => {
-						this.chats = response
-					},
-					error: (error) => console.error('Fayl yuklashda xatolik:', error),
-				});
+			.getBuyRequestChat(this.chatId)
+			.subscribe({
+				next: (response) => {
+					this.chats = response
+				},
+				error: (error) => console.error('Fayl yuklashda xatolik:', error),
+			});
 	}
 
 	getChat() {

@@ -2,7 +2,7 @@
 <!-- Qabul qilishni kutishdagi IU boshlandi-->
 <div *ngIf="order.status == 'WAIT_FOR_SELLER_ACCEPT'">
 	<h3 class="font-bold m-0 text-xl my-4 text-700">
-		Заявка на покупку Luxon
+		Заявка на покупку {{order.pokerRoomName}}
 		<p-tag icon="pi pi-stopwatch" value="Ждем продавца" />
 	</h3>
 
@@ -62,44 +62,58 @@
 	</div>
 </div>
 <!-- Qabul qilishni kutishdagi IU tugadi -->
-
 <div *ngIf="true">
 	<ng-container>
-
 		<!-- Statuslarga mos titlelar boshlandi -->
-		<ng-container *ngIf="order.status == 'EXPIRED' || order.status == 'CANCELED'">
+		<ng-container *ngIf="order.status == 'CANCELED'">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
-				Заявка на покупку Luxon
+				Заявка на покупку {{order.pokerRoomName}}
 				<p-tag severity="danger" icon="pi pi-times-circle" value="Отменена" />
 			</h3>
 		</ng-container>
-
+		<ng-container *ngIf="order.status == 'EXPIRED'">
+			<h3 class="font-bold m-0 text-xl my-4 text-700">
+				Заявка на покупку {{order.pokerRoomName}}
+				<p-tag severity="danger" icon="pi pi-hourglass" value="Истекший" />
+			</h3>
+		</ng-container>
 		<ng-container *ngIf="order.status =='WAIT_FOR_BUYER_PAY'">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
-				Заявка на покупку Luxon
+				Заявка на покупку {{order.pokerRoomName}}
 				<p-tag severity="warning" icon="pi pi-send" value="Сделайте оплату" />
 			</h3>
 		</ng-container>
-
-		<ng-container *ngIf="order.status =='BUYER_PAYED' || order.status == 'WAIT_FOR_ADMIN_MOVE'">
+		<ng-container *ngIf="order.status =='BUYER_PAYED'">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
-				Заявка на покупку ПокерОК
-				<p-tag icon="pi pi-bolt" value="Делаем перевод" />
+				Заявка на покупку {{order.pokerRoomName}}
+				<p-tag icon="pi pi-bolt" severity="warning" value="Проверяем оплату " />
 			</h3>
 		</ng-container>
-
+		<ng-container *ngIf=" order.status == 'WAIT_FOR_ADMIN_MOVE'">
+			<h3 class="font-bold m-0 text-xl my-4 text-700">
+				Заявка на покупку {{order.pokerRoomName}}
+				<p-tag icon="pi pi-bolt" value="Ожидание подтверждения" />
+			</h3>
+		</ng-container>
 		<ng-container *ngIf="order.status =='COMPLETED'">
 			<h3 class="font-bold m-0 text-xl my-4 text-700">
-				Заявка на покупку ПокерОК
+				Заявка на покупку {{order.pokerRoomName}}
 				<p-tag icon="pi pi-check-circle" severity="success" value="Выполнена" />
 			</h3>
 		</ng-container>
 		<!-- Statuslarga mos titlelar tugadi -->
-
 		<div class="grid">
-
 			<!-- Statuslarga mos chatni chap tarafi boshlandi -->
-			<ng-container *ngIf="order.status == 'EXPIRED' || order.status == 'CANCELED'">
+			<ng-container *ngIf="order.status == 'EXPIRED'">
+				<div class="col-12 lg:col-6">
+					<h3 class="m-0 text-lg mb-3">Время действия заявки истекло</h3>
+					<p class="m-0 text-lg font-light">
+						Если произошла какая-либо ошибка, то напишите в техническую поддержку и
+						мы оперативно все решим.
+					</p>
+				</div>
+			</ng-container>
+			<ng-container *ngIf="order.status == 'CANCELED'">
 				<div class="col-12 lg:col-6">
 					<h3 class="m-0 text-lg mb-3">Вы отменили заявку</h3>
 					<p class="m-0 text-lg font-light">
@@ -114,7 +128,7 @@
 					<h3 class="m-0 text-xl text-700 mb-2">
 						Для оплаты заявки сделайте перевод продавцу:
 					</h3>
-					<div class="my-3 p-3 bg-primary-100 border-round">
+					<div class="my-3 p-3 surface-100 border-round">
 						<div class="mb-3">
 							<label class="mb-2 text-500 text-sm">Банк:</label>
 							<h3 class="text-primary-600 text-lg m-0">
@@ -136,7 +150,7 @@
 						<div>
 							<label class="mb-2 text-500 text-sm">Сумма:</label>
 							<h3 class="text-primary-600 text-lg m-0">
-								{{ order.wantToBuyUSD + ' ' + order.currencyName }}
+								{{ order.wantToBuyUSD }} USD
 							</h3>
 						</div>
 					</div>
@@ -146,9 +160,13 @@
 							<input type="text" [(ngModel)]="bayerFullName" pInputText placeholder="Иванов Иван Иванович" />
 						</div>
 						<div class="mb-3">
-							<label class="text-500 mb-1 block text-sm">Последние 4 символа вашего номера телефона:*</label>
-							<input type="text" [(ngModel)]="lastFourDig" pInputText placeholder="1234" />
+							<label class="text-500 mb-1 block text-sm">
+								{{ order.isSbpBank ? 'Последние 4 символа вашего номера телефона:*' : 'Последние 4 цифры вашей карты:*'
+								}}
+							</label>
+							<input type="number" [(ngModel)]="lastFourDig" pInputText placeholder="1234" />
 						</div>
+
 						<div *ngIf="!transactions">
 							<button type="button" (click)="request = true" severity="success" pButton
 								class="w-full justify-content-center mb-2 column-gap-2">
@@ -163,7 +181,7 @@
 						</div>
 						<div *ngIf="transactions">
 							<h3 class="m-0 text-700 mb-3 font-semibold">
-								После подтверждения, мы перечислим 7.6 USD на ваш аккаунт ПокерОК.
+								После подтверждения, мы перечислим {{order.wantToBuyUSD}} USD на ваш аккаунт {{order.pokerRoomName}}.
 							</h3>
 							<button type="button" severity="danger" pButton class="w-full justify-content-center column-gap-2">
 								<i class="pi pi-times-circle"></i>
@@ -173,32 +191,85 @@
 					</div>
 				</div>
 			</ng-container>
-
-			<ng-container *ngIf="order.status =='BUYER_PAYED' || order.status == 'WAIT_FOR_ADMIN_MOVE'">
+			<ng-container *ngIf="order.status =='BUYER_PAYED'">
+				<div class="col-12 lg:col-6">
+					<h3 class="m-0 text-xl text-700 mb-2">
+						Для оплаты заявки сделайте перевод продавцу:
+					</h3>
+					<div class="my-3 p-3 surface-100 border-round">
+						<div class="mb-3">
+							<label class="mb-2 text-500 text-sm">Банк:</label>
+							<h3 class="text-primary-600 text-lg m-0">
+								{{order.bankName}}
+							</h3>
+						</div>
+						<div class="mb-3">
+							<label class="mb-2 text-500 text-sm">ФИО получателя:</label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.sellerFullName}}</h3>
+						</div>
+						<div class="mb-3" *ngIf="order.isSbpBank">
+							<label class="mb-2 text-500 text-sm">Номер телефона:</label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.detailsValue}}</h3>
+						</div>
+						<div class="mb-3" *ngIf="!order.isSbpBank">
+							<label class="mb-2 text-500 text-sm">Номер счёта: </label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.detailsValue}}</h3>
+						</div>
+						<div>
+							<label class="mb-2 text-500 text-sm">Сумма:</label>
+							<h3 class="text-primary-600 text-lg m-0">
+								{{ order.wantToBuyUSD }} USD
+							</h3>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+			<ng-container *ngIf="order.status == 'WAIT_FOR_ADMIN_MOVE'">
 				<div class="col-12 lg:col-6">
 					<h3 class="m-0 text-xl text-700 mb-2">
 						Контрагент подтвердил получение оплаты от вас, ожидайте перевод
 					</h3>
-					<p class="m-0 font-light text-lg">
-						В течение нескольких минут мы перечислим вам {{order.wantToBuyUSD}} USD на ваш аккаунт
-						ПокерОК.
-					</p>
+					<div class="my-3 p-3 surface-100 border-round">
+						<div class="mb-3">
+							<label class="mb-2 text-500 text-sm">Банк:</label>
+							<h3 class="text-primary-600 text-lg m-0">
+								{{order.bankName}}
+							</h3>
+						</div>
+						<div class="mb-3">
+							<label class="mb-2 text-500 text-sm">ФИО получателя:</label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.sellerFullName}}</h3>
+						</div>
+						<div class="mb-3" *ngIf="order.isSbpBank">
+							<label class="mb-2 text-500 text-sm">Номер телефона:</label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.detailsValue}}</h3>
+						</div>
+						<div class="mb-3" *ngIf="!order.isSbpBank">
+							<label class="mb-2 text-500 text-sm">Номер счёта: </label>
+							<h3 class="text-primary-600 text-lg m-0">{{order.detailsValue}}</h3>
+						</div>
+						<div>
+							<label class="mb-2 text-500 text-sm">Сумма:</label>
+							<h3 class="text-primary-600 text-lg m-0">
+								{{ order.wantToBuyUSD }} USD
+							</h3>
+						</div>
+					</div>
 				</div>
 			</ng-container>
-
 			<ng-container *ngIf="order.status =='COMPLETED'">
 				<div class="col-12 lg:col-6">
 					<h3 class="m-0 text-xl text-700 mb-2">Заявка успешно выполнена</h3>
 					<p class="m-0 font-light text-lg">
-						Вы получили 7.6 USD на ваш аккаунт ПокерОК.
+						Вы получили {{order.wantToBuyUSD}} USD на ваш аккаунт {{order.pokerRoomName}}.
 					</p>
 				</div>
 			</ng-container>
 			<!-- Statuslarga mos chatni chap tarafi tugadi -->
-
 			<!-- Chat bu faqat qabul qilishni kutishda chiqmaydi  boshlandi -->
 			<div *ngIf="order.status !== 'WAIT_FOR_SELLER_ACCEPT'" class="col-12 lg:col-6">
-				<div class="chat shadow-1 border-round bg-white">
+				<div class="chat shadow-1 border-round bg-white"
+					[ngClass]="order.status === 'CANCELED' || order.status == 'COMPLETED' || order.status === 'EXPIRED' ? 'disabled':''">
 					<div class="flex align-items-center justify-content-between p-3 border-bottom-1 border-yellow-100">
 						<h3 class="m-0 text-yellow-600 text-lg">Чат с контрагентом</h3>
 						<b class="flex align-content-center column-gap-1">
@@ -208,8 +279,9 @@
 					<div class="p-3">
 						<div #chatContainer class="overflow-y-scroll w-full chatbody" id="chat_body" [style]="{ height: '350px' }">
 							<ng-container *ngFor="let item of chats">
-								<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'" class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
-									<i class="pi pi-exclamation-triangle text-yellow-600"></i>
+								<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'"
+									class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
+									<i class="pi pi-shield text-yellow-600"></i>
 									<p class="m-0 text-yellow-600 text-sm">
 										<span *ngIf="item.msgType == 'text'">
 											{{item.msgValue}}

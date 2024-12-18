@@ -12,7 +12,7 @@ import { IChat } from "../../interface/chat";
 })
 export class OrderService {
 	_url = `${environment.apiUrl}`
-	constructor(private _http: HttpClient,private msg: MessageService) { }
+	constructor(private _http: HttpClient, private msg: MessageService) { }
 
 	/**
 	 * 
@@ -124,7 +124,7 @@ export class OrderService {
 		)
 	}
 
-    getSellRequest(id: number): Observable<IOrderOne> {
+	getSellRequest(id: number): Observable<IOrderOne> {
 		return this._http.get<IOrderOne>(`${this._url}/sell-request/${id}`).pipe(
 			catchError(this.handleError)
 		)
@@ -206,11 +206,11 @@ export class OrderService {
 		let errMsg = 'Произошла неизвестная ошибка';
 		// if (err instanceof ErrorEvent) {
 		// 	errMsg = `Ошибка: ${err}`;
-        //     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
+		//     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err}`, detail: err });
 		// } else {
 		// 	errMsg = `Ошибка: ${err.message}, Статус ошибки: ${err.status}`;
-        //     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.error });
-            
+		//     this.msg.add({ severity: 'error', summary: `Статус ошибки: ${err.status}`, detail: err.error });
+
 		// }
 		return throwError(() => err);
 	}

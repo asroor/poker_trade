@@ -11,5 +11,6 @@ export interface IOrderBuyOne {
 	sellerFullName: string
 	sellerNickname: string
 	status: string
+	autoCancelAfterSec: number
 	wantToBuyUSD: number
 }
