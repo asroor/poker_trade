@@ -190,10 +190,10 @@
 					<p-accordionTab iconPos="end">
 						<ng-template pTemplate="header">
 							<div class="flex align-items-center column-gap-3">
-								<!-- <div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
+								<div class="p-2 border-round text-sm text-yellow-600 font-medium bg-primary-100">
 									<i class="pi text-sm pi-stopwatch"></i>
-									{{ timer | date: 'mm:ss' }}
-								</div> -->
+									{{ (item.autoCancelAfterSec * 1000 || 0) | date: 'mm:ss' }}
+								</div>
 								<div>
 									<b class="font-medium block text-xs text-500">№ заявки:</b>
 									<b class="font-medium text-sm text-700">B{{item.id}}</b>

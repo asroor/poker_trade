@@ -45,18 +45,22 @@ export class ApplicationComponent implements OnInit {
 		this.getOrder()
 		this.startPolling();
 		this.startPollingChat()
+
+		// this.startTimer()
 	}
 
-	startTimer(time: number): void {
-		this.timer = time * 1000;
-		this.timerInterval = setInterval(() => {
-			if (this.timer > 0) {
-				this.timer -= 1000;
-			} else {
-				clearInterval(this.timerInterval);
-			}
-		}, 1000);
-	}
+	// startTimer(): void {
+	// 	this.ordeBuy = this.ordeBuy.map((order:IOrderBuy) => { return {...order, autoCancelAfterSec: (order?.autoCancelAfterSec || 0) }})
+	// 	// this.timer = time * 1000;
+	// 	this.timerInterval = setInterval(() => {
+	// 		if (this.timer > 0) {
+	// 			// this.timer -= 1000;
+	// 			this.ordeBuy = this.ordeBuy.map((order:IOrderBuy) => {return {...order, autoCancelAfterSec: (order?.autoCancelAfterSec || 0) - 1}})
+	// 		} else {
+	// 			clearInterval(this.timerInterval);
+	// 		}
+	// 	}, 1000);
+	// }
 
 	ngOnDestroy(): void {
 		if (this.intervalSubscription) {
@@ -68,7 +72,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	startPolling(): void {
-		this.intervalSubscription = interval(3000)
+		this.intervalSubscription = interval(1000)
 			.pipe(
 				switchMap(() => this._orderService.getSellRequest(this.id))
 			)
