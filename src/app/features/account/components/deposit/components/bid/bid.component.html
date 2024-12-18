@@ -122,7 +122,6 @@
 					</p>
 				</div>
 			</ng-container>
-
 			<ng-container *ngIf="order.status =='WAIT_FOR_BUYER_PAY'">
 				<div class="col-12 lg:col-6">
 					<h3 class="m-0 text-xl text-700 mb-2">
@@ -263,6 +262,34 @@
 					<p class="m-0 font-light text-lg">
 						Вы получили {{order.wantToBuyUSD}} USD на ваш аккаунт {{order.pokerRoomName}}.
 					</p>
+
+					<div class="grid mt-3 border-round">
+						<div class="col-12 sm:col-6">
+							<p class="m-0 mb-2 text-sm text-500">
+								Nº заявки: <span class="text-700">{{id}}</span>
+							</p>
+							<p class="m-0 mb-2 text-sm text-500">
+								Курс и валюта: <span class="text-700">{{order.currencyName}}</span>
+							</p>
+							<p class="m-0 mb-2 text-sm text-500">
+								Продавец: <span class="text-700">{{order.sellerFullName}}</span>
+							</p>
+							<p class="m-0 text-sm text-500">
+								Банк: <span class="text-700">{{order.bankName}}</span>
+							</p>
+						</div>
+						<div class="col-12 sm:col-6">
+							<p class="m-0 mb-2 text-sm text-500">
+								Рум / кошелек: <span class="text-700">{{order.pokerRoomName}}</span>
+							</p>
+							<p class="m-0 mb-2 text-sm text-500">
+								Аккаунт: <span class="text-700">{{order.pokerRoomNickname}}</span>
+							</p>
+							<p class="m-0 text-sm text-500">
+								Сумма: <span class="text-700">{{order.wantToBuyUSD}} USD</span>
+							</p>
+						</div>
+					</div>
 				</div>
 			</ng-container>
 			<!-- Statuslarga mos chatni chap tarafi tugadi -->
