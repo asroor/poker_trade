@@ -22,37 +22,34 @@
 		</p-dropdown>
 	</div>
 </div>
-<p-table [value]="orders" [scrollable]="false" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
-	[rows]="tablePagination.size" [totalRecords]="tablePagination.totalData"
-	(onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
+<p-table [value]="orders" [scrollable]="false" [paginator]="orders.length > 10? true : false"
+	[rowsPerPageOptions]="[10, 30, 50]" [lazy]="true" [rows]="tablePagination.size"
+	[totalRecords]="tablePagination.totalData" (onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
 	<ng-template pTemplate="header">
 		<tr>
 			<th>Дата</th>
 			<th>№ заявки</th>
 			<th>Получили</th>
-			<th>Отдали</th>
 			<th>Курс</th>
+			<th>Отдали</th>
 			<th>Статус</th>
 		</tr>
 	</ng-template>
 	<ng-template pTemplate="body" let-product>
-		<tr
-			[routerLink]=" product.id">
+		<tr [routerLink]=" product.id">
 			<td>{{ product.createdAt }}</td>
 			<td>{{ product.id }}</td>
 			<td>
 				<div class="flex align-items-center column-gap-1">
-					<!-- <img src="images/sber.svg" alt="sberbank" width="17"> -->
-					{{ product.received }}
-				</div>
-			</td>
-			<td>
-				<div class="flex align-items-center column-gap-1">
-					<!-- <img [src]="mediaUrl + product.roomImageUrl" alt="lux" width="17"> -->
-					{{ product.gave }}
+					{{ product.received}} {{product.currencyName}}
 				</div>
 			</td>
 			<td>{{ product.currencyRate }}</td>
+			<td>
+				<div class="flex align-items-center column-gap-1">
+					{{ product.gave }}
+				</div>
+			</td>
 			<td>
 				<p-tag class="w-full" [icon]="findStatus(product.status, 'icon')"
 					[severity]="findStatus(product.status, 'severity')" [value]="findStatus(product.status, 'name')"></p-tag>

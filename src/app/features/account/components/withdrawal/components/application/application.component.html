@@ -47,6 +47,10 @@
 				<div class="col-12 md:col-4">
 					<div class="mb-3 p-2 surface-50 border-round">
 						<div class="mb-2">
+							<b class="text-yellow-600 font-bold text-base">{{order.autoCancelAfterSec * 1000 || 0 | date:
+								'mm:ss'}}</b>
+						</div>
+						<div class="mb-2">
 							<p class="m-0 mb-1 text-sm text-500">Рум / кошелек:</p>
 							<b class="text-yellow-600 font-bold text-base">{{order.pokerRoomName}}</b>
 						</div>

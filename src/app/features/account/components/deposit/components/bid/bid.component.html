@@ -145,7 +145,7 @@
 						<div>
 							<label class="mb-2 text-500 text-sm">Сумма:</label>
 							<h3 class="text-primary-600 text-lg m-0">
-								{{ order.wantToBuyUSD }} USD
+								{{ order.wantToBuyUSD * order.currencyRate + ' ' + order.currencyName}}
 							</h3>
 						</div>
 					</div>

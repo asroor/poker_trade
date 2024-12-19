@@ -44,56 +44,56 @@ export class TableComponent {
         code: "WAIT_FOR_SELLER_ACCEPT",
         icon: "pi pi-clock",
         severity: "info",
-        filter: true
+        filter: true,
       }, // WAIT_FOR_SELLER_ACCEPT
       {
         name: "Оплата",
         code: "WAIT_FOR_BUYER_PAY",
         icon: "pi pi-credit-card",
         severity: "warning",
-        filter: true
+        filter: true,
       }, // WAIT_FOR_BUYER_PAY
       {
         name: "Оплачено",
         code: "BUYER_PAYED",
         icon: "pi pi-check-circle",
         severity: "info",
-        filter: true
+        filter: true,
       }, // BUYER_PAYED
       {
         name: "Перевод",
         code: "WAIT_FOR_ADMIN_MOVE",
         icon: "pi pi-arrow-right",
         severity: "warning",
-        filter: true
+        filter: true,
       }, // WAIT_FOR_ADMIN_MOVE
       {
         name: "Завершено",
         code: "COMPLETED",
         icon: "pi pi-check-circle",
         severity: "success",
-        filter: true
+        filter: true,
       }, // COMPLETED
       {
         name: "Отклонено",
         code: "REJECTED",
         icon: "pi pi-times-circle",
         severity: "danger",
-        filter: true
+        filter: true,
       }, // REJECTED
       {
         name: "Отменено",
         code: "CANCELED",
         icon: "pi pi-ban",
         severity: "danger",
-        filter: true
+        filter: true,
       }, // CANCELED
       {
         name: "Истекло",
         code: "EXPIRED",
         icon: "pi pi-clock",
         severity: "danger",
-        filter: false
+        filter: false,
       }, // EXPIRED
     ];
   }
@@ -103,8 +103,8 @@ export class TableComponent {
     this.getBank();
   }
 
-  getStatusFilter(){
-    return this.status.filter(status => status.filter)
+  getStatusFilter() {
+    return this.status.filter((status) => status.filter);
   }
 
   getOrders(event: any) {

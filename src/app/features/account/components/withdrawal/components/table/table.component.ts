@@ -42,49 +42,49 @@ export class TableComponent {
         code: "NEW",
         icon: "pi pi-clock",
         severity: "info",
-        filter:true,
+        filter: true,
       }, // NEW
       {
         name: "Модерация",
         code: "MODERATION",
         icon: "pi pi-search",
         severity: "warning",
-        filter:true,
+        filter: true,
       }, // MODERATION
       {
         name: "В процессе",
         code: "IN_PROGRESS",
         icon: "pi pi-spinner pi-spin",
         severity: "info",
-        filter:true,
+        filter: true,
       }, // IN_PROGRESS
       {
         name: "Завершено",
         code: "COMPLETED",
         icon: "pi pi-check-circle",
         severity: "success",
-        filter:true,
+        filter: true,
       }, // COMPLETED
       {
         name: "Отклонено",
         code: "REJECTED",
         icon: "pi pi-times-circle",
         severity: "danger",
-        filter:true,
+        filter: true,
       }, // REJECTED
       {
         name: "Отменено",
         code: "CANCELED",
         icon: "pi pi-ban",
         severity: "danger",
-        filter:true,
+        filter: true,
       }, // CANCELED
       {
         name: "Истекло",
         code: "EXPIRED",
         icon: "pi pi-clock",
         severity: "danger",
-        filter:false,
+        filter: true,
       }, // EXPIRED
     ];
   }
@@ -94,8 +94,8 @@ export class TableComponent {
     this.getBank();
   }
 
-  getStatusFilter(){
-    return this.status.filter(status => status.filter)
+  getStatusFilter() {
+    return this.status.filter((status) => status.filter);
   }
 
   /**
