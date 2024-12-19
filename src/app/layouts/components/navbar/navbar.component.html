@@ -10,10 +10,10 @@
 				<p-button (click)="navigateByAuth()" routerLink="sell-request/form" class="flex-shrink-0 hidden md:flex"
 					severity="success" icon="pi pi-arrow-up-right" label="Сделать заявку на продажу" />
 				<div class="p-1 border-1 border-yellow-100 hidden sm:flex border-round w-full navbar-toggle__btns">
-					<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
+					<button routerLink="/home" routerLinkActive="bg-yellow-100 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 						заявки</button>
-					<button routerLink="/account" routerLinkActive="bg-yellow-50 text-yellow-600"
+					<button routerLink="/account" routerLinkActive="bg-yellow-100 text-yellow-600"
 						class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
 						заявки</button>
 				</div>
@@ -27,14 +27,14 @@
 				</div>
 				<div class="flex align-items-center column-gap-2 profile">
 					<button type="button" routerLink="/profile" *ngIf="isUserLoginned()" pButton size="small"
-						class="bg-yellow-50 border-none">
+						class="bg-yellow-100 border-none">
 						<i class="pi pi-user text-yellow-600 font-bold"></i>
 					</button>
 					<button type="button" (click)="openModal()" *ngIf="!isUserLoginned()" pButton size="small"
-						class="bg-yellow-50 border-none" (click)="logout()">
+						class="bg-yellow-100 border-none" (click)="logout()">
 						<i class="pi pi-user text-yellow-600 font-bold"></i>
 					</button>
-					<button type="button" pButton size="small" class="bg-yellow-50 border-none" (click)="logout()"
+					<button type="button" pButton size="small" class="bg-yellow-100 border-none" (click)="logout()"
 						*ngIf="isUserLoginned()">
 						<i class="pi pi-sign-out text-yellow-600 font-bold"></i>
 					</button>
@@ -46,10 +46,10 @@
 <div class="bg-white border-round-top shadow-1 z-3 block md:hidden fixed bottom-0 py-2 left-0 right-0">
 	<div class="container">
 		<div class="p-1 border-1 border-yellow-100 flex mb-2 sm:hidden navbar-toggle__btns border-round w-full">
-			<button routerLink="/home" routerLinkActive="bg-yellow-50 text-yellow-600"
+			<button routerLink="/home" routerLinkActive="bg-yellow-100 text-yellow-600"
 				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Все
 				заявки</button>
-			<button routerLink="/account" routerLinkActive="bg-yellow-50 text-yellow-600"
+			<button routerLink="/account" routerLinkActive="bg-yellow-100 text-yellow-600"
 				class="border-none p-2 text-500 font-medium w-full border-round text-sm cursor-pointer">Мои
 				заявки</button>
 		</div>

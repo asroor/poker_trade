@@ -1,9 +1,9 @@
 <div class="grid mb-3">
 	<div class="col-12 lg:col-6">
 		<div class="p-1 border-1 bg-white border-yellow-100 w-full flex border-round toogle-buttons">
-			<button routerLink="/account/sell-request" routerLinkActive="bg-yellow-50 text-yellow-600"
+			<button routerLink="/account/sell-request" routerLinkActive="bg-yellow-100 text-yellow-600"
 				class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">Продажи</button>
-			<button routerLink="/account/buy-request" routerLinkActive="bg-yellow-50 text-yellow-600"
+			<button routerLink="/account/buy-request" routerLinkActive="bg-yellow-100 text-yellow-600"
 				class="border-none py-2 px-4 text-500 w-full font-medium border-round text-sm cursor-pointer">Покупки</button>
 		</div>
 	</div>
@@ -24,8 +24,8 @@
 	</div>
 </div>
 
-<p-table [value]="orders" [scrollable]="false" [paginator]="true" [rowsPerPageOptions]="[10, 30, 50]" [lazy]="true"
-	[rows]="tablePagination.size" [totalRecords]="tablePagination.totalData"
+<p-table [value]="orders" [scrollable]="false" [paginator]="isPagination" [rowsPerPageOptions]="[10, 30, 50]"
+	[lazy]="true" [rows]="tablePagination.size" [totalRecords]="tablePagination.totalData"
 	(onLazyLoad)="loadData ? getOrders($event) : {}" [loading]="loading">
 	<ng-template pTemplate="header">
 		<tr>
@@ -40,18 +40,18 @@
 	<ng-template pTemplate="body" let-product>
 		<tr [routerLink]="product.id">
 			<td>{{ product.createdAt }}</td>
-			<td>{{ product.id }}</td>
+			<td>S{{ product.id }}</td>
 			<td>
 				<div class="flex align-items-center column-gap-1">
-					{{ product.factSellerProfit + ' ' + product.currencyName }}
+					{{ product.factSellerProfit }} $
 				</div>
 			</td>
 			<td>
 				<div class="flex align-items-center column-gap-1">
-					{{ product.currencyRate }}
+					{{ product.currencyRate }} ₽
 				</div>
 			</td>
-			<td>{{ product.factUSDSold }}</td>
+			<td>{{ product.factUSDSold }} $</td> 
 			<td>
 				<p-tag class="w-full" [icon]="findStatus(product.status, 'icon' )"
 					[severity]="findStatus(product.status, 'severity')" [value]="findStatus(product.status, 'name')"></p-tag>

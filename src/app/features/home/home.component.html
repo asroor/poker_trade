@@ -42,7 +42,7 @@
 		<div class="currency-btn flex align-items-center mb-3 mt-6 p-1 border-1 border-yellow-100 border-round">
 			<ng-container *ngFor="let item of currencies">
 				<button class="w-full border-round border-none font-bold text-yellow-600 cursor-pointer py-2"
-					[class.bg-yellow-50]="activeCurrency === item.id" (click)="setActiveCurrency(item.id)">{{item.title}}</button>
+					[class.bg-yellow-100]="activeCurrency === item.id" (click)="setActiveCurrency(item.id)">{{item.title}}</button>
 			</ng-container>
 		</div>
 
