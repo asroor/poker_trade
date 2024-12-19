@@ -128,7 +128,7 @@
 						<i class="pi pi-file-edit"></i>
 						изменение доли
 					</button> -->
-				<button (click)="cancel()" *ngIf="ordeBuy" [disabled]="ordeBuy.length > 0" type="button" pButton
+				<button (click)="cancel()" *ngIf="orderBuy" [disabled]="orderBuy.length > 0" type="button" pButton
 					severity="danger" class=" w-full column-gap-2 align-items-center justify-content-center">
 					<i class="pi pi-times-circle"></i>
 					отменить заявку
@@ -187,9 +187,9 @@
 </ng-container>
 <div class="my-8"></div>
 <h3 *ngIf="order.status == 'IN_PROGRESS'" class="font-bold m-0 my-3 text-xl text-700">Встречные заявки</h3>
-<ng-container *ngIf="ordeBuy as ordeBuy">
+<ng-container *ngIf="orderBuy as orderBuy">
 	<div class="grid">
-		<ng-container *ngFor="let item of ordeBuy">
+		<ng-container *ngFor="let item of orderBuy">
 			<div *ngIf="item.status=='WAIT_FOR_SELLER_ACCEPT'" class="col-12">
 				<div class="col-12 lg:col-6">
 					<div class="w-full border-1 border-300 border-round">
@@ -364,7 +364,7 @@
 							</div>
 							<div class="p-3">
 								<div #chatContainer class="overflow-y-scroll chatbody w-full" [style]="{ height: '350px' }">
-									<ng-container *ngFor="let item of chats">
+									<ng-container *ngFor="let item of item.chats">
 										<div *ngIf="item.senderRole == 'Admin' || item.senderRole == 'System'"
 											class="p-2 border-1 border-yellow-100 mb-2 border-round flex align-items-start column-gap-2">
 											<i class="pi pi-shield text-yellow-600"></i>

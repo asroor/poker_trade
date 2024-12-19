@@ -1,3 +1,5 @@
+import { IChat } from "./chat"
+
 export interface IOrderBuy {
 	autoCancelAfterSec: number,
 	bankImageUrl: string
@@ -13,4 +15,5 @@ export interface IOrderBuy {
 	buyerFullName: any
 	buyerLastFourDig: any
 	wantToBuyUSD: number
+	chats: IChat[]
 }
